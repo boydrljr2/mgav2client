@@ -18,7 +18,7 @@ const themedStyles = (theme: Theme) => {
     }
 }
 
-export function AppHeader() {
+export default function AppHeader() {
 
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -32,7 +32,7 @@ export function AppHeader() {
       };
 
     return (
-        <AppBar position="static" sx={themedStyles(theme).appBar} >
+        <AppBar position="fixed" sx={themedStyles(theme).appBar} >
             <Toolbar>
                 <IconButton
                     size="medium"
