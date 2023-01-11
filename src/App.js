@@ -13,6 +13,7 @@ function App() {
         <AppHeader />
         <NavDrawer />  
         <main style={scaffoldStyles.content}>
+          {/*add empty Toolbar to push down content to avoid display 'behind' appbar*/}
           <Toolbar />
           <Routes>
             <Route path={"/"} element={<HomePage />} />
