@@ -1,63 +1,58 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
+
 import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert, AlertTitle, Autocomplete } from '@mui/material';
-import { USStateAutocomplete, USStateAbbreviations } from "../Shared/USStates";
-import { USZipCodeTextField } from "../Shared/USZip";
 
-export interface MailingAddressValues {
-    streetAddress1: string;
-    city: string;
-    state: string;
-    zip: string;
-}
-
-export const mailingAddresses : Array<MailingAddressValues> = [
-    {
-        streetAddress1: "123 Main St",
-        city: "New York",
-        state: "NY",
-        zip: "10001"
-    },
-    {
-        streetAddress1: "1313 Mockingbird Lane",
-        city: "Anytown",
-        state: "OH",
-        zip: "12345"
-    }
-]
+import { MailingAddressValues, mailingAddresses } from './MailingAddressData';
+import { USStateAutocomplete, USStateAbbreviations } from "./USStates";
+//import { USZipCodeTextField } from "./USZip";
+import PageBar from '../../Scaffold/PageParts/PageBar';
 
 export default function MailingAddressForm() {
+
+    const pageButtons = [{}];
 
     const getDefaultMailingAddressFormValues = () => {
         return {
             id: mailingAddresses.length + 1,
-            streetAddress1: "",
-            streetAddress2: "",
+            name: "",
+            initial: "",
+            streetAddress: "",
             city: "",
             state: "",
             zip: ""
-        }
+        };
+
     }
 
-    const [mailingAddressFormValues, setMailingAddressFormValues] = useState<MailingAddressValues>(getDefaultMailingAddressFormValues());
     const [zipCodeError, setZipCodeError] = useState<boolean>(false);
     const [zipCodeErrorMessage, setZipCodeErrorMessage] = useState<string>("");
     const [alertOpen, setAlertOpen] = useState<boolean>(false);
+    const [mailingAddressFormValues, setMailingAddressFormValues] = useState<MailingAddressValues>(getDefaultMailingAddressFormValues());
 
     const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
+        console.log('handleTextFieldChange e.target.name: ', e.target.name, " value: ", e.target.value)
         setMailingAddressFormValues({...mailingAddressFormValues, [name]: value});
-        console.log('handleTextFieldChange e.target.name: ', e.target.name)
-        console.log('handleTextFieldChange e.target.value: ', e.target.value)
-        console.log('handleTextFieldChange mailingAddressValue: ', mailingAddressFormValues)
     }
 
-    const handleUSStateAutocompleteChange = (
+    const handleTextFieldBlur = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const {name, value} = e.target;
+        console.log('handleTextFieldChange e.target.name: ', name, " value: ", value)
+    }
+
+
+    const handleUSStateChange = (
             e: React.SyntheticEvent<Element, Event>,
             value: string
         ) => {
-            setMailingAddressFormValues({...mailingAddressFormValues, state: value})
-            console.log('handleUSStateAutocompleteChange value: ', value)
-            console.log('handleUSStateAutocompleteChange mailingAddressValue: ', mailingAddressFormValues)
+            console.log('handleUSStateChange e.target.value: ', e.target)
+            setMailingAddressFormValues({...mailingAddressFormValues, state : value})
+    }
+
+    const handleUSStateBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        console.log('handleUSStateBlur e.target.value: ', e.target.value)
+        console.log('handleUSStateBlur mailingAddressValue: ', mailingAddressFormValues.state)
     }
 
     const handleZipCodeBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -85,15 +80,18 @@ export default function MailingAddressForm() {
         mailingAddresses.push(mailingAddressFormValues);
         setAlertOpen(true);
         clearValues();
-        console.log('handleSubmit contacts: ', mailingAddresses);
+        console.log('handleSubmit mailing addresses: ', mailingAddresses);
     }
 
     const handleClear = () => {
         clearValues();
+
     }
         
     const clearValues = () => {
         setMailingAddressFormValues({...getDefaultMailingAddressFormValues()})
+        setZipCodeError(false);
+        setZipCodeErrorMessage("");
         console.log('clearValues contactValues: ', mailingAddressFormValues )
     }
 
@@ -103,20 +101,33 @@ export default function MailingAddressForm() {
 
     return (
         <React.Fragment>
+            <PageBar title="Mailing Address" pageButtons={pageButtons} />
             <Paper>
                 <form>
                     <FormControl>
                         <Stack spacing={1} sx={{padding:2}}>
                             <TextField
-                                id="streetAddress1"
-                                name = "streetAddress1"
+                                id="name"
+                                name = "name"
+                                label= "Location Name"
+                                variant='outlined'
+                                rows={2}
+                                value={mailingAddressFormValues.name}
+                                sx={{minWidth: 500, padding:1}}
+                                onChange={handleTextFieldChange}
+                                onBlur={handleTextFieldBlur}
+                            />
+                            <TextField
+                                id="streetAddress"
+                                name = "streetAddress"
                                 label= "Street Address"
                                 variant='outlined'
                                 multiline
                                 rows={2}
-                                value={mailingAddressFormValues.streetAddress1}
-                                sx={{minWidth: 500}}
+                                value={mailingAddressFormValues.streetAddress}
+                                sx={{minWidth: 500, padding:1}}
                                 onChange={handleTextFieldChange}
+                                onBlur={handleTextFieldBlur}
                             />
                             <FormGroup row sx={{padding:2, justifyContent:"space-between"}}>
                                 <TextField
@@ -148,22 +159,20 @@ export default function MailingAddressForm() {
                                         )
                                     }}
                                     
-                                    onInputChange={handleUSStateAutocompleteChange}
+                                    onInputChange={handleUSStateChange}
                                 />    
-                                
-                                {/*
-                                <USStateAutocomplete
-                                    value={mailingAddressValue.state || ""}
-                                    inputValue={mailingAddressValue.state}
-                                    onInputChange={handleUSStateAutocompleteChange}
-                                />
-                                */}
 
+                                <USStateAutocomplete 
+                                    onInputChange={handleZipCodeChange}
+                                    onBlur={handleZipCodeBlur}
+                                />
+                                
                                 <TextField
                                     id="zip"
                                     name='zip'
                                     label="ZIP"
                                     variant='outlined'
+                                    //defaultValue=""
                                     inputProps={{maxLength: 5}}
                                     sx={{minWidth: 50}}
                                     value={mailingAddressFormValues.zip}
@@ -178,7 +187,13 @@ export default function MailingAddressForm() {
                             </FormGroup>
                             <FormGroup row>
                                 <Button variant='contained' sx={{marginRight:2}} onClick={handleSubmit}>Save</Button>
-                                <Button variant='outlined' onClick={handleClear} >Cancel</Button>
+                                <Button 
+                                    key="Cancel"
+                                    variant='outlined' 
+                                    component={Link}
+                                    to={`/mailing`}
+                                >Cancel
+                                </Button>
                             </FormGroup>
                         </Stack>
                     </FormControl>

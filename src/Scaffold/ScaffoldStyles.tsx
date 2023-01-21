@@ -1,4 +1,4 @@
-const drawerWidth = 160;
+const drawerWidth = 200;
 
 export const scaffoldStyles={
     drawer:{
@@ -12,7 +12,8 @@ export const scaffoldStyles={
         backgroundColor : "rgba(120,120,120,0.2)"        
     },
     content : {
-        marginLeft : drawerWidth, //shift page content left to get out from behind drawer//
+        //marginLeft : drawerWidth, //shift page content left to get out from behind drawer//
         padding: 5
     }
+
 }

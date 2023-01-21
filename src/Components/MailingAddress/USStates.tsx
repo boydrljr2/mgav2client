@@ -58,7 +58,14 @@ export const USStateAbbreviations = [
     { name: 'Washington', abbreviation: 'WA' },
     { name: 'West Virginia', abbreviation: 'WV' },
     { name: 'Wisconsin', abbreviation: 'WI' },
-    { name: 'Wyoming', abbreviation: 'WY' }
+    { name: 'Wyoming', abbreviation: 'WY' },
+    { name: 'Armed Forces Americas', abbreviation: 'AA' },
+    { name: 'Armed Forces Europe', abbreviation: 'AE' },
+    { name: 'Armed Forces Pacific', abbreviation: 'AP' },
+    { name: 'Alberta', abbreviation: 'AB' },
+    { name: 'British Columbia', abbreviation: 'BC' },
+    { name: 'Manitoba', abbreviation: 'MB' },
+    { name: '', abbreviation: ''}
 ]
 
 
