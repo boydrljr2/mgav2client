@@ -1,3 +1,6 @@
+
+import { Paper } from '@mui/material';
+
 import PageBar from '../../Scaffold/PageParts/PageBar';
 import PolicyTable from "./PolicyTable";
 
