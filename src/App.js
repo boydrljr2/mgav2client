@@ -13,6 +13,7 @@ import AgencyPage from "./Components/Agency/AgencyPage.tsx";
 import ProductPage from "./Components/Product/ProductPage.tsx";
 import InsurerPage from "./Components/Insurer/InsurerPage.tsx";
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
+import PolicyNew from "./Components/Policy/PolicyNew.tsx";
 
 import MailingAddressPage from "./Components/MailingAddress/MailingAddressPage.tsx";
 import MailingAddressCardGrid from "./Components/MailingAddress/MailingAddressCardGrid";
@@ -44,6 +45,7 @@ function App() {
               <Route path={"/insurers"} element={<InsurerPage />} />
               <Route path={"/products"} element={<ProductPage />} />
               <Route path={"/policies"} element={<PolicyPage />} />
+              <Route path={"/policies/new"} element={<PolicyNew />} />
               <Route path={"/login"} element={<Login />} />
               <Route path={"/register"} element={<Register />} />
               <Route path={"/mailing" } element={<MailingAddressPage />} />
