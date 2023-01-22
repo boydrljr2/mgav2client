@@ -1,5 +1,5 @@
 import { Avatar, Button, Card, CardContent, CardHeader, CardActions, Grid, List, ListSubheader, Typography } from '@mui/material'
-import {MailingAddressValues, mailingAddresses} from './MailingAddressData';
+import { mailingAddresses } from './MailingAddressData';
 
 export default function MailingAddressCardGrid() {
     return (

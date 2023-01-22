@@ -14,7 +14,7 @@ import ProductPage from "./Components/Product/ProductPage.tsx";
 import InsurerPage from "./Components/Insurer/InsurerPage.tsx";
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
 
-import MailingAddressTable from "./Components/MailingAddress/MailingAddressTable.tsx";
+import MailingAddressPage from "./Components/MailingAddress/MailingAddressPage.tsx";
 import MailingAddressCardGrid from "./Components/MailingAddress/MailingAddressCardGrid";
 import MailingAddressForm from "./Components/MailingAddress/MailingAddressForm.tsx";
 import { MGATheme } from "./Theme/MGATheme";
@@ -46,7 +46,7 @@ function App() {
               <Route path={"/policies"} element={<PolicyPage />} />
               <Route path={"/login"} element={<Login />} />
               <Route path={"/register"} element={<Register />} />
-              <Route path={"/mailing" } element={<MailingAddressTable />} />
+              <Route path={"/mailing" } element={<MailingAddressPage />} />
               <Route path={"/mailingaddressform/"} element={<MailingAddressForm />} />
               <Route path={"/mailingaddresscardgrid/"} element={<MailingAddressCardGrid />} />
             </Routes>

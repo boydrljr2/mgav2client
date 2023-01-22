@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, Typography, Button } from '@mui/material';
  
-import {MailingAddressValues, mailingAddresses} from './MailingAddressData';
+import { mailingAddresses} from './MailingAddressData';
 import PageBar from '../../Scaffold/PageParts/PageBar';
 
 
@@ -12,9 +12,6 @@ export default function MailingAddressTable() {
     //Setup page and rowsPerPage for pagination
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-    //Create an array of buttons for the PageBar component
-    const pageButtons = [{name:'Add', link:'mailingaddressform'}];
 
     //Create a function to handle page changes
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -35,7 +32,6 @@ export default function MailingAddressTable() {
 
     return (
         <React.Fragment>
-            <PageBar title="Mailing Addresses" pageButtons={pageButtons} />
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 480 }}>
                     <Table stickyHeader  aria-label='sticky table' >

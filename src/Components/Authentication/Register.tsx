@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import { Paper, FormGroup, TextField, Button, FormControl, Dialog, Alert, AlertTitle } from '@mui/material';
-import PageTitle from '../../Scaffold/PageParts/PageBar';
 
+import MGATextField from '../../Scaffold/FieldParts/MGATextField';
+import PageBar from '../../Scaffold/PageParts/PageBar';
 
 
 //write a function that returns an input form with PageTitle and Paper components and a POST method.  
@@ -30,7 +31,7 @@ export default function Register() {
 
     return (
         <React.Fragment>
-            <PageTitle title="Register User" pageButtons={pageButtons} />
+            <PageBar title="Register User" pageButtons={pageButtons} />
             <Paper>
                 {/* <form method="POST" action="/api/users/register"> */}
                 <form>
@@ -39,36 +40,54 @@ export default function Register() {
                             row
                             sx={{
                                 justifyContent: 'left',
-                                padding:1
                             }}
                         >
-                            <TextField id="name" label="Name" variant="outlined" sx={{ mr:2, minWidth: 300 }} />
-                            <TextField id="username" label="Username" variant="outlined" sx={{ mr:2,minWidth: 300   }} />
-                            <TextField id="email" label="Email" variant="outlined" sx={{ mr:2,minWidth: 300  }}  />
+                            <MGATextField 
+                                id="name" name="name" label="Name" 
+                                sx={{ 
+                                    minWidth: 900 
+                                }} 
+                            />
+                            <MGATextField 
+                                id="username" name="username" label="Username" 
+                            />
+                            <MGATextField 
+                                id="email" name="email" label="Email" 
+                            />
                         </FormGroup>
                         <FormGroup     
                             row
                             sx={{
                                 justifyContent: 'left',
-                                padding:1
                             }}
                         >
-                            <TextField id="password" label="Password" variant="outlined" sx={{ mr:2 }}  />
-                            <TextField id="confirmPassword" label="Confirm Password" variant="outlined" sx={{ mr:2 }}  />
+                            <MGATextField 
+                                id="password" name="password" label="Password" 
+                            />
+                            <MGATextField 
+                                id="confirmPassword" name="confirmpassword" label="Confirm Password" 
+                            />
                         </FormGroup>
                         <FormGroup     
                             row
                             sx={{
                                 justifyContent: 'left',
-                                padding:1
                             }}
                         >
-                            <TextField id="image" label="Image" variant="outlined" sx={{ mr:2, minWidth:400}}  />
+                            <MGATextField 
+                                id="image" name="image" label="Image" 
+                                sx={{minWidth:600}}  
+                            />
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup 
+                            row
+                            sx={{
+                                justifyContent: 'left'
+                            }}
+                        >
                             <Button 
                                 variant='contained' 
-                                sx={{marginRight:2}} 
+                                sx={{mt:1, mb:1, mr:1, ml:1}} 
                                 onClick={handleSubmit}
                             >Save
                             </Button>
@@ -77,6 +96,7 @@ export default function Register() {
                                 variant='outlined' 
                                 component={Link}
                                 to={`/mailing`}
+                                sx={{mt:1, mb:1, mr:1, ml:1}}
                             >Cancel
                             </Button>
                         </FormGroup>

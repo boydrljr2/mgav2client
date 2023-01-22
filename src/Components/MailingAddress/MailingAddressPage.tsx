@@ -1,5 +1,6 @@
 import PageBar from '../../Scaffold/PageParts/PageBar';
-import PolicyTable from "./PolicyTable";
+import MailingAddressTable from "./MailingAddressTable";
+
 
 export default function PolicyPage() {
 
@@ -9,8 +10,8 @@ export default function PolicyPage() {
 
     return (
         <div>
-            <PageBar title="Policies" pageButtons={pageButtons}/>
-            <PolicyTable />
+            <PageBar title="Mailing Addresses" pageButtons={pageButtons}/>
+            <MailingAddressTable />
         </div>
     )
 }

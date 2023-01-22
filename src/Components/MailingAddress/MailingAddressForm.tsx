@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert, AlertTitle, Autocomplete } from '@mui/material';
 
-import { MailingAddressValues, mailingAddresses } from './MailingAddressData';
-import { USStateAutocomplete, USStateAbbreviations } from "./USStates";
+import { mailingAddresses } from './MailingAddressData';
+import MailingAddressValues from './MailingAddressValues';
+import { USStateAutocomplete, USStateAbbreviations } from "../../Scaffold/FieldParts/USStates";
 //import { USZipCodeTextField } from "./USZip";
 import PageBar from '../../Scaffold/PageParts/PageBar';
 
@@ -28,7 +29,9 @@ export default function MailingAddressForm() {
     const [zipCodeError, setZipCodeError] = useState<boolean>(false);
     const [zipCodeErrorMessage, setZipCodeErrorMessage] = useState<string>("");
     const [alertOpen, setAlertOpen] = useState<boolean>(false);
-    const [mailingAddressFormValues, setMailingAddressFormValues] = useState<MailingAddressValues>(getDefaultMailingAddressFormValues());
+    const [mailingAddressFormValues, setMailingAddressFormValues] = useState<MailingAddressValues>(
+        getDefaultMailingAddressFormValues()
+    );
 
     const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;

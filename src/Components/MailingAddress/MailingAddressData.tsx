@@ -1,12 +1,4 @@
-export interface MailingAddressValues {
-    id: number;
-    name?: string;
-    initial?: string;
-    streetAddress: string;
-    city: string;
-    state: string;
-    zip: string;
-}
+import MailingAddressValues from './MailingAddressValues';
 
 export const mailingAddresses : Array<MailingAddressValues> = [
     {

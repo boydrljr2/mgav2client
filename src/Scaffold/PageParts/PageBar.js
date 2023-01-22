@@ -32,7 +32,7 @@ export default function PageBar(props) {
                     variant="h6"
                     sx={{ color: 'primary.main' }}
                 >
-                        {props.title}
+                    {props.title}
                 </Typography>
                 {/* wrap the Box statement in a conditional statement */}
                 {makeButtons && (
