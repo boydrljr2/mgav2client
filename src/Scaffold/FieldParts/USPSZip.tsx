@@ -1,8 +1,11 @@
 import React, {useState} from "react";
 import {TextField} from "@mui/material";
 
-export function USZipCodeTextField(props: any) {
-    const [zipCode, setZipCode] = useState<string>("");
+export function USPSZipCode(props: any) {
+
+    console.log('USPSZipCode props: ', props);
+
+    const [zipCode, setZipCode] = useState<string>(props.zipCode);
     const [zipCodeError, setZipCodeError] = useState<boolean>(false);
     const [zipCodeErrorMessage, setZipCodeErrorMessage] = useState<string>("");
 
@@ -19,7 +22,7 @@ export function USZipCodeTextField(props: any) {
         console.log('handleZipCodeBlur zipCode: ', zipCode)
         if (zipCode.length !== 5) {
             setZipCodeError(true);
-            setZipCodeErrorMessage("Zip Code must be 5 digits");
+            setZipCodeErrorMessage("Must be 5 digits");
         }
         if (zipCode.length === 5) {
             setZipCodeError(false);
@@ -32,12 +35,12 @@ export function USZipCodeTextField(props: any) {
             id="zip-code"
             name="zipCode"
             label="Zip Code"
-            type="number"
+            inputProps={{maxLength: 5}}
             variant="outlined"
-            //size="small"
+            sx={{width: 120, margin: 1}}
             error={zipCodeError}
             helperText={zipCodeErrorMessage}
-            value={zipCode}
+            value={props.zipCode}
             onChange={handleZipCodeChange}
             onBlur={handleZipCodeBlur}
         />

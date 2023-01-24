@@ -5,9 +5,8 @@ import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert,
 
 import { mailingAddresses } from './MailingAddressData';
 import MailingAddressValues from './MailingAddressValues';
-import { USStateAutocomplete, USStateAbbreviations } from "../../Scaffold/FieldParts/USStates";
-//import { USZipCodeTextField } from "./USZip";
-import PageBar from '../../Scaffold/PageParts/PageBar';
+import { USPSState, USPSStateAbbreviations } from "../../Scaffold/FieldParts/USPSStates";
+import { USPSZipCode } from "../../Scaffold/FieldParts/USPSZip";
 
 export default function MailingAddressForm() {
 
@@ -26,8 +25,6 @@ export default function MailingAddressForm() {
 
     }
 
-    const [zipCodeError, setZipCodeError] = useState<boolean>(false);
-    const [zipCodeErrorMessage, setZipCodeErrorMessage] = useState<string>("");
     const [alertOpen, setAlertOpen] = useState<boolean>(false);
     const [mailingAddressFormValues, setMailingAddressFormValues] = useState<MailingAddressValues>(
         getDefaultMailingAddressFormValues()
@@ -58,19 +55,6 @@ export default function MailingAddressForm() {
         console.log('handleUSStateBlur mailingAddressValue: ', mailingAddressFormValues.state)
     }
 
-    const handleZipCodeBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        console.log('handleZipCodeBlur e.target.value: ', e.target.value)
-        console.log('handleZipCodeBlur mailingAddressValue: ', mailingAddressFormValues.zip)
-        if (e.target.value.length !== 5) {
-            setZipCodeError(true);
-            setZipCodeErrorMessage("Zip Code must be 5 digits");
-        }
-        if (e.target.value.length === 5) {
-            setZipCodeError(false);
-            setZipCodeErrorMessage("");
-        }
-    }
-
     const handleZipCodeChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
         setMailingAddressFormValues({...mailingAddressFormValues, [name]: value});
@@ -93,8 +77,8 @@ export default function MailingAddressForm() {
         
     const clearValues = () => {
         setMailingAddressFormValues({...getDefaultMailingAddressFormValues()})
-        setZipCodeError(false);
-        setZipCodeErrorMessage("");
+        //setZipCodeError(false);
+        //setZipCodeErrorMessage("");
         console.log('clearValues contactValues: ', mailingAddressFormValues )
     }
 
@@ -104,7 +88,6 @@ export default function MailingAddressForm() {
 
     return (
         <React.Fragment>
-            <PageBar title="Mailing Address" pageButtons={pageButtons} />
             <Paper>
                 <form>
                     <FormControl>
@@ -147,7 +130,7 @@ export default function MailingAddressForm() {
                                     id="us-state"
                                     includeInputInList
                                     sx={{minWidth: 180, marginRight: 2}}
-                                    options={USStateAbbreviations}
+                                    options={USPSStateAbbreviations}
                                     inputValue={mailingAddressFormValues.state || ""}
                                     //value={mailingAddressFormValues.state || ""}
                                     getOptionLabel={(option) => option.abbreviation}
@@ -165,27 +148,15 @@ export default function MailingAddressForm() {
                                     onInputChange={handleUSStateChange}
                                 />    
 
-                                <USStateAutocomplete 
+                                <USPSState 
+                                    value={mailingAddressFormValues.state}
                                     onInputChange={handleZipCodeChange}
-                                    onBlur={handleZipCodeBlur}
-                                />
-                                
-                                <TextField
-                                    id="zip"
-                                    name='zip'
-                                    label="ZIP"
-                                    variant='outlined'
-                                    //defaultValue=""
-                                    inputProps={{maxLength: 5}}
-                                    sx={{minWidth: 50}}
-                                    value={mailingAddressFormValues.zip}
-                                    error={zipCodeError}
-                                    helperText={zipCodeErrorMessage}
-                                    onChange={handleZipCodeChange}
-                                    onBlur={handleZipCodeBlur}
                                 />
 
-                                {/* <USZipCodeTextField /> */}
+                                <USPSZipCode
+                                    value={mailingAddressFormValues.zip}
+                                    onInputChange={handleZipCodeChange}
+                                />
 
                             </FormGroup>
                             <FormGroup row>

@@ -49,14 +49,19 @@ export default function PolicyTable() {
                                         <TableCell>{policy.product.productName}</TableCell>
                                         <TableCell>{policy.product.insuranceType}</TableCell>
                                         <TableCell>{policy.agency.agencyName}</TableCell>
-                                        <TableCell>{policy.insured.insuredName}</TableCell>
+                                        <TableCell>
+                                            {policy.insured.personName.firstName} + " " 
+                                                + {policy.insured.personName.middleName} + " "
+                                                + {policy.insured.personName.lastName}
+                                        </TableCell>
                                         <TableCell>
                                             <Button
                                                 variant="outlined"
                                                 color="primary"
                                                 size="small"
                                                 component={Link}
-                                                to={`/policy/${policy.id}`}
+                                                /* to={`/policies/${policy.id}`} */
+                                                to={`/policies/view`}
                                             >
                                                 Edit
                                             </Button>

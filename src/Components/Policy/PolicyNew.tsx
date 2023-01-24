@@ -15,16 +15,22 @@ export default function PolicyNew() {
             <Paper>
                 <form>
                     <FormControl>
-                        <FormGroup>
-                            <TextField id="policyName" name="policyName" label="Policy Name" />
+                        <FormGroup row>
                             <TextField id="policyNumber" name="policyNumber" label="Policy Number" />
-                            <TextField id="policyType" name="policyType" label="Policy Type" />
+                            <TextField id="policyProduct" name="policyProduct" label="Product" />
+                            <TextField id="insuranceType" name="insuranceType" label="Insurance Type" />
                             <TextField id="policyStartDate" name="policyStartDate" label="Policy Start Date" />  
                             <TextField id="policyEndDate" name="policyEndDate" label="Policy End Date" />
-                            <FormGroup>
-                                <TextField id="insurerName" name="insurerName" label="Insurer Name" />
-                                <MailingAddressForm />
-                            </FormGroup>
+                        </FormGroup>
+                        <FormGroup>
+                            <TextField id="insurerName" name="insurerName" label="Insurer Name" />
+                        </FormGroup>
+                        <FormGroup>
+                            <TextField id="agencyName" name="agencyName" label="Agency Name" />
+                            <TextField id="agencyPhone" name="agencyPhone" label="Agency Phone" />
+                        </FormGroup>
+                        <FormGroup>
+                            <TextField id="insuredName" name="insuredName" label="Insured Name" />
                         </FormGroup>
                     </FormControl>
                 </form>

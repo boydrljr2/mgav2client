@@ -13,6 +13,7 @@ import AgencyPage from "./Components/Agency/AgencyPage.tsx";
 import ProductPage from "./Components/Product/ProductPage.tsx";
 import InsurerPage from "./Components/Insurer/InsurerPage.tsx";
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
+import {PolicyView} from "./Components/Policy/PolicyView.tsx";
 import PolicyNew from "./Components/Policy/PolicyNew.tsx";
 
 import MailingAddressPage from "./Components/MailingAddress/MailingAddressPage.tsx";
@@ -44,8 +45,9 @@ function App() {
               <Route path={"/agencies"} element={<AgencyPage />} />
               <Route path={"/insurers"} element={<InsurerPage />} />
               <Route path={"/products"} element={<ProductPage />} />
-              <Route path={"/policies"} element={<PolicyPage />} />
+              <Route path={"/policies"} element={<PolicyPage />} />        
               <Route path={"/policies/new"} element={<PolicyNew />} />
+              <Route path={"/policies/view"} element={<PolicyView />} />
               <Route path={"/login"} element={<Login />} />
               <Route path={"/register"} element={<Register />} />
               <Route path={"/mailing" } element={<MailingAddressPage />} />

@@ -1,7 +1,9 @@
+import React, {useState} from "react";
+
 import { Autocomplete, TextField } from "@mui/material";
 
 //array of all 50 US States
-export const USStateAbbreviations = [
+export const USPSStateAbbreviations = [
     { name: 'Alabama', abbreviation: 'AL' },
     { name: 'Alaska', abbreviation: 'AK' },
     { name: 'American Samoa', abbreviation: 'AS' },
@@ -69,13 +71,34 @@ export const USStateAbbreviations = [
 ]
 
 
-export function USStateAutocomplete(props: any) {
+export function USPSState(props: any) {
+
+    console.log('USPSState props: ', props );
+
+    const [uspsStateError, setUSPSStateError ] = useState<boolean>(false);
+    const [uspsStateErrorMessage, setUSPSStateErrorMessage] = useState<string>('');
+
+
+    //Write a function to handle onBlur for Autocomplete field 
+    //and if the field is empty display an error message
+    const handleUSPSStateBlur = (event: any) => {
+        console.log('handleUSPSStateBlur e.t.value: ', event.target.value);
+        if (event.target.value === '') {
+            setUSPSStateError(true);
+            setUSPSStateErrorMessage('Please select a state');
+        } else {
+            setUSPSStateError(false)
+            setUSPSStateErrorMessage('');
+        }
+    }
+
+
     return (
         <Autocomplete
-            id="us-state"
+            id="us-state-abbrev"
             includeInputInList
-            sx={{minWidth: 160, marginRight: 2}}
-            options={USStateAbbreviations}
+            sx={{minWidth: 160, margin:1}}
+            options={USPSStateAbbreviations}
             getOptionLabel={(option) => option.abbreviation}
             renderInput={(params) => 
                 <TextField {...params} label="State" variant="outlined" />
@@ -87,9 +110,9 @@ export function USStateAutocomplete(props: any) {
                     </li>
                 )
             }}
-            //I expect inputValue and onInputChange to be props
-            //inputValue={mailingAddressValue.state}
-            //onInputChange={handleUSStateAutocompleteChange}
+            inputValue={props.stateAbbrev}
+            onInputChange={props.handleUSPSStateInputChange}
+            onBlur={handleUSPSStateBlur}
         />   
     )
 }
