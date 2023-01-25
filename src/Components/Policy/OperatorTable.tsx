@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Paper, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from "@mui/material";
 
 import { policies } from "./policies";
-import { PersonValues, OperatorValues } from "./PolicyValues";
+import { OperatorValues } from "./PolicyValues";
 
 //export default function OperatorTable( props: (operators<OperatorValues>) ) {
 

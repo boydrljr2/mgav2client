@@ -5,12 +5,12 @@ import { FormGroup, Paper, Typography, Divider, Stack, Box, Toolbar, Button } fr
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import MGATextField, {MGATextFieldStyle200, MGATextFieldStyle400, MGATextFieldStyle100, MGATextFieldStyle50  } 
-        from '../../Scaffold/FieldParts//MGATextField';
+import MGATextField, 
+    {MGATextFieldStyle200, MGATextFieldStyle400, MGATextFieldStyle100, MGATextFieldStyle50  } 
+    from '../../Scaffold/FieldParts//MGATextField';
 import { MGADesktopDatePicker } from '../../Scaffold/FieldParts/MGADesktopDatePicker';
 
 import { policies } from './policies';
-import { PersonValues } from './PolicyValues';
 
 import PageBar from '../../Scaffold/PageParts/PageBar';
 import MailingAddressView from '../MailingAddress/MailingAddressView';
