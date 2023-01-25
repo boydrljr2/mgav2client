@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Paper, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
 
-import { policies } from './PolicyValues';
+import { policies } from './policies';
+import {PersonValues} from './PolicyValues';
 
 
 export default function PolicyTable() {
@@ -20,8 +21,11 @@ export default function PolicyTable() {
         setPage(0);
     };
 
-
-
+    //write a const to return full name based on PersonValues.
+    //if middleName is null, return a space instead of null
+    const getFullName = (person: PersonValues) => {
+        return `${person.personName.firstName} ${person.personName.middleName || ' '} ${person.personName.lastName}`;
+    }
 
     return (
         <React.Fragment>
@@ -50,9 +54,7 @@ export default function PolicyTable() {
                                         <TableCell>{policy.product.insuranceType}</TableCell>
                                         <TableCell>{policy.agency.agencyName}</TableCell>
                                         <TableCell>
-                                            {policy.insured.personName.firstName} + " " 
-                                                + {policy.insured.personName.middleName} + " "
-                                                + {policy.insured.personName.lastName}
+                                            {getFullName(policy.insured)}
                                         </TableCell>
                                         <TableCell>
                                             <Button

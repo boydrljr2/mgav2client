@@ -22,12 +22,10 @@ export interface ProductValues {
 
 export interface PersonValues {
     personName : {
-        firstName : string;
+        firstName   : string;
         middleName? : string;
-        lastName : string;
+        lastName    : string;
     }
-    //Write a field definition for Social Security Number 
-    //that enforces the format of 999-99-9999
     personSSN? : string;
     personMailingAddress? : MailingAddressValues;
     personPhone?    : string;
@@ -38,21 +36,20 @@ export interface PersonValues {
 }
 
 export interface OperatorValues extends PersonValues {
-    operatorType : "ADDL" | "PRIN" | "EXCL";
-    operatorLicenseNumber : string;
-    operatorLicenseState : string;
+    id: number;
+    operatorType            : "ADDL" | "PRIN" | "EXCL";
+    sr22                    : "N" | "Y";
+    operatorLicenseNumber   : string;
+    operatorLicenseState    : string;
     operatorLicenseExpirationDate : Date;
     operatorCoverageStatus : string; 
+    operatorAccidentsViolations : string;
 }
 
-export interface InsuredValues extends PersonValues {
-
-}
-
-
+export interface InsuredValues extends PersonValues {}
 
 export interface AutoValues {
-    unit: number;
+    unit            : number;
     autoMake        : string;
     autoModel       : string;
     autoYear        : number;
@@ -68,72 +65,6 @@ export interface PolicyValues {
     product         : ProductValues;
     agency          : AgencyValues;
     insured         : InsuredValues;
+    operators       : OperatorValues[];
     autoUnits       : AutoValues[]
 }
-
-export const policies : Array<PolicyValues> = [
-    {
-        id: 1,
-        policyNumber    : "PPW1303522",
-        periodStartDate: new Date("01-01-2020"),
-        periodEndDate  : new Date("12-31-2020"),
-        product         : {
-            productName     : "Personal Automobile Insurance Policy",
-            insuranceType     : "Personal Automobile Insurance",
-            insurer         : {
-                insurerName     : "United Equitable Insurance Company",
-                insurerEmail    : "www.ueilink.com",
-                insurerPhone    : "1-847-583-4600",
-                insurerMailingAddress : {
-                    id: 1,
-                    streetAddress: "9040 Waukegan Road",
-                    city: "Morton Grove",
-                    state: "IL",
-                    zip: "60053"
-                }
-            }
-        },
-        agency        : {
-            agencyName      : "Insure On The Spot Agency",
-            agencyPhone    : "1-773-202-45060",
-            agencyMailingAddress : {
-                id: 2,
-                streetAddress: "5485 N Elston Ave",
-                city: "Chicago",
-                state: "IL",
-                zip: "60630"
-            }
-        },
-        insured        : {
-            personName     : {
-                firstName   : "Esmeralda",
-                lastName    : "Zavala"
-            },
-            personMailingAddress   : {
-                id: 3,
-                streetAddress: "714 Lenox Ave",
-                city: "Waukegan",
-                state: "IL",
-                zip: "60085"
-            }
-        },
-        autoUnits        : [
-            {
-                unit: 1,
-                autoMake        : "Honda",
-                autoModel       : "Odyssey",
-                autoYear        : 2006,
-                autoVIN         : "5FNRL38436B082307",
-                autoSymbol      : "10"
-            },
-            {
-                unit: 2,
-                autoMake        : "BMW",
-                autoModel       : "328XI",
-                autoYear        : 2007,
-                autoVIN         : "WBAVC93597K033082",
-                autoSymbol      : "16"
-            }       
-        ]
-    },
-]

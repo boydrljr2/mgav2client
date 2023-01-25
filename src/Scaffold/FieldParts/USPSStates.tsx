@@ -73,8 +73,6 @@ export const USPSStateAbbreviations = [
 
 export function USPSState(props: any) {
 
-    console.log('USPSState props: ', props );
-
     const [uspsStateError, setUSPSStateError ] = useState<boolean>(false);
     const [uspsStateErrorMessage, setUSPSStateErrorMessage] = useState<string>('');
 
@@ -82,7 +80,6 @@ export function USPSState(props: any) {
     //Write a function to handle onBlur for Autocomplete field 
     //and if the field is empty display an error message
     const handleUSPSStateBlur = (event: any) => {
-        console.log('handleUSPSStateBlur e.t.value: ', event.target.value);
         if (event.target.value === '') {
             setUSPSStateError(true);
             setUSPSStateErrorMessage('Please select a state');

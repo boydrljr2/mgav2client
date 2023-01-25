@@ -1,15 +1,20 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 
-import { FormGroup, Paper, Typography, Divider, Stack, Box } from '@mui/material';
-//import { DesktopDatePicker } from '@mui/x-date-pickers';
+import { FormGroup, Paper, Typography, Divider, Stack, Box, Toolbar, Button } from '@mui/material';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import MGATextField, {MGATextFieldStyle, MGATextFieldStyle400  } from '../../Scaffold/FieldParts//MGATextField';
+import MGATextField, {MGATextFieldStyle200, MGATextFieldStyle400, MGATextFieldStyle100, MGATextFieldStyle50  } 
+        from '../../Scaffold/FieldParts//MGATextField';
 import { MGADesktopDatePicker } from '../../Scaffold/FieldParts/MGADesktopDatePicker';
-import { policies } from './PolicyValues';
+
+import { policies } from './policies';
+import { PersonValues } from './PolicyValues';
+
 import PageBar from '../../Scaffold/PageParts/PageBar';
 import MailingAddressView from '../MailingAddress/MailingAddressView';
+import OperatorTable from './OperatorTable';
 
 
 export const PolicyView = () => {
@@ -20,7 +25,7 @@ export const PolicyView = () => {
         {name: "Edit", link: "/policy/edit/1"}
     ];
 
-    const personName = policy.insured.personName.firstName + " " 
+    const insuredPersonName = policy.insured.personName.firstName + " " 
                         + ((policy.insured.personName.middleName !== undefined) ? policy.insured.personName.middleName : "") + " " 
                         + policy.insured.personName.lastName;
 
@@ -41,11 +46,11 @@ export const PolicyView = () => {
                     <MGATextField
                         id="policyNumber" name="policyNumber" label="Policy Number"
                         value={policy.policyNumber}
-                        sx={MGATextFieldStyle}
+                        sx={MGATextFieldStyle100}
                     />
                     <MGATextField
                         id="insuredName" name="insuredName" label="Insured"
-                        value= {personName}
+                        value= {insuredPersonName}
                         sx={MGATextFieldStyle400}
                     />
                 </FormGroup>
@@ -53,7 +58,7 @@ export const PolicyView = () => {
                     <MGATextField
                         id="insurerName" name="insurerName" label="Insurer"
                         value={policy.product.insurer.insurerName}
-                        sx={MGATextFieldStyle}
+                        sx={MGATextFieldStyle200}
                     />
                     <MGATextField
                         id="productName" name="productName" label="Product"
@@ -94,10 +99,8 @@ export const PolicyView = () => {
                         </Typography>
                         <MGATextField
                             id="insuredName" name="insuredName" label="Insured Name"
-                            value={policy.insured.personName.firstName + " " 
-                                    + (policy.insured.personName.middleName === undefined) ? "-" : policy.insured.personName.middleName + " " 
-                                    + policy.insured.personName.lastName}
-                            sx={MGATextFieldStyle}
+                            value={insuredPersonName}
+                            sx={MGATextFieldStyle200}
                         />
                         <MailingAddressView mailingAddress={policy.insured.personMailingAddress}/>
                     </Stack>
@@ -114,13 +117,50 @@ export const PolicyView = () => {
                         <MGATextField
                             id="insuredName" name="insuredName" label="Insured Name"
                             value={policy.agency.agencyName}
-                            sx={MGATextFieldStyle}
+                            sx={MGATextFieldStyle200}
                         />
                         <MailingAddressView mailingAddress={policy.agency.agencyMailingAddress}/>
                     </Stack>
                 </FormGroup>
 
                 <Divider sx={{margin:1}}/>
+
+                <FormGroup>
+                    <Stack>
+                        <Toolbar 
+                            variant='dense'
+                            sx={{margin: 1, color: 'primary.main'}}
+                        >
+                            <Typography
+                                sx={{margin: 1, color: 'primary.main'}}
+                            >Operators
+                            </Typography>
+                            <Box sx={{
+                                    display: 'flex',
+                                    justifyContent:'right'
+                                }}
+                            >
+                                <Button
+                                    key="addOperator"
+                                    variant="outlined"
+                                    size="small"
+                                    component={Link}
+                                    to="/policies"
+                                    sx={{
+                                        color:'primary', 
+                                        display: 'block',
+                                        mr:1,
+                                        '&:hover': {
+                                            color: 'white',
+                                            backgroundColor: 'primary.main',
+                                        } }}
+                                >Add
+                                </Button>
+                            </Box>
+                        </Toolbar>
+                        <OperatorTable operators={policy.operators} />
+                    </Stack>
+                </FormGroup>
 
             </Paper>
         </React.Fragment>

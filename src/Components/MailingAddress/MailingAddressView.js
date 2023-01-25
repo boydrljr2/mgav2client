@@ -5,12 +5,10 @@ import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert,
 import MailingAddressValues from './MailingAddressValues';
 import { USPSState, USPSStateAbbreviations } from "../../Scaffold/FieldParts/USPSStates";
 import { USPSZipCode } from "../../Scaffold/FieldParts/USPSZip";
-import MGATextField, { MGATextFieldStyle, MGATextFieldStyle400 } from '../../Scaffold/FieldParts/MGATextField';
+import MGATextField, { MGATextFieldStyle100, MGATextFieldStyle200, MGATextFieldStyle400 } from '../../Scaffold/FieldParts/MGATextField';
 
 
 export default function MailingAddressView(props) {
-
-    console.log("MailingAddressView props: ", props);
 
     return (
         <React.Fragment>
@@ -27,7 +25,7 @@ export default function MailingAddressView(props) {
                         id="city" 
                         name="city"
                         label="City"
-                        sx={MGATextFieldStyle}
+                        sx={MGATextFieldStyle100}
                         value={props.mailingAddress.city}
                     />
                     <USPSState
