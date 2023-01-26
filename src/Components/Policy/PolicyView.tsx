@@ -15,6 +15,7 @@ import { policies } from './policies';
 import PageBar from '../../Scaffold/PageParts/PageBar';
 import MailingAddressView from '../MailingAddress/MailingAddressView';
 import OperatorTable from './OperatorTable';
+import AutoCardView from './AutoCardView';
 
 
 export const PolicyView = () => {
@@ -37,6 +38,8 @@ export const PolicyView = () => {
     return (
         <React.Fragment>
             <PageBar title="View Policy" pageButtons={pageButtons} />
+
+            {/* Policy Header */}
             <Paper variant="outlined">
                 <Typography
                     sx={{margin: 1, color: 'primary.main'}}
@@ -125,16 +128,18 @@ export const PolicyView = () => {
 
                 <Divider sx={{margin:1}}/>
 
+                {/* Operators Info */}
                 <FormGroup>
                     <Stack>
                         <Toolbar 
                             variant='dense'
-                            sx={{margin: 1, color: 'primary.main'}}
+                            sx={{color: 'primary.main'}}
                         >
                             <Typography
-                                sx={{margin: 1, color: 'primary.main'}}
+                                sx={{color: 'primary.main'}}
                             >Operators
                             </Typography>
+                            {/*
                             <Box sx={{
                                     display: 'flex',
                                     justifyContent:'right'
@@ -157,9 +162,21 @@ export const PolicyView = () => {
                                 >Add
                                 </Button>
                             </Box>
+                            */}
                         </Toolbar>
                         <OperatorTable operators={policy.operators} />
                     </Stack>
+                </FormGroup>
+
+                <Divider sx={{margin:1}}/>
+
+                {/* Auto Units */}
+                <FormGroup>
+                    <Typography
+                        sx={{margin: 1, color: 'primary.main'}}
+                    >Autos
+                    </Typography>
+                    <AutoCardView autos={policy.autoUnits} />
                 </FormGroup>
 
             </Paper>

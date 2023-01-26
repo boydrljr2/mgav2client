@@ -35,7 +35,6 @@ export default function OperatorTable( props: {operators: OperatorValues[]}) {
                             <TableCell>Operator Name</TableCell>
                             <TableCell>DOB</TableCell>
                             <TableCell>Accidents, Violations</TableCell>
-                            <TableCell sx={{fontStyle:"italic"}}>Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -53,18 +52,20 @@ export default function OperatorTable( props: {operators: OperatorValues[]}) {
                                     </TableCell>
                                     <TableCell>{operator.operatorCoverageStatus}</TableCell>
                                     <TableCell>{operator.operatorAccidentsViolations}</TableCell>
+                                    {/* Edit Button per row
                                     <TableCell>
                                     <Button
                                         variant="outlined"
                                         color="primary"
                                         size="small"
                                         component={Link}
-                                        /* to={`/policies/${policy.id}`} */
+                                        /* to={`/policies/${policy.id}`} 
                                         to={`/policies/view`}
                                     >
                                         Edit
                                     </Button>
-                                </TableCell>
+                                    </TableCell>
+                                    */}
                                 </TableRow>
                             ))}
                     </TableBody>

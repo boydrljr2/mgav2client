@@ -54,7 +54,24 @@ export interface AutoValues {
     autoModel       : string;
     autoYear        : number;
     autoVIN         : string;
-    autoSymbol      : string
+    autoSYM         : string;
+    autoAGE         : number;
+    autoTERR        : string;
+    autoCLASS       : string;
+    autoPTS         : number;
+    autoSAFE?       : string;
+    autoTRNS?       : string;
+    autoREN?        : string;
+    autoATF?        : string;
+    autoFLCV?       : string;
+    autoVSRC?       : string;
+    autoNOWN?       : string;
+    autoDEFD?       : string;
+    autoMC?         : string;
+    autoAV?         : string;
+    autoSM?         : string;
+    autoLGL?        : string;
+    autoERS?        : string;
 }
 
 export interface PolicyValues {

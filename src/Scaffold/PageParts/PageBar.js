@@ -13,11 +13,8 @@ import { Toolbar, Button, Box  } from '@mui/material';
 
 export default function PageBar(props) {
 
-    console.log('props.pageButtons: ', props.pageButtons[0])
     //use makeButtons as a switch to determine whether to render the pageButtons in the return statement or not.
     const makeButtons = (props.pageButtons[0].name !== undefined);
-    console.log('makeButtons: ', makeButtons);
-    console.log('props.pageButtons[0].name: ', props.pageButtons[0].name);
 
     return (
         <>

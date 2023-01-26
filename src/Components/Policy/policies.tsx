@@ -1,3 +1,4 @@
+import { AutoGraphRounded } from '@mui/icons-material';
 import { PolicyValues } from './PolicyValues';
 
 export const policies : Array<PolicyValues> = [
@@ -116,12 +117,34 @@ export const policies : Array<PolicyValues> = [
         autoUnits        : [
             {
                 unit            : 1,
-                autoMake        : "Toyota",
-                autoModel       : "Camry",
-                autoYear        : 2019,
+                autoMake        : "Honda",
+                autoModel       : "Odyssey",
+                autoYear        : 2006,
                 autoVIN         : "5FNRL38436B082307",
-                autoSymbol      : "10"
-            }
+                autoSYM         : "10",
+                autoAGE         : 16,
+                autoTERR        : "40",
+                autoCLASS       : "4T",
+                autoPTS         : 0,
+                autoATF         : "1",
+                autoFLCV        : "Y",
+                autoMC         : "Y"
+            },
+            {
+                unit            : 2,
+                autoMake        : "BMW",
+                autoModel       : "328XI",
+                autoYear        : 2007,
+                autoVIN         : "WBAVB735X7PZ12345",
+                autoSYM         : "10",
+                autoAGE         : 15,
+                autoTERR        : "40",
+                autoCLASS       : "4T",
+                autoPTS         : 7,
+                autoATF         : "1",
+                autoFLCV        : "Y",
+                autoMC         : "Y"
+            },
         ]
     }
 ]
