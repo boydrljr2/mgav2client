@@ -5,10 +5,16 @@ import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert,
 
 import { users, UserValues } from './UserValues';
 import PageBar from '../../Scaffold/PageParts/PageBar';
+import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
 
 export default function UserNew(props: any) {
 
-    const pageButtons = [{}];
+    const pageButtons : PageButtonValues[] = [{name:'Save', link:'/users'}];
+    const pageBarProps : PageBarValues = {
+        title: "Add User",
+        pageButtons: pageButtons
+    }
+
 
     //Add the useState hook for setUsersFormValues
     const [usersFormValues, setUsersFormValues] = useState<UserValues>({
@@ -22,8 +28,7 @@ export default function UserNew(props: any) {
 
     return (
         <>
-            <PageBar title="Add User" pageButtons={pageButtons}/>
-            
+            <PageBar {...pageBarProps}/>
         </>
     )
 }

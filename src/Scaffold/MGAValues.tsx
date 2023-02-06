@@ -1,16 +1,37 @@
-import MailingAddressValues from '../MailingAddress/MailingAddressValues';
+export interface MailingAddressValues {
+    id: number;
+    name?: string;
+    initial?: string;
+    streetAddress: string;
+    city: string;
+    state: string;
+    zip: string;
+}
 
 export interface InsurerValues {
-    insurerName     : string;
-    insurerPhone    : string;
-    insurerEmail    : string;
-    insurerMailingAddress : MailingAddressValues
+    id                      : string;
+    insurerFEIN             : string;
+    insurerActive           : boolean;
+    insurerName             : string;
+    insurerDomicileState?   : string;
+    insurerPhone?           : string;
+    insurerEmail?           : string;
+    insurerURL?             : string;
+    insurerMailingAddress   : MailingAddressValues;
+    NAICGroup?              : string;
+    NAICCode?               : string;
+    NAICGroupName?          : string;
+    AMBestID?               : string;
+    AMBestRating?           : string;
+    dateEntered             : Date;
+    dateLastModified        : Date;
 }
 
 export interface AgencyValues {
     agencyName      : string;
-    agencyPhone    : string;
     agencyMailingAddress : MailingAddressValues
+    agencyPhone?    : string;
+    agencyEmail?    : string;
 }
 
 export interface ProductValues {
@@ -72,16 +93,34 @@ export interface AutoValues {
     autoSM?         : string;
     autoLGL?        : string;
     autoERS?        : string;
+    coverages       : CoverageValues[];
+    lienholders?    : LienholderValues[];
+}
+
+export interface CoverageValues {
+    coverageType: string;
+    coverageLimit: string;
+    coverageDeductible: string;
+    coveragePremium: number;
+}   
+
+export interface LienholderValues {
+    lienholderName: string;
+    lienholderMailingAddress: MailingAddressValues;
 }
 
 export interface PolicyValues {
-    id: number;
+    id              : number;
     policyNumber    : string;
     periodStartDate : Date;
     periodEndDate   : Date;
+    endorsementDate : Date;
     product         : ProductValues;
     agency          : AgencyValues;
     insured         : InsuredValues;
     operators       : OperatorValues[];
-    autoUnits       : AutoValues[]
+    autoUnits       : AutoValues[];
+    endorsements?   : string[];
+    dateEntered             : Date;
+    dateLastModified        : Date;
 }

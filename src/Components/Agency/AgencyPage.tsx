@@ -1,14 +1,21 @@
+
+import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
 import MailingAddressList from "../MailingAddress/MailingAddressTable";
 import PageBar from '../../Scaffold/PageParts/PageBar';
 
-const agencyButtons = [
+const pageButtons : PageButtonValues[] = [
     {name: 'New', link: 'agencies'}
-]
+];
+
+const pageBarProps : PageBarValues = {
+    title: "Agencies",
+    pageButtons: pageButtons
+}
 
 export default function AgencyPage() {
     return (
         <div>
-            <PageBar title="Agencies" pageButtons={agencyButtons} />
+            <PageBar {...pageBarProps} />
             <MailingAddressList />
         </div>
     )

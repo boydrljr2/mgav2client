@@ -1,20 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
 
-import Typography from '@mui/material/Typography';
-import { Toolbar, Button, Box  } from '@mui/material';
+import { Box, Button, Toolbar, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { PageButtonValues, PageBarValues } from './PageValues'
 
-//TO DO: Change this file to a TypeScript file and add type definitions for the props
-//TO DO: Add a prop for the pageButtons array. This will be an array of objects with the following properties:
-//          name: string
-//          link: string
-//TO DO: Add a prop for the title string 
-
-
-export default function PageBar(props) {
-
-    //use makeButtons as a switch to determine whether to render the pageButtons in the return statement or not.
-    const makeButtons = (props.pageButtons[0].name !== undefined);
+export default function PageBarNew(pageBarProps : PageBarValues) {
+    
+    console.log("PageBarNew props: ", pageBarProps)
+    const { title, pageButtons } = pageBarProps
+    const makeButtons = (pageButtons[0].name !== undefined);
 
     return (
         <>
@@ -29,7 +23,7 @@ export default function PageBar(props) {
                     variant="h6"
                     sx={{ color: 'primary.main' }}
                 >
-                    {props.title}
+                    {title}
                 </Typography>
                 {/* wrap the Box statement in a conditional statement */}
                 {makeButtons && (
@@ -38,7 +32,7 @@ export default function PageBar(props) {
                         display: { xs: 'flex', md: 'none' },
                         justifyContent:'right'
                     }}>
-                        {props.pageButtons.map((button) => (
+                        {pageButtons.map((button) => (
                             <Button
                                 key={button.name}
                                 variant="outlined"
@@ -74,7 +68,7 @@ export default function PageBar(props) {
                     variant="h5"
                     sx={{ color: 'primary.main' }}
                 >
-                        {props.title}
+                        {title}
                 </Typography>
                 {/* wrap the Box statement in a conditional statement */}
                 {makeButtons && (
@@ -83,7 +77,7 @@ export default function PageBar(props) {
                         display: { xs: 'none', md: 'flex' }, 
                         justifyContent:'right' 
                     }}>
-                        {props.pageButtons.map((button) => (
+                        {pageButtons.map((button) => (
                             <Button
                                 key={button.name}
                                 variant="outlined"

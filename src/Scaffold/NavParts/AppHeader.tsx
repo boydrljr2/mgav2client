@@ -28,8 +28,8 @@ const themedStyles = (theme: Theme) => {
 }
 */
 
-const allPages = ['Agencies', 'Insurers', 'Products', 'Policies', 'Users', 'Mailing'];
-const mainPages = ['Agencies', 'Insurers', 'Products', 'Policies'];
+const allPages = ['Insurers', 'Products', 'Agencies', 'Policies', 'Users', 'Mailing'];
+const mainPages = ['Insurers', 'Products', 'Agencies', 'Policies'];
 const minorPages = ['Users', 'Mailing'];
 
 //const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -66,7 +66,7 @@ function ResponsiveAppBar() {
             {/* Logo and System Name */}
             <Box
                 sx={{
-                    ml: 0, mr:0, mt:0, mb:0,
+                    ml: 0, mr:2, mt:0, mb:0,
                     display: {xs: 'none', md:'flex'},
                     alignItems: 'center'
                 }}
@@ -114,14 +114,10 @@ function ResponsiveAppBar() {
                         {page}
                     </Button>
                 ))}
-            </Box>
 
             {/* Minor-Admin Pages dropdown menu.  */}
-            <Box sx={{ 
-                flexGrow: 1, 
-                display: { xs: 'none', md: 'flex' }, 
-                justifyContent:'right' }}
-            >
+
+            
                 <Tooltip title="Admin Pages">
                     <IconButton 
                         size="medium"

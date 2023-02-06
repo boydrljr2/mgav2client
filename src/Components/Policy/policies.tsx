@@ -1,5 +1,4 @@
-import { AutoGraphRounded } from '@mui/icons-material';
-import { PolicyValues } from './PolicyValues';
+import { PolicyValues } from '../../Scaffold/MGAValues';
 
 export const policies : Array<PolicyValues> = [
     {
@@ -7,12 +6,16 @@ export const policies : Array<PolicyValues> = [
         policyNumber    : "PPW1303522",
         periodStartDate : new Date("01-01-2020"),
         periodEndDate   : new Date("12-31-2020"),
+        endorsementDate : new Date("12-21-2019"),
         product         : {
             productName     : "Personal Automobile Insurance Policy",
             insuranceType     : "Personal Automobile Insurance",
             insurer         : {
+                id              : '1',
+                insurerFEIN     : "36-2222222",
+                insurerActive   : true,
                 insurerName     : "United Equitable Insurance Company",
-                insurerEmail    : "www.ueilink.com",
+                insurerEmail    : "service@ueilink.com",
                 insurerPhone    : "1-847-583-4600",
                 insurerMailingAddress : {
                     id: 1,
@@ -20,7 +23,10 @@ export const policies : Array<PolicyValues> = [
                     city: "Morton Grove",
                     state: "IL",
                     zip: "60053"
-                }
+                },
+                insurerDomicileState: "IL",
+                dateEntered     : new Date("01-01-2001"),
+                dateLastModified: new Date("01-11-2023")
             }
         },
         agency        : {
@@ -45,7 +51,9 @@ export const policies : Array<PolicyValues> = [
                 city: "Waukegan",
                 state: "IL",
                 zip: "60085"
-            }
+            },
+            personPhone    : "1-847-123-1234",
+            personEmail :   "esmazavala@gmail.com"
         },
         operators       : [
             {
@@ -128,7 +136,81 @@ export const policies : Array<PolicyValues> = [
                 autoPTS         : 0,
                 autoATF         : "1",
                 autoFLCV        : "Y",
-                autoMC         : "Y"
+                autoMC         : "Y",
+                coverages       : [
+                    {
+                        coverageType    : "A. Bodily Injury",
+                        coverageLimit   : "$25,000 each person, $50,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 82.00
+                    },
+                    {
+                        coverageType    : "B. Porperty Damage",
+                        coverageLimit   : "$20,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 80.00
+                    },
+                    {
+                        coverageType    : "C. Automobile Medical Payments",
+                        coverageLimit   : "$- per person",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "D. Comprehensive",
+                        coverageLimit   : "Actual Cash Value less deductible",
+                        coverageDeductible : "$500",
+                        coveragePremium : 183.00
+                    },
+                    {
+                        coverageType    : "E. Collision",
+                        coverageLimit   : "Actual Cash Value less deductible",
+                        coverageDeductible : "$500",
+                        coveragePremium : 0
+                    },
+                    {
+                        coverageType    : "J. Uninsured Motorist Bodily Injury",
+                        coverageLimit   : "$25,000 each person, $50,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 42.00
+                    },
+                    {
+                        coverageType    : "K. Underinsured Motorist Property Damage",
+                        coverageLimit   : " ",
+                        coverageDeductible : "$250 per accident",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "Towing",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "Rental",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 20.00
+                    },
+                    {
+                        coverageType    : "Additonal Coverages",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0
+                    }
+                ],
+                lienholders     : [
+                    {
+                        lienholderName  : "Bank of America",
+                        lienholderMailingAddress : {
+                            id : 1,
+                            streetAddress   : "123 Main Street",
+                            city            : "Chicago",
+                            state           : "IL",
+                            zip         : "60606"
+                        }
+                    }
+                ]
             },
             {
                 unit            : 2,
@@ -143,8 +225,73 @@ export const policies : Array<PolicyValues> = [
                 autoPTS         : 7,
                 autoATF         : "1",
                 autoFLCV        : "Y",
-                autoMC         : "Y"
-            },
-        ]
+                autoMC         : "Y",
+                coverages       : [
+                    {
+                        coverageType    : "A. Bodily Injury",
+                        coverageLimit   : "$25,000 each person, $50,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 89.00
+                    },
+                    {
+                        coverageType    : "B. Porperty Damage",
+                        coverageLimit   : "$20,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 92.00
+                    },
+                    {
+                        coverageType    : "C. Automobile Medical Payments",
+                        coverageLimit   : "$- per person",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "D. Comprehensive",
+                        coverageLimit   : " ",
+                        coverageDeductible : "$500",
+                        coveragePremium : 332.00
+                    },
+                    {
+                        coverageType    : "E. Collision",
+                        coverageLimit   : " ",
+                        coverageDeductible : "$500",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "J. Uninsured Motorist Bodily Injury",
+                        coverageLimit   : "$25,000 each person, $50,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 62.00
+                    },
+                    {
+                        coverageType    : "K. Underinsured Motorist Property Damage",
+                        coverageLimit   : " ",
+                        coverageDeductible : "$250 each accident",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "Towing",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "Rental",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 20.00
+                    },
+                    {
+                        coverageType    : "Additonal Coverages",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    }
+                ] 
+            }
+        ],
+        endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+        dateEntered         : new Date("12-15-2019"),
+        dateLastModified    : new Date("01-01-2020"),
     }
 ]

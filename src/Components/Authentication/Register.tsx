@@ -5,6 +5,7 @@ import { Paper, FormGroup, TextField, Button, FormControl, Dialog, Alert, AlertT
 
 import MGATextField from '../../Scaffold/FieldParts/MGATextField';
 import PageBar from '../../Scaffold/PageParts/PageBar';
+import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
 
 
 //write a function that returns an input form with PageTitle and Paper components and a POST method.  
@@ -16,7 +17,11 @@ export default function Register() {
 
     const [alertOpen, setAlertOpen] = useState<boolean>(false);
 
-    const pageButtons = [{}];
+    const pageButtons : PageButtonValues[] = [{name :'none', link:''}];
+    const pageBarProps : PageBarValues = {
+        title: "Register",
+        pageButtons: pageButtons
+    }
 
     const handleSubmit = () => {
         //mailingAddresses.push(mailingAddressFormValues);
@@ -31,7 +36,7 @@ export default function Register() {
 
     return (
         <React.Fragment>
-            <PageBar title="Register User" pageButtons={pageButtons} />
+            <PageBar {...pageBarProps} />
             <Paper>
                 {/* <form method="POST" action="/api/users/register"> */}
                 <form>

@@ -1,23 +1,23 @@
 import React from 'react';
 
-import InsurerTable from './InsurerTable';
 import PageBar from '../../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
 
-export default function InsurerPage() {
-    
-    const pageButtons : PageButtonValues[] = [
-        {name: 'New', link: 'insurers/new'}
-    ];
+export default function InsurerNew() {
+
+    const pageButtons : PageButtonValues[] = [{
+        name: 'Save',
+        link: 'insurers'
+    }];
+
     const pageBarProps : PageBarValues = {
-        title: "Insurers",
+        title: "Add Insurer",
         pageButtons: pageButtons
     }
-    
+
     return (
         <div>
             <PageBar {...pageBarProps}/>
-            <InsurerTable />
         </div>
     )
 }

@@ -1,9 +1,15 @@
 import PageBar from '../Scaffold/PageParts/PageBar'
-
-const homeButtons = [{}] // No buttons on the home page
+import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues'
 
 export default function HomePage() {
+
+    const pageButtons : PageButtonValues[] = [{name:'none', link:'none'}];
+    const pageBarProps : PageBarValues = {
+        title: "Home",
+        pageButtons: pageButtons
+    }
+
     return(
-        <PageBar title="Home" pageButtons={homeButtons}/>
+        <PageBar {...pageBarProps}/>
     )
 }

@@ -3,15 +3,20 @@ import React from 'react';
 import { Paper, FormControl, FormGroup, TextField } from '@mui/material';
 
 import PageBar from '../../Scaffold/PageParts/PageBar';
+import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
 import MailingAddressForm from '../MailingAddress/MailingAddressForm';
 
 export default function PolicyNew() {
 
-    const pageButtons = [{}]
+    const pageButtons : PageButtonValues[] = [{name:'Save', link: '/policies'}]
+    const pageBarProps : PageBarValues ={
+        title: "Add Policy",
+        pageButtons: pageButtons
+    }
 
     return (
         <div>
-            <PageBar title="New Policy" pageButtons={pageButtons}/>
+            <PageBar {...pageBarProps}/>
             <Paper>
                 <form>
                     <FormControl>

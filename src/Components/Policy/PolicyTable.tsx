@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Paper, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
 
 import { policies } from './policies';
-import {PersonValues} from './PolicyValues';
+import {PersonValues} from '../../Scaffold/MGAValues';
 
 
 export default function PolicyTable() {

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, Typography, Button } from '@mui/material';
  
 import { mailingAddresses} from './MailingAddressData';
-import PageBar from '../../Scaffold/PageParts/PageBar';
 
 
 //Create a function called MailingAddressTable to display mailing addresses in a Table with headers and an Edit button for each row
