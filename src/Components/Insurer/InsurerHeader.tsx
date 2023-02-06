@@ -9,7 +9,6 @@ import MGATextField from '../../Scaffold/FieldParts/MGATextField';
 export default function InsurerHeader (props: {selectedInsurer: InsurerValues}) {
     
     //write a const to get insurer from insurers array with the id equal to insurerId
-    console.log( "selected insurer: " + props.selectedInsurer);
     const insurer = props.selectedInsurer;
 
     //create a footerValues object to pass to the ObjectFooter component

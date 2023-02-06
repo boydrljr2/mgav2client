@@ -9,7 +9,6 @@ import InsurerHeader from './InsurerHeader';
 import PageBar from '../../Scaffold/PageParts/PageBar';
 import MailingAddressView from '../MailingAddress/MailingAddressView';
 import { PageButtonValues, PageBarValues } from '../../Scaffold/PageParts/PageValues';
-import { MailingAddressValues } from '../../Scaffold/MGAValues';
 
 //Add useParams to the insurer id from the url and display the correct insurer
 
@@ -27,13 +26,10 @@ export default function InsurerView() {
     const insurerId = useParams().insurerId;
 
     const insurerIdNotUndefined = (insurerId !== undefined);
-    console.log( "insurerId: " + insurerId);
 
     const selectedInsurer = insurers.find(insurer => insurer.id === Number(insurerId));
     const selectedInsurerNotUndefined = (selectedInsurer !== undefined);
     const selectedInsurerMANotUndefined = (selectedInsurer?.insurerMailingAddress !== undefined);
-    
-    console.log( "selectedInsurer: " + selectedInsurer);
 
     return (
         <React.Fragment>

@@ -48,7 +48,11 @@ export default function PolicyTable() {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((policy) => (
                                     <TableRow key={policy.id}>
-                                        <TableCell>{policy.policyNumber}</TableCell>
+                                        <TableCell>
+                                            <Link to={`/policies/${policy.id}`}>
+                                            {policy.policyNumber}
+                                            </Link>
+                                        </TableCell>
                                         <TableCell>{policy.product.insurer.insurerName}</TableCell>
                                         <TableCell>{policy.product.productName}</TableCell>
                                         <TableCell>{policy.product.insuranceType}</TableCell>

@@ -7,8 +7,7 @@ import MGATextField from '../../Scaffold/FieldParts/MGATextField';
 
 
 export default function MailingAddressView(props: {mailingAddress: MailingAddressValues}) {
-
-    console.log("MailingAddressView: " + props.mailingAddress.id);
+    
     const mailingAddress = props.mailingAddress;
 
     return (

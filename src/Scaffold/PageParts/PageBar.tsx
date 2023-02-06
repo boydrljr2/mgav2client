@@ -4,11 +4,18 @@ import { Box, Button, Toolbar, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { PageButtonValues, PageBarValues } from './PageValues'
 
-export default function PageBarNew(pageBarProps : PageBarValues) {
+export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
     
     console.log("PageBarNew props: ", pageBarProps)
+
+    if (pageBarProps === undefined) {
+        return (
+            <div>No PageBarProps</div>
+        )
+    }
+
     const { title, pageButtons } = pageBarProps
-    const makeButtons = (pageButtons[0].name !== 'none');
+    const makeButtons = (pageButtons[0].name !== undefined);
 
     return (
         <>
