@@ -11,7 +11,7 @@ export const policies : Array<PolicyValues> = [
             productName     : "Personal Automobile Insurance Policy",
             insuranceType     : "Personal Automobile Insurance",
             insurer         : {
-                id              : '1',
+                id              : 1,
                 insurerFEIN     : "36-2222222",
                 insurerActive   : true,
                 insurerName     : "United Equitable Insurance Company",

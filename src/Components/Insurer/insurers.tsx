@@ -2,7 +2,7 @@ import {InsurerValues} from '../../Scaffold/MGAValues';
 
 export const insurers: InsurerValues[] = [
     {   
-        id: '1',
+        id: 1,
         insurerFEIN: '36-2222222',
         insurerActive: true,
         insurerName: 'United Equitable Insurance Company',
@@ -25,7 +25,7 @@ export const insurers: InsurerValues[] = [
         dateLastModified: new Date()
     },
     {   
-        id: '2',
+        id: 2,
         insurerFEIN: '36-11111111',
         insurerActive: true,
         insurerName: 'American Heartland Insurance Company',

@@ -1,4 +1,4 @@
-import MailingAddressValues from './MailingAddressValues';
+import { MailingAddressValues } from "../../Scaffold/MGAValues";
 
 export const mailingAddresses : Array<MailingAddressValues> = [
     {

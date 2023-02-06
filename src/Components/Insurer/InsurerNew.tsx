@@ -5,10 +5,7 @@ import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageVa
 
 export default function InsurerNew() {
 
-    const pageButtons : PageButtonValues[] = [{
-        name: 'Save',
-        link: 'insurers'
-    }];
+    const pageButtons : PageButtonValues[] = [{ name: 'none', link: '' }];
 
     const pageBarProps : PageBarValues = {
         title: "Add Insurer",

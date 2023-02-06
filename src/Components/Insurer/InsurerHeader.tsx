@@ -6,9 +6,11 @@ import ObjectFooter from '../../Scaffold/PageParts/ObjectFooter';
 
 import MGATextField from '../../Scaffold/FieldParts/MGATextField';
 
-export default function InsurerHeader (props: {insurer: InsurerValues}) {
-
-    const {insurer} = props;
+export default function InsurerHeader (props: {selectedInsurer: InsurerValues}) {
+    
+    //write a const to get insurer from insurers array with the id equal to insurerId
+    console.log( "selected insurer: " + props.selectedInsurer);
+    const insurer = props.selectedInsurer;
 
     //create a footerValues object to pass to the ObjectFooter component
     const enteredDate = new Date(insurer.dateEntered);
@@ -22,7 +24,7 @@ export default function InsurerHeader (props: {insurer: InsurerValues}) {
             >Insurer Header
             </Typography>
             <Grid container spacing={1}>
-                {/* group 1 */}
+                {/* group 1 Identifiers */}
                 <Grid item xs={4} sm={2}>
                     <MGATextField
                         id="insurerID" name="insurerId" label="ID"
@@ -30,21 +32,28 @@ export default function InsurerHeader (props: {insurer: InsurerValues}) {
                         inputProps={{readOnly: true}}
                     />
                 </Grid>
-                <Grid item xs={8} sm={2}>
-                    <MGATextField
-                        id="insurerFEIN" name="insurerFEIN" label="FEIN"
-                        value={insurer.insurerFEIN}
-                        inputProps={{readOnly: true}}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={8}>
+                <Grid item xs={8} sm={6}>
                     <MGATextField
                         id="insurerName" name="insurerName" label="Insurer"
                         value={insurer.insurerName}
                         inputProps={{readOnly: true}}
                     />
                 </Grid>
-                {/* group 2 */}
+                <Grid item xs={6} sm={2}>
+                    <MGATextField
+                        id="insurerFEIN" name="insurerFEIN" label="FEIN"
+                        value={insurer.insurerFEIN}
+                        inputProps={{readOnly: true}}
+                    />
+                </Grid>
+                <Grid item xs={6} sm={2}>
+                    <MGATextField
+                        id="insurerDomicileState" name="insurerDomicileState" label="Domicile"
+                        value={insurer.insurerDomicileState}
+                        inputProps={{readOnly: true}}
+                    />
+                </Grid>
+                {/* group 2 NAIC & AMBest */}
                 <Grid item xs={6} sm={2}>
                     <MGATextField
                         id="naicCode" name="naicCode" label="NAIC Code"
@@ -59,22 +68,21 @@ export default function InsurerHeader (props: {insurer: InsurerValues}) {
                         inputProps={{readOnly: true}}
                     />
                 </Grid>
-                <Grid item xs={12} sm={8}>
+                <Grid item xs={12} sm={4}>
                     <MGATextField
                         id="naicGroupName" name="naicGroupName" label="Group Name"
                         value={insurer.NAICGroupName}
                         inputProps={{readOnly: true}}
                     />
                 </Grid>
-                {/* group AMBest */}
-                <Grid item xs={6}>
+                <Grid item xs={6} sm={2}>
                     <MGATextField
                         id="amBestID" name="amBestID" label="AMBest ID"
                         value={insurer.AMBestID}
                         inputProps={{readOnly: true}}
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} sm={2}>
                     <MGATextField
                         id="amBestRating" name="amBestRating" label="Rating"
                         value={insurer.AMBestRating}

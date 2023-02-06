@@ -1,76 +1,50 @@
 import React from 'react';
 
-import {Box, Stack} from '@mui/material';
+import {Box, Stack, Grid} from '@mui/material';
 
-import MailingAddressValues from './MailingAddressValues';
+import { MailingAddressValues } from '../../Scaffold/MGAValues';
 import MGATextField from '../../Scaffold/FieldParts/MGATextField';
 
 
-export default function MailingAddressView(props: {mailingAddress: MailingAddressValues | undefined}) {
+export default function MailingAddressView(props: {mailingAddress: MailingAddressValues}) {
 
-    const streetAddress = (mailingAddress: MailingAddressValues | undefined) => {
-        if (mailingAddress === undefined) {
-            return "";
-        } else {
-            return mailingAddress.streetAddress;
-        }
-    }
-
-    const city = (mailingAddress: MailingAddressValues | undefined) => {
-        if (mailingAddress === undefined) {
-            return "";
-        } else {
-            return mailingAddress.city;
-        }
-    }
-
-    const state = (mailingAddress: MailingAddressValues | undefined) => {
-        if (mailingAddress === undefined) {
-            return "";
-        } else {
-            return mailingAddress.state;
-        }
-    }
-
-    const zip = (mailingAddress: MailingAddressValues | undefined) => {
-        if (mailingAddress === undefined) {
-            return "";
-        } else {
-            return mailingAddress.zip;
-        }
-    }
-
+    console.log("MailingAddressView: " + props.mailingAddress.id);
+    const mailingAddress = props.mailingAddress;
 
     return (
         <React.Fragment>
-            <Stack>
-                <MGATextField
-                    id="streetAddress" name="streetAddress" label="Street"
-                    value={streetAddress}
-                />
-                <Box 
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        margin:1
-                    }}
-                >
-                    <MGATextField
-                        id="city" name="city" label="City"
-                        value={city}
+            <Box sx={{margin:2}}>
+                <Grid container spacing={1}>
+                    <Grid item xs={12} >
+                        <MGATextField
+                        id="streetAddress" name="streetAddress" label="Street"
+                        value={mailingAddress.streetAddress}
+                        inputProps={{readOnly: true}}
                     />
-                    <MGATextField
-                        id="state" name="state" label="State"
-                        value={state}
-                    />
-                    <MGATextField
-                        id="zip"
-                        name="zip"
-                        label="Zip"
-                        value={zip}
-                    />
-                </Box>
-            </Stack>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <MGATextField
+                            id="city" name="city" label="City"
+                            value={mailingAddress.city}
+                            inputProps={{readOnly: true}}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <MGATextField
+                            id="state" name="state" label="State"
+                            value={mailingAddress.state}
+                            inputProps={{readOnly: true}}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <MGATextField
+                            id="zip" name="zip" label="Zip"
+                            value={mailingAddress.zip}
+                            inputProps={{readOnly: true}}
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
         </React.Fragment>
     )
 }

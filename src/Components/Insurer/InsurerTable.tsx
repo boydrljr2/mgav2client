@@ -40,7 +40,11 @@ export default function InsurerTable() {
                                 <TableRow key={insurer.id}>
                                     <TableCell>{insurer.id}</TableCell>
                                     <TableCell>{insurer.insurerActive ? 'Yes' : 'No'}</TableCell>
-                                    <TableCell>{insurer.insurerName}</TableCell>
+                                    <TableCell>
+                                        <Link to={`/insurers/view/${insurer.id}`}>
+                                        {insurer.insurerName}
+                                        </Link>
+                                    </TableCell>
                                     <TableCell>{insurer.insurerPhone}</TableCell>
                                     <TableCell>{insurer.insurerEmail}</TableCell>
                                     <TableCell>
@@ -49,8 +53,8 @@ export default function InsurerTable() {
                                     <TableCell>
                                         <Button
                                             component={Link}
-                                            //to={`/insurer/${insurer.id}`}
-                                            to={'/insurers/view'}
+                                            //to={`/insurers/edit/${insurer.id}`}
+                                            to={'/insurers'}
                                             variant="outlined"
                                             size="small"
                                         >Edit 

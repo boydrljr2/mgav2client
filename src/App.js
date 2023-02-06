@@ -46,7 +46,7 @@ function App() {
               <Route path={"/users/new"} element={<Register />} />
               <Route path={"/agencies"} element={<AgencyPage />} />
               <Route path={"/insurers"} element={<InsurerPage />} />
-              <Route path={"/insurers/view"} element={<InsurerView />} />
+              <Route path={"/insurers/view/:insurerId"} element={<InsurerView />} />
               <Route path={"/insurers/new"} element={<InsurerNew />} />
               <Route path={"/products"} element={<ProductPage />} />
               <Route path={"/policies"} element={<PolicyPage />} />        

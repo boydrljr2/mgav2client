@@ -9,7 +9,7 @@ export interface MailingAddressValues {
 }
 
 export interface InsurerValues {
-    id                      : string;
+    id                      : number;
     insurerFEIN             : string;
     insurerActive           : boolean;
     insurerName             : string;

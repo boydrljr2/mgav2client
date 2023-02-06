@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom';
 import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert, AlertTitle, Autocomplete } from '@mui/material';
 
 import { mailingAddresses } from './MailingAddressData';
-import MailingAddressValues from './MailingAddressValues';
+import { MailingAddressValues } from '../../Scaffold/MGAValues'; 
 import { USPSState, USPSStateAbbreviations } from "../../Scaffold/FieldParts/USPSStates";
 import { USPSZipCode } from "../../Scaffold/FieldParts/USPSZip";
 
 export default function MailingAddressForm() {
-
-    const pageButtons = [{}];
 
     const getDefaultMailingAddressFormValues = () => {
         return {
