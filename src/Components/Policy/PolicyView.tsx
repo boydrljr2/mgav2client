@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Paper, Typography, Divider, Stack, Box, Toolbar } from '@mui/material';
 
 import { policies } from './policies';
 
-import PageBar from '../../Scaffold/PageParts/PageBar';
-import { PageButtonValues, PageBarValues } from '../../Scaffold/PageParts/PageValues';
+import PageBar from '../Scaffold/PageParts/PageBar';
+import { PageButtonValues, PageBarValues } from '../Scaffold/PageParts/PageValues';
 
-import OperatorView from '../../Operator/OperatorView';
+import OperatorView from '../Operator/OperatorView';
 import AutoCardView from '../Auto/AutoCardView';
 import CoveragesView from '../Coverages/CoveragesView';
 import PolicyHeader from './PolicyHeader';
@@ -25,36 +26,45 @@ export default function PolicyView () {
         pageButtons: pageButtons
     }
 
+    const policyId = useParams().policyId;
+    const policyIdUndefined = (policyId === undefined);
+
+    const selectedPolicy = policies.find(policy => policy.id === Number(policyId));
+    const selectedPolicyUndefined = (selectedPolicy === undefined);
+
     return (
         <React.Fragment>
             <PageBar {...pageBarProps} />
             <Paper variant="outlined">
 
 {/* Another shot at Policy Header */}
-                <PolicyHeader policy={policy} />
-
-                <Divider sx={{margin:1}}/>
+            {!selectedPolicyUndefined && (
+                <>
+                    <PolicyHeader policy={selectedPolicy} />
+                    <Divider sx={{margin:1}}/>
+                </>
+            )}
 
 {/* Auto Units */}
                 <Box sx={{margin:1}}>
                     <AutoCardView autos={policy.autoUnits} />
                 </Box>
 
-                <Divider sx={{margin:1}}/>
-
-{/* Lienholders */}
-                <Box sx={{margin:1}}>
-                    <LienholderView autoUnits={policy.autoUnits} />
-                </Box>
-
-                <Divider sx={{margin:1}}/>
+                <Divider sx={{margin:2}}/>
 
 {/* Coverages */}
                 <Box sx={{margin: 1 }}>
                     <CoveragesView autos={policy.autoUnits} />
                 </Box>
                 
-                <Divider sx={{margin:1}}/>
+                <Divider sx={{margin:2}}/>
+
+{/* Lienholders */}
+                <Box sx={{margin:1}}>
+                    <LienholderView autoUnits={policy.autoUnits} />
+                </Box>
+
+                <Divider sx={{margin:2}}/>
 
 {/* Operators Info */}
 
@@ -62,7 +72,7 @@ export default function PolicyView () {
                     <OperatorView operators={policy.operators} />
                 </Box>
 
-                <Divider sx={{margin:1}}/>
+                <Divider sx={{margin:2}}/>
 
 {/* Endorsements */}
                 <Box sx={{margin: 1 }}>

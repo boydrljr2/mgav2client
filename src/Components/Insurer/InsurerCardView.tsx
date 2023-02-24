@@ -2,11 +2,13 @@ import React from 'react';
 
 import { Avatar, Card, CardContent, CardHeader, Typography, Stack } from '@mui/material';
 
-import {InsurerValues} from '../../Scaffold/MGAValues'
+import {InsurerValues} from '../Scaffold/MGAValues'
 
 export default function InsurerCardView(props: {insurer: InsurerValues}) {
 
     const insurer = props.insurer;
+    const mailingAddress = insurer.insurerMailingAddress;
+    const insurerNotUndefined = (insurer !== undefined);
 
     return (
         <Card
@@ -26,11 +28,11 @@ export default function InsurerCardView(props: {insurer: InsurerValues}) {
             />
             <CardContent sx={{ flexGrow: 1 }}>
                 <Stack>
-                    <Typography>{insurer.insurerMailingAddress?.streetAddress}</Typography>
-                    <Typography>{insurer.insurerMailingAddress?.city}, 
-                                {insurer.insurerMailingAddress?.state} 
-                                {insurer.insurerMailingAddress?.zip}
-                    </Typography>
+                        <Typography>{mailingAddress.streetAddress}</Typography>
+                        <Typography>{mailingAddress.city}, 
+                                    {mailingAddress.state} 
+                                    {mailingAddress.zip}
+                        </Typography>
                     <Typography>{insurer.insurerPhone}</Typography>
                     <Typography>{insurer.insurerEmail}</Typography>
                 </Stack>

@@ -1,10 +1,10 @@
 import { Box, Typography, Grid } from '@mui/material';
 
-import { InsurerValues } from '../../Scaffold/MGAValues';
-import { ObjectFooterValues } from '../../Scaffold/PageParts/ObjectFooterValues';
-import ObjectFooter from '../../Scaffold/PageParts/ObjectFooter';
+import { InsurerValues } from '../Scaffold/MGAValues';
+import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooterValues';
+import ObjectFooter from '../Scaffold/PageParts/ObjectFooter';
 
-import MGATextField from '../../Scaffold/FieldParts/MGATextField';
+import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
 export default function InsurerHeader (props: {selectedInsurer: InsurerValues}) {
     
@@ -24,31 +24,38 @@ export default function InsurerHeader (props: {selectedInsurer: InsurerValues}) 
             </Typography>
             <Grid container spacing={1}>
                 {/* group 1 Identifiers */}
-                <Grid item xs={4} sm={2}>
+                <Grid item xs={4} md={2}>
                     <MGATextField
                         id="insurerID" name="insurerId" label="ID"
                         value={insurer.id}
                         inputProps={{readOnly: true}}
                     />
                 </Grid>
-                <Grid item xs={8} sm={6}>
+                <Grid item xs={8} md={6}>
                     <MGATextField
                         id="insurerName" name="insurerName" label="Insurer"
                         value={insurer.insurerName}
                         inputProps={{readOnly: true}}
                     />
                 </Grid>
-                <Grid item xs={6} sm={2}>
+                <Grid item xs={4} md={2}>
                     <MGATextField
                         id="insurerFEIN" name="insurerFEIN" label="FEIN"
                         value={insurer.insurerFEIN}
                         inputProps={{readOnly: true}}
                     />
                 </Grid>
-                <Grid item xs={6} sm={2}>
+                <Grid item xs={4} md={1}>
                     <MGATextField
-                        id="insurerDomicileState" name="insurerDomicileState" label="Domicile"
+                        id="insurerDomicileState" name="insurerDomicileState" label="Domicile State"
                         value={insurer.insurerDomicileState}
+                        inputProps={{readOnly: true}}
+                    />
+                </Grid>
+                <Grid item xs={4} md={1}>
+                    <MGATextField 
+                        id="insurer-status" name="insurerStatus" label="Status"
+                        value={insurer.insurerStatus}
                         inputProps={{readOnly: true}}
                     />
                 </Grid>

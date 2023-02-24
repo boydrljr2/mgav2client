@@ -1,7 +1,7 @@
 
-import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
+import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 import MailingAddressList from "../MailingAddress/MailingAddressTable";
-import PageBar from '../../Scaffold/PageParts/PageBar';
+import PageBar from '../Scaffold/PageParts/PageBar';
 
 const pageButtons : PageButtonValues[] = [
     {name: 'New', link: 'agencies'}

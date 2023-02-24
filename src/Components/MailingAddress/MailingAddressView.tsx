@@ -2,8 +2,8 @@ import React from 'react';
 
 import {Box, Stack, Grid} from '@mui/material';
 
-import { MailingAddressValues } from '../../Scaffold/MGAValues';
-import MGATextField from '../../Scaffold/FieldParts/MGATextField';
+import { MailingAddressValues } from '../Scaffold/MGAValues';
+import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
 
 export default function MailingAddressView(props: {mailingAddress: MailingAddressValues}) {

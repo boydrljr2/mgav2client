@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Box, Card, CardContent, CardHeader, Grid, Typography, Stack, Divider } from '@mui/material'
 
-import { AutoValues } from '../../Scaffold/MGAValues';
+import { AutoValues } from '../Scaffold/MGAValues';
 
 
 export default function PolicyCardGrid( props: {autos: AutoValues[]}) {

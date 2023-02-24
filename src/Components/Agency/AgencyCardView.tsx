@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Avatar, Card, CardContent, CardHeader, Typography, Stack } from '@mui/material';
 
-import {AgencyValues} from '../../Scaffold/MGAValues';
+import {AgencyValues} from '../Scaffold/MGAValues';
 
 export default function AgencyCardView(props: {agency: AgencyValues}) {
 

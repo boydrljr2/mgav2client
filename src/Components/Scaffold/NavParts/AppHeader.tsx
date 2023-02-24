@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-//import { useTheme, Theme } from '@mui/material/styles';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,21 +15,13 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 //@ts-ignore
+//*******************convert this logo to .svg 
 import logo from './K1logo192.png';
 
-/* Disconnected themed styles because navdrawer was removed and therefore zIndex is no longer needed.
-const themedStyles = (theme: Theme) => {
-    return {
-        appBar: {
-            zIndex: theme.zIndex.drawer + 1
-        }
-    }
-}
-*/
 
-const allPages = ['Insurers', 'Products', 'Agencies', 'Policies', 'Users', 'Mailing'];
+const allPages = ['Insurers', 'Products', 'Agencies', 'Policies', 'LogIn', 'SignUp'];
 const mainPages = ['Insurers', 'Products', 'Agencies', 'Policies'];
-const minorPages = ['Users', 'Mailing'];
+const minorPages = ['LogIn', 'SignUp'];
 
 //const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const settings = ['Login', 'Register'];
@@ -66,7 +57,7 @@ function ResponsiveAppBar() {
             {/* Logo and System Name */}
             <Box
                 sx={{
-                    ml: 0, mr:2, mt:0, mb:0,
+                    ml:'0',
                     display: {xs: 'none', md:'flex'},
                     alignItems: 'center'
                 }}
@@ -76,7 +67,7 @@ function ResponsiveAppBar() {
                     component={Link}
                     to="/" 
                 >
-                    <img src={logo} style={{height:'50px'}} alt="MGA Logo" /> 
+                    <img src={logo} style={{height:'4em'}} alt="MGA Logo" /> 
                 </Button>
 
                 <Typography
@@ -118,7 +109,7 @@ function ResponsiveAppBar() {
             {/* Minor-Admin Pages dropdown menu.  */}
 
             
-                <Tooltip title="Admin Pages">
+                <Tooltip title="Login | Signup">
                     <IconButton 
                         size="medium"
                         aria-label="all pages menu"

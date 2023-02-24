@@ -1,8 +1,8 @@
 import React from 'react';
 
 import InsurerTable from './InsurerTable';
-import PageBar from '../../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
+import PageBar from '../Scaffold/PageParts/PageBar';
+import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 export default function InsurerPage() {
     

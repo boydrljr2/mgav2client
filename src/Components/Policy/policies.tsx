@@ -1,4 +1,4 @@
-import { PolicyValues } from '../../Scaffold/MGAValues';
+import { PolicyValues } from '../Scaffold/MGAValues';
 
 export const policies : Array<PolicyValues> = [
     {
@@ -9,21 +9,21 @@ export const policies : Array<PolicyValues> = [
         endorsementDate : new Date("12-21-2019"),
         product         : {
             productName     : "Personal Automobile Insurance Policy",
-            insuranceType     : "Personal Automobile Insurance",
+            insuranceType   : "Personal Automobile Insurance",
             insurer         : {
                 id              : 1,
                 insurerFEIN     : "36-2222222",
-                insurerActive   : true,
+                insurerStatus   : "Active",
                 insurerName     : "United Equitable Insurance Company",
                 insurerEmail    : "service@ueilink.com",
                 insurerPhone    : "1-847-583-4600",
                 insurerMailingAddress : {
-                    id: 1,
-                    streetAddress: "9040 Waukegan Road",
-                    city: "Morton Grove",
-                    state: "IL",
-                    zip: "60053"
-                },
+                        id: 1,
+                        streetAddress: "9040 Waukegan Road",
+                        city: "Morton Grove",
+                        state: "IL",
+                        zip: "60053"
+                    },
                 insurerDomicileState: "IL",
                 dateEntered     : new Date("01-01-2001"),
                 dateLastModified: new Date("01-11-2023")

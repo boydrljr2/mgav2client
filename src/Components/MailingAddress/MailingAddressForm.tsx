@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert, AlertTitle, Autocomplete } from '@mui/material';
 
 import { mailingAddresses } from './MailingAddressData';
-import { MailingAddressValues } from '../../Scaffold/MGAValues'; 
-import { USPSState, USPSStateAbbreviations } from "../../Scaffold/FieldParts/USPSStates";
-import { USPSZipCode } from "../../Scaffold/FieldParts/USPSZip";
+import { MailingAddressValues } from '../Scaffold/MGAValues'; 
+import { USPSState, USPSStateAbbreviations } from "../Scaffold/FieldParts/USPSStates";
+import { USPSZipCode } from "../Scaffold/FieldParts/USPSZip";
 
 export default function MailingAddressForm() {
 
@@ -88,7 +88,6 @@ export default function MailingAddressForm() {
         <React.Fragment>
             <Paper>
                 <form>
-                    <FormControl>
                         <Stack spacing={1} sx={{padding:2}}>
                             <TextField
                                 id="name"
@@ -158,7 +157,12 @@ export default function MailingAddressForm() {
 
                             </FormGroup>
                             <FormGroup row>
-                                <Button variant='contained' sx={{marginRight:2}} onClick={handleSubmit}>Save</Button>
+                                <Button 
+                                    variant='contained' 
+                                    sx={{marginRight:2}} 
+                                    onClick={handleSubmit}
+                                >Save
+                                </Button>
                                 <Button 
                                     key="Cancel"
                                     variant='outlined' 
@@ -168,7 +172,6 @@ export default function MailingAddressForm() {
                                 </Button>
                             </FormGroup>
                         </Stack>
-                    </FormControl>
                 </form>
             </Paper>
             <Dialog open={alertOpen} onClose={handleAlertClick} >

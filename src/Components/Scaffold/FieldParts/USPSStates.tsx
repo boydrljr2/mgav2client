@@ -94,7 +94,7 @@ export function USPSState(props: any) {
         <Autocomplete
             id="us-state-abbrev"
             includeInputInList
-            sx={{minWidth: 160, margin:1}}
+            sx={{minWidth: 160, margin:'1'}}
             options={USPSStateAbbreviations}
             getOptionLabel={(option) => option.abbreviation}
             renderInput={(params) => 

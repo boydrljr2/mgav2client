@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PageBar from '../../Scaffold/PageParts/PageBar';
+import PageBar from '../Scaffold/PageParts/PageBar';
 import UsersTable from './UsersTable';
 
 const usersButtons = [

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import PageBar from '../../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
+import PageBar from '../Scaffold/PageParts/PageBar';
+import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 import PolicyTable from "./PolicyTable";
 
 export default function PolicyPage() {

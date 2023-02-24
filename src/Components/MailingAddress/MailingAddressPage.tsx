@@ -1,4 +1,4 @@
-import PageBar from '../../Scaffold/PageParts/PageBar';
+import PageBar from '../Scaffold/PageParts/PageBar';
 import MailingAddressTable from "./MailingAddressTable";
 
 

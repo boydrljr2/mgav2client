@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom'
 import { PageButtonValues, PageBarValues } from './PageValues'
 
 export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
-    
-    console.log("PageBarNew props: ", pageBarProps)
 
     if (pageBarProps === undefined) {
         return (
@@ -15,10 +13,10 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
     }
 
     const { title, pageButtons } = pageBarProps
-    const makeButtons = (pageButtons[0].name !== undefined);
+    const makeButtons = (pageButtons !== undefined )
 
     return (
-        <>
+        <React.Fragment>
             {/* Toolbar for xs & sm screen */}
             <Toolbar 
                 variant="dense"
@@ -62,8 +60,6 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                 )}
             </Toolbar>
         
-
-        
             {/* PageTitle for md and larger screen */}
             <Toolbar 
                 variant="regular"
@@ -74,8 +70,7 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                 <Typography 
                     variant="h5"
                     sx={{ color: 'primary.main' }}
-                >
-                        {title}
+                >{title}
                 </Typography>
                 {/* wrap the Box statement in a conditional statement */}
                 {makeButtons && (
@@ -106,6 +101,6 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                     </Box>
                 )}
             </Toolbar>
-        </>
+        </React.Fragment>
     )
 }

@@ -22,11 +22,12 @@ export default function MailingAddressTable() {
         setPage(0);
     };
 
-    //Create a function to edit an existing address using MailingAddressForm
+/*Create a function to edit an existing address using MailingAddressForm
     const handleEditMailingAddress = () => {
         console.log("Edit an existing mailing address");
 
     }
+*/
 
     return (
         <React.Fragment>
@@ -36,12 +37,12 @@ export default function MailingAddressTable() {
                         <TableHead>
                             <TableRow
                             >
-                                <TableCell>Name</TableCell>
+                                <TableCell>Address Name</TableCell>
                                 <TableCell>Street Address</TableCell>
                                 <TableCell>City</TableCell>
                                 <TableCell>State</TableCell>
                                 <TableCell>Zip</TableCell>
-                                <TableCell sx={{fontStyle:"italic"}}>Actions</TableCell>
+                                {/* <TableCell sx={{fontStyle:"italic"}}>Actions</TableCell> */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -54,12 +55,16 @@ export default function MailingAddressTable() {
                                         <TableCell>{mailingAddress.city}</TableCell>
                                         <TableCell>{mailingAddress.state}</TableCell>
                                         <TableCell>{mailingAddress.zip}</TableCell>
+                                        
+                                        {/*
                                         <TableCell>
                                             <Button
                                                 onClick={handleEditMailingAddress}
                                             >Edit
                                             </Button>
                                         </TableCell>
+                                        */}
+
                                     </TableRow>
                             ))}
                         </TableBody>

@@ -11,9 +11,9 @@ export interface MailingAddressValues {
 export interface InsurerValues {
     id                      : number;
     insurerFEIN             : string;
-    insurerActive           : boolean;
+    insurerStatus           : string;
     insurerName             : string;
-    insurerDomicileState?   : string;
+    insurerDomicileState    : string;
     insurerPhone?           : string;
     insurerEmail?           : string;
     insurerURL?             : string;
@@ -28,10 +28,10 @@ export interface InsurerValues {
 }
 
 export interface AgencyValues {
-    agencyName      : string;
-    agencyMailingAddress : MailingAddressValues
-    agencyPhone?    : string;
-    agencyEmail?    : string;
+    agencyName              : string;
+    agencyMailingAddress    : MailingAddressValues
+    agencyPhone?            : string;
+    agencyEmail?            : string;
 }
 
 export interface ProductValues {

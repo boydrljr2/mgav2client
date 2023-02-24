@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { Paper, FormGroup, TextField, Button, FormControl, Dialog, Alert, AlertTitle } from '@mui/material';
 
-import MGATextField from '../../Scaffold/FieldParts/MGATextField';
-import PageBar from '../../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageValues';
+import MGATextField from '../Scaffold/FieldParts/MGATextField';
+import PageBar from '../Scaffold/PageParts/PageBar';
+import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 
 //write a function that returns an input form with PageTitle and Paper components and a POST method.  
@@ -13,13 +13,13 @@ import { PageBarValues, PageButtonValues } from '../../Scaffold/PageParts/PageVa
 //The Paper component should have a form the includes FormGroup and TextFields with the following fields: name, username,email, password, confirm password, and a submit button.
 //The submit button should have a label of 'Register'.
 
-export default function Register() {
+export default function UserSignUp() {
 
     const [alertOpen, setAlertOpen] = useState<boolean>(false);
 
     const pageButtons : PageButtonValues[] = [{name :'none', link:''}];
     const pageBarProps : PageBarValues = {
-        title: "Register",
+        title: "User SignUp",
         pageButtons: pageButtons
     }
 

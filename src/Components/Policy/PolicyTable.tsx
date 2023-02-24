@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Paper, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
 
 import { policies } from './policies';
-import {PersonValues} from '../../Scaffold/MGAValues';
+import {PersonValues} from '../Scaffold/MGAValues';
 
 
 export default function PolicyTable() {
@@ -49,7 +49,7 @@ export default function PolicyTable() {
                                 .map((policy) => (
                                     <TableRow key={policy.id}>
                                         <TableCell>
-                                            <Link to={`/policies/${policy.id}`}>
+                                            <Link to={`/policies/view/${policy.id}`}>
                                             {policy.policyNumber}
                                             </Link>
                                         </TableCell>
@@ -66,10 +66,10 @@ export default function PolicyTable() {
                                                 color="primary"
                                                 size="small"
                                                 component={Link}
-                                                /* to={`/policies/${policy.id}`} */
-                                                to={`/policies/view`}
+                                                to={`/policies/view/${policy.id}`}
+                                                /* to={`/policies/view`} */
                                             >
-                                                Edit
+                                                View
                                             </Button>
                                         </TableCell>
 

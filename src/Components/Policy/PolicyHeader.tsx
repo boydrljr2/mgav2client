@@ -1,14 +1,14 @@
 import { Box, Typography, Grid, TextField } from '@mui/material';
 
-import { PolicyValues } from '../../Scaffold/MGAValues';
-import { ObjectFooterValues } from '../../Scaffold/PageParts/ObjectFooterValues';
+import { PolicyValues } from '../Scaffold/MGAValues';
+import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooterValues';
 
-import InsuredCardView from '../../Insured/InsuredCardView';
+import InsuredCardView from '../Insured/InsuredCardView';
 import AgencyCardView from '../Agency/AgencyCardView';
 import InsurerCardView from '../Insurer/InsurerCardView';
-import ObjectFooter from '../../Scaffold/PageParts/ObjectFooter';
+import ObjectFooter from '../Scaffold/PageParts/ObjectFooter';
 
-import MGATextField from '../../Scaffold/FieldParts/MGATextField';
+import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
 export default function PolicyHeader (props: {policy: PolicyValues}) {
 

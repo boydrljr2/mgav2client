@@ -5,5 +5,5 @@ export interface PageButtonValues {
 
 export interface PageBarValues {
     title: string;
-    pageButtons: PageButtonValues[];
+    pageButtons?: PageButtonValues[];
 }

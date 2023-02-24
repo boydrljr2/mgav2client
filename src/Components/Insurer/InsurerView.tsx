@@ -1,14 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import {Paper, Typography, Divider, Stack, Box, Toolbar } from '@mui/material';
+import {Paper, Divider} from '@mui/material';
 
 import { insurers } from './insurers';
 
 import InsurerHeader from './InsurerHeader';
-import PageBar from '../../Scaffold/PageParts/PageBar';
+import PageBar from '../Scaffold/PageParts/PageBar';
 import MailingAddressView from '../MailingAddress/MailingAddressView';
-import { PageButtonValues, PageBarValues } from '../../Scaffold/PageParts/PageValues';
+import { PageButtonValues, PageBarValues } from '../Scaffold/PageParts/PageValues';
 
 //Add useParams to the insurer id from the url and display the correct insurer
 
@@ -24,18 +24,16 @@ export default function InsurerView() {
     }
 
     const insurerId = useParams().insurerId;
-
-    const insurerIdNotUndefined = (insurerId !== undefined);
+    const insurerIdUndefined = (insurerId === undefined);
 
     const selectedInsurer = insurers.find(insurer => insurer.id === Number(insurerId));
-    const selectedInsurerNotUndefined = (selectedInsurer !== undefined);
-    const selectedInsurerMANotUndefined = (selectedInsurer?.insurerMailingAddress !== undefined);
+    const selectedInsurerUndefined = (selectedInsurer === undefined);
 
     return (
         <React.Fragment>
             <PageBar {...pageBarProps} />
             <Paper variant="outlined">
-                {insurerIdNotUndefined && selectedInsurerNotUndefined && selectedInsurerMANotUndefined && (
+                {!insurerIdUndefined && !selectedInsurerUndefined && (
                     <>
                         <InsurerHeader selectedInsurer={selectedInsurer} />
                         <Divider sx={{margin: 1}}/>
