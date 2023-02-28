@@ -1,16 +1,22 @@
 import React from 'react';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
+import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 import UsersTable from './UsersTable';
 
-const usersButtons = [
-    {name: 'New', link: 'register'}
-]
+export default function UserPage() {
 
-export default function UserPage(props: any) {
+    const pageButtons : PageButtonValues[] = [
+        {name: 'New', link: 'users/new'}
+    ];
+    const pageBarProps : PageBarValues = {
+        title: "Users",
+        pageButtons: pageButtons
+    }
+
     return (
         <>
-            <PageBar title='Users' pageButtons={usersButtons} />
+            <PageBar {...pageBarProps} />
             <UsersTable />
         </>
     )
