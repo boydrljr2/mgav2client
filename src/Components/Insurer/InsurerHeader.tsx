@@ -1,7 +1,8 @@
 import { Box, Typography, Grid } from '@mui/material';
 
 import { InsurerValues } from '../Scaffold/MGAValues';
-import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooterValues';
+//import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooterValues';
+import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import ObjectFooter from '../Scaffold/PageParts/ObjectFooter';
 
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
@@ -12,9 +13,10 @@ export default function InsurerHeader (props: {selectedInsurer: InsurerValues}) 
     const insurer = props.selectedInsurer;
 
     //create a footerValues object to pass to the ObjectFooter component
-    const enteredDate = new Date(insurer.dateEntered);
-    const lastModifiedDate = new Date(insurer.dateLastModified);
-    const footerValues: ObjectFooterValues = { enteredDate, lastModifiedDate};
+    const creatorName = "Able Baker";
+    const created = new Date(insurer.created);
+    const lastModified = new Date(insurer.lastModified);
+    const footerValues: ObjectFooterValues = { creatorName, created, lastModified};
 
     return (
         <Box sx={{margin:2}}>          

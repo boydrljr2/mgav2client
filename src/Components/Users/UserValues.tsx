@@ -1,20 +1,34 @@
+export const RoleValues = ['Administrator', 'User']
+
 export interface UserValues {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    image: string;
-    creator: string;
+    id          : number;
+    name        : string;
+    email       : string;
+    password    : string;
+    image       : string;
+    role        : string;
+    creatorId   : number;
+    creatorName : string;
+    created     : Date;
+    lastModified: Date;
 }
 
-export const users : Array<UserValues> = [
+export interface UserItemValues {
+    user? : UserValues;
+}
+
+export const USERS : Array<UserValues> = [
     {
         id: 1,
         name: "Able Baker",
         email: "able@baker.com",
         password: "passwordAB",
         image: "https://this-person-does-not-exist.com/fr",
-        creator: "Able Baker"
+        role: "Administrator",
+        creatorId: 1,
+        creatorName: "Able Baker",
+        created: new Date("2023-03-08T19:56:54.874Z"),
+        lastModified: new Date("2023-03-08T19:56:54.874Z")
     },
     {
         id: 2,
@@ -22,40 +36,11 @@ export const users : Array<UserValues> = [
         email: "charlie@dog.com",
         password: "passwordCD",
         image: "https://this-person-does-not-exist.com/de",
-        creator: "Able Baker"
-    },
-    {
-        id: 3,
-        name: "Easy Foxtrot",
-        email: "easy@foxtrot.com",
-        password: "passwordEF",
-        image: "https://this-person-does-not-exist.com/it",
-        creator: "Able Baker"
-    },
-    {
-        id: 4,
-        name: "Golf Hotel",
-        email: "golf@hotel.com",
-        password: "passwordGH",
-        image: "https://this-person-does-not-exist.com/fr",
-        creator: "Able Baker"
-    },
-    {
-        id: 5,
-        name: "India Juliet",
-        email: "india@juliet.com",
-        password: "passwordIJ",
-        image: "https://this-person-does-not-exist.com/de",
-        creator: "Able Baker"
-    },
-    {
-        id: 6,
-        name: "Kilo Lima",
-        email: "kilo@lima.com",
-        password: "passwordEF",
-        image: "https://this-person-does-not-exist.com/it",
-        creator: "Able Baker"
+        role: "User",
+        creatorId: 1,
+        creatorName: "Able Baker",
+        created: new Date("2023-03-08T19:56:54.874Z"),
+        lastModified: new Date("2023-03-08T19:56:54.874Z")
     }
-
 ]
     

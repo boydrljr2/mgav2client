@@ -23,8 +23,10 @@ export interface InsurerValues {
     NAICGroupName?          : string;
     AMBestID?               : string;
     AMBestRating?           : string;
-    dateEntered             : Date;
-    dateLastModified        : Date;
+    creatorId               : number;
+    creatorName             : string;
+    created                 : Date;
+    lastModified            : Date;
 }
 
 export interface AgencyValues {
@@ -121,6 +123,6 @@ export interface PolicyValues {
     operators       : OperatorValues[];
     autoUnits       : AutoValues[];
     endorsements?   : string[];
-    dateEntered             : Date;
-    dateLastModified        : Date;
+    created         : Date;
+    lastModified    : Date;
 }

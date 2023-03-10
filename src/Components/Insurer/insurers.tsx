@@ -22,8 +22,10 @@ export const insurers: InsurerValues[] = [
         NAICGroupName   : 'United Equitable Group',
         AMBestID        : '12345',
         AMBestRating    : 'A+',
-        dateEntered     : new Date(),
-        dateLastModified: new Date()
+        creatorId       : 1,
+        creatorName     : 'Able Baker',
+        created         : new Date(),
+        lastModified    : new Date()
     },
     {   
         id              : 2,
@@ -46,7 +48,9 @@ export const insurers: InsurerValues[] = [
         NAICGroupName: 'United Equitable Group',
         AMBestID: 'A+',
         AMBestRating: 'A+',
-        dateEntered: new Date(),
-        dateLastModified: new Date()
+        creatorId       : 1,
+        creatorName     : 'Able Baker',
+        created         : new Date(),
+        lastModified    : new Date()
     }
 ]

@@ -1,7 +1,7 @@
 import { Box, Typography, Grid, TextField } from '@mui/material';
 
 import { PolicyValues } from '../Scaffold/MGAValues';
-import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooterValues';
+import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 
 import InsuredCardView from '../Insured/InsuredCardView';
 import AgencyCardView from '../Agency/AgencyCardView';
@@ -19,9 +19,10 @@ export default function PolicyHeader (props: {policy: PolicyValues}) {
     const endorsementDate = new Date(policy.endorsementDate).toString();
 
     //create a footerValues object to pass to the ObjectFooter component
-    const enteredDate = new Date(policy.dateEntered);
-    const lastModifiedDate = new Date(policy.dateLastModified);
-    const footerValues: ObjectFooterValues = { enteredDate, lastModifiedDate};
+    const creatorName = "Able Baker";
+    const created = new Date(policy.created);
+    const lastModified = new Date(policy.lastModified);
+    const footerValues: ObjectFooterValues = { creatorName, created, lastModified};
 
     return (
         <Box sx={{margin: 1}}>          

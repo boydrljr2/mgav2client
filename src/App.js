@@ -5,10 +5,11 @@ import AppHeader from "./Components/Scaffold/NavParts/AppHeader";
 //import NavDrawer from "./Scaffold/NavDrawer.tsx";
 import { scaffoldStyles } from "./Components/Scaffold/ScaffoldStyles";
 
-import HomePage from "./Components/HomePage.tsx";
+import HomePage from "./Components/Scaffold/HomePage.tsx";
 import UserLogin from "./Components/Users/UserLogin.tsx";
-import UserSignUp from "./Components/Authentication/UserSignUp.tsx";
+//import UserSignUp from "./Components/Authentication/UserSignUp.tsx";
 import UsersPage from "./Components/Users/UsersPage.tsx";
+import UserEdit from "./Components/Users/UserEdit.tsx";
 import UserNew from "./Components/Users/UserNew.tsx";
 import AgencyPage from "./Components/Agency/AgencyPage.tsx";
 import ProductPage from "./Components/Product/ProductPage.tsx";
@@ -52,8 +53,9 @@ function App() {
               <Routes>
                 <Route path={"/"} element={<HomePage />} />
                 <Route path={"/users"} element={<UsersPage />} />
-                <Route path={"/users/signup"} element={<UserSignUp />} />
+                <Route path={"/users/signup"} element={<UserNew />} />
                 <Route path={"/users/new"} element={<UserNew />} />
+                <Route path={"/users/:userId"} element={<UserEdit />} />
                 <Route path={"/agencies"} element={<AgencyPage />} />
                 <Route path={"/insurers"} element={<InsurerPage />} />
                 <Route path={"/insurers/view/:insurerId"} element={<InsurerView />} />
@@ -63,7 +65,7 @@ function App() {
                 <Route path={"/policies/new"} element={<PolicyNew />} />
                 <Route path={"/policies/view/:policyId"} element={<PolicyView />} />
                 <Route path={"/login"} element={<UserLogin />} />
-                <Route path={"/signup"} element={<UserSignUp />} />
+                <Route path={"/signup"} element={<UserNew />} />
                 <Route path={"/mailing" } element={<MailingAddressPage />} />
                 <Route path={"/mailingaddressform/"} element={<MailingAddressForm />} />
                 <Route path={"/mailingaddresscardgrid/"} element={<MailingAddressCardGrid />} />

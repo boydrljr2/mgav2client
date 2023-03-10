@@ -25,8 +25,10 @@ export const policies : Array<PolicyValues> = [
                         zip: "60053"
                     },
                 insurerDomicileState: "IL",
-                dateEntered     : new Date("01-01-2001"),
-                dateLastModified: new Date("01-11-2023")
+                creatorId       : 1,
+                creatorName     : "Able Baker",
+                created         : new Date("01-01-2001"),
+                lastModified    : new Date("01-11-2023")
             }
         },
         agency        : {
@@ -291,7 +293,7 @@ export const policies : Array<PolicyValues> = [
             }
         ],
         endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
-        dateEntered         : new Date("12-15-2019"),
-        dateLastModified    : new Date("01-01-2020"),
+        created             : new Date("12-15-2019"),
+        lastModified        : new Date("01-01-2020"),
     }
 ]

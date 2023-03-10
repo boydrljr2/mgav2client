@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, Typography, Button } from '@mui/material';
+import {Paper, Typography, Button, 
+    TableContainer, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, 
+    } from '@mui/material';
 
-import {UserValues, users} from './UserValues';
+import {UserValues} from './UserValues';
 
 //Create a function called UsersTable to display users in a Table with headers and an Edit button for each row
-export default function UsersTable() {
+export default function UsersTable(props: {users: UserValues[]}) {
+
+    const users = props.users;
 
     //Setup page and rowsPerPage for pagination
     const [page, setPage] = React.useState(0);
@@ -31,31 +35,24 @@ export default function UsersTable() {
     };
 
     //Create a function to edit an existing user using UserEdit  
-    const handleEditUser = () => {
+    /*const handleEditUser = () => {
         console.log("Edit an existing user");
 
     }
+    */
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 480 }}>
                 <Table stickyHeader  aria-label='sticky table' >
                     <TableHead>
-                        <TableRow >
-                            <TableCell sx={{fontSize : '1.25rem'}}>List</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                        </TableRow>
                         <TableRow sx={{backgroundColor:"lightgray" }}>
                             <TableCell>Name</TableCell>
                             <TableCell>Email</TableCell>
                             <TableCell>Password</TableCell>
                             <TableCell>Image</TableCell>
                             <TableCell>Creator</TableCell>
-                            <TableCell sx={{fontStyle:"italic"}}>Actions</TableCell>
+                            {/* <TableCell sx={{fontStyle:"italic"}}>Actions</TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -67,18 +64,22 @@ export default function UsersTable() {
                                 tabIndex={-1}
                                 key={user.id}
                             >
-                                <TableCell>{user.name}</TableCell>
+                                <TableCell>
+                                    <Link to={`/users/${user.id}`} >
+                                        {user.name}
+                                    </Link>
+                                </TableCell>
                                 <TableCell>{user.email}</TableCell>
                                 <TableCell>{user.password}</TableCell>
-                                <TableCell>{user.image}</TableCell>
-                                <TableCell>{user.creator}</TableCell>
-                                <TableCell>
-                                    {/* Button to edit an existing user */}
+                                <TableCell>{user.image}</TableCell> 
+                                <TableCell>{user.creatorName}</TableCell>
+                                {/* <TableCell>
                                     <Button
                                         onClick={handleEditUser}
                                     >Edit
                                     </Button>
                                 </TableCell>
+                                */}
                             </TableRow>
                         ))}
                     </TableBody>

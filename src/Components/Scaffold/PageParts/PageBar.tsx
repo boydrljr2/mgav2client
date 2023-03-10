@@ -48,10 +48,13 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                                     color:'primary', 
                                     display: 'block',
                                     mr:2,
+                                    /*
                                     '&:hover': {
                                         color: 'white',
                                         backgroundColor: 'primary.main',
-                                    } }}
+                                    }
+                                    */
+                                }}
                             >
                                 {button.name}
                             </Button>
@@ -90,10 +93,12 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                                     color:'primary', 
                                     display: 'block',
                                     mr:2,
+                                    /*
                                     '&:hover': {
                                         color: 'white',
                                         backgroundColor: 'primary.main',
-                                    } }}
+                                    } */ 
+                                }}
                             >
                                 {button.name}
                             </Button>

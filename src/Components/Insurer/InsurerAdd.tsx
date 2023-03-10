@@ -34,8 +34,10 @@ export default function InsurerAdd() {
             NAICGroupName       : '',
             AMBestID            : '',
             AMBestRating        : '',
-            dateEntered         : new Date(),
-            dateLastModified    : new Date()
+            creatorId           : 1,
+            creatorName         : 'Able Baker',
+            created             : new Date(),
+            lastModified        : new Date()
         }
     }
 

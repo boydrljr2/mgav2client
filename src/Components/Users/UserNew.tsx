@@ -1,33 +1,80 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-import { Paper, FormGroup, TextField, Button, FormControl, Dialog, Alert, AlertTitle } from '@mui/material';
+import { Paper, Grid, Autocomplete, Button, Dialog, Alert, AlertTitle } from '@mui/material';
 
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
+import UserItem from './UserItem';
 
+import { RoleValues, UserValues } from './UserValues';
+import { USERS } from './UserValues';
 
-//write a function that returns an input form with PageTitle and Paper components and a POST method.  
-//The PageTitle component should have a title of "Register User" and button array should have name 'Cancel' and link '/users'.
-//The Paper component should have a form the includes FormGroup and TextFields with the following fields: name, username,email, password, confirm password, and a submit button.
-//The submit button should have a label of 'Register'.
+export default function UserNew() {
 
-export default function UserSignUp() {
+    console.log("USERS: ", USERS)
 
     const [alertOpen, setAlertOpen] = useState<boolean>(false);
 
     const pageButtons : PageButtonValues[] = [];
     const pageBarProps : PageBarValues = {
-        title: "Add New User",
+        title: "New User",
         pageButtons: pageButtons
     }
 
+    const newId = USERS.length;
+    console.log("newId: ", newId)
+
+    const initialFormValues = {
+        id          : newId,
+        name        : '',
+        email       : '',
+        password    : '',
+        image       : '',
+        role        : '',
+        creatorId   : 1,
+        creatorName : 'Able Baker',
+        created     : new Date(),
+        lastModified: new Date()
+    }
+
+    const [formValues, setFormValues] = useState({...initialFormValues});
+    console.log("formValues: ", formValues)
+    const [nameIsValid, setNameIsValid] = useState<boolean>(true);
+    const [emailIsValid, setEmailIsValid] = useState<boolean>(true);
+    const [passwordIsValid, setPasswordIsValid] = useState<boolean>(true);
+    const [formIsValid, setFormIsValid] = useState<boolean>(false);
+
+    const handleMGATextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = event.target;
+        setFormValues({...formValues, [name]: value});
+    }
+    
+    const handleAutocompleteChange = (
+        event: React.ChangeEvent<{}>, 
+        value: string | null) => {
+        setFormValues({...formValues, role: value || ""});
+    }
+
     const handleSubmit = () => {
-        //mailingAddresses.push(mailingAddressFormValues);
-        setAlertOpen(true);
-        //clearValues();
-        console.log('Register submit button clicked');
+        console.log("Save clicked")
+        console.log("nameIsValid: ", nameIsValid)
+        setFormIsValid(nameIsValid ? true : false)
+        console.log("formIsValid: ", formIsValid)
+        if (formIsValid) {
+            USERS.push(formValues);
+            setFormValues({...initialFormValues});
+            setEmailIsValid(true);
+            setNameIsValid(true);
+            setPasswordIsValid(true);
+            console.log("Form Is Valid")
+        }
+        if (!formIsValid) {
+            console.log("Form Is Not Valid");
+            setAlertOpen(true);
+        }
+        //setAlertOpen(true);
     }
 
     const handleAlertClick = () => {
@@ -37,80 +84,114 @@ export default function UserSignUp() {
     return (
         <React.Fragment>
             <PageBar {...pageBarProps} />
-            <Paper>
-                {/* <form method="POST" action="/api/users/register"> */}
+            <UserItem />
+
+            {/*
+            <Paper variant="outlined" sx={{padding:2}}>
                 <form>
-                    <FormControl>
-                        <FormGroup 
-                            row
-                            sx={{
-                                justifyContent: 'left',
-                            }}
-                        >
-                            <MGATextField 
-                                id="name" name="name" label="Name" 
-                                sx={{ 
-                                    minWidth: 900 
-                                }} 
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <MGATextField
+                                id="name" name="name" label="Name"
+                                fullWidth
+                                required
+                                error = {!nameIsValid}
+                                helperText = {!nameIsValid ? "Name must be at least 8 characters" : ""}
+                                value = {formValues.name}
+                                onChange={handleMGATextFieldChange}
+                                onBlur={() => formValues.name.length > 7 ? setNameIsValid(true) : setNameIsValid(false)}
                             />
-                            <MGATextField 
-                                id="username" name="username" label="Username" 
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Autocomplete
+                                disablePortal
+                                id="role-values" 
+                                options={RoleValues}
+                                isOptionEqualToValue={(option, value) => option === value || value === ""}
+                                renderInput={(params) => 
+                                    <MGATextField {...params} 
+                                        name='role' label="Role" required
+                                        //apply sx styling to the textfield, not the autocomplete
+                                        sx={{}}
+                                    />
+                                }
+                                renderOption={(props, option, state) => {
+                                    return (
+                                        <li {...props}>
+                                            {`${option} `}
+                                        </li>
+                                    )
+                                }}
+                                ListboxProps={{
+                                    //@ts-ignore
+                                    sx:{maxHeight: 200}
+                                }}
+                                onInputChange={handleAutocompleteChange}
                             />
-                            <MGATextField 
-                                id="email" name="email" label="Email" 
+                        </Grid>
+
+                    </Grid>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <MGATextField
+                                id="email" name="email" label="Email Address"
+                                fullWidth
+                                value = {formValues.email}
+                                required
+                                error = {!emailIsValid}
+                                helperText = {!emailIsValid ? "Email format incorrect" : ""}
+                                onChange={handleMGATextFieldChange}
+                                onBlur={()=> (/$^|.+@.+..+/).test(formValues.email) ? setEmailIsValid(true) : setEmailIsValid(false)}
                             />
-                        </FormGroup>
-                        <FormGroup     
-                            row
-                            sx={{
-                                justifyContent: 'left',
-                            }}
-                        >
-                            <MGATextField 
-                                id="password" name="password" label="Password" 
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <MGATextField
+                                id="password" name="password" label="Password"
+                                fullWidth
+                                value = {formValues.password}
+                                required
+                                error = {!passwordIsValid}
+                                helperText = {!passwordIsValid ? "Password must be at least 8 characters" : ""}
+                                onChange={handleMGATextFieldChange}
+                                onBlur={()=> formValues.password.length > 7 ? setPasswordIsValid(true) : setPasswordIsValid(false)}
                             />
-                            <MGATextField 
-                                id="confirmPassword" name="confirmpassword" label="Confirm Password" 
+                        </Grid>
+
+                    </Grid>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <MGATextField
+                                id="image" name="image" label="Image"
+                                fullWidth
+                                value = {formValues.image}
+                                onChange={handleMGATextFieldChange}
                             />
-                        </FormGroup>
-                        <FormGroup     
-                            row
-                            sx={{
-                                justifyContent: 'left',
-                            }}
-                        >
-                            <MGATextField 
-                                id="image" name="image" label="Image" 
-                                sx={{minWidth:600}}  
-                            />
-                        </FormGroup>
-                        <FormGroup 
-                            row
-                            sx={{
-                                justifyContent: 'left'
-                            }}
-                        >
-                            <Button 
-                                variant='contained' 
-                                sx={{mt:1, mb:1, mr:1, ml:1}} 
+                        </Grid>
+                    </Grid>
+
+                    <Grid container direction="row" spacing={2}
+                        sx={{margin:'auto', justifyContent:"flex-end"}}
+                    >
+                        <Grid item >
+                            <Button
+                                variant="contained" size='medium'
                                 onClick={handleSubmit}
-                            >Save
-                            </Button>
-                            <Button 
-                                key="Cancel"
-                                variant='outlined' 
-                                component={Link}
-                                to={`/mailing`}
-                                sx={{mt:1, mb:1, mr:1, ml:1}}
-                            >Cancel
-                            </Button>
-                        </FormGroup>
-                    </FormControl>
+                            >Save</Button>
+                        </Grid>
+                        <Grid item sx={{mr:1}}>
+                            <Button
+                                variant="outlined" size='medium'
+                                component={Link} to='/users'
+                            >Cancel</Button>
+                        </Grid>
+                    </Grid>
                 </form>
             </Paper>
             <Dialog open={alertOpen} onClose={handleAlertClick} >
-                <Alert><AlertTitle>Success!</AlertTitle></Alert>
+                <Alert><AlertTitle>InValid Form!</AlertTitle></Alert>
             </Dialog>
+            */}
         </React.Fragment>
     )
+
 }

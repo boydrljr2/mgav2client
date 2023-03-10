@@ -4,6 +4,8 @@ import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 import UsersTable from './UsersTable';
 
+import {UserValues, USERS} from './UserValues';
+
 export default function UserPage() {
 
     const pageButtons : PageButtonValues[] = [
@@ -17,7 +19,7 @@ export default function UserPage() {
     return (
         <>
             <PageBar {...pageBarProps} />
-            <UsersTable />
+            <UsersTable users={USERS}/>
         </>
     )
 }
