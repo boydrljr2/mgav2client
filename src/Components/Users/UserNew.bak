@@ -1,17 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
-import { UserItemValues, USERS, ROLES } from './UserValues';
+import { USERS } from './UserValues';
+import {UserItemValues, UserValues} from './UserValues';
 import UserItem from './UserItem';
 
-export default function UserNew () {
+export default function UserNew() {
+
+    console.log("USERS: ", USERS)
 
     const pageButtons : PageButtonValues[] = [];
     const pageBarProps : PageBarValues = {
-        title       : "New User",
-        pageButtons : pageButtons
+        title: "New User",
+        pageButtons: pageButtons
     }
 
     const newId = USERS.length;
@@ -22,7 +25,7 @@ export default function UserNew () {
         email       : '',
         password    : '',
         image       : '',
-        role        : ROLES[0],
+        role        : '',
         creatorId   : 1,
         creatorName : 'Able Baker',
         created     : new Date(),
@@ -36,8 +39,8 @@ export default function UserNew () {
     return (
         <React.Fragment>
             <PageBar {...pageBarProps} />
-            <UserItem {...userItemProps } />
+            <UserItem {...userItemProps} />
         </React.Fragment>
     )
-}
 
+}

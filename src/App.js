@@ -7,7 +7,6 @@ import { scaffoldStyles } from "./Components/Scaffold/ScaffoldStyles";
 
 import HomePage from "./Components/Scaffold/HomePage.tsx";
 import UserLogin from "./Components/Users/UserLogin.tsx";
-//import UserSignUp from "./Components/Authentication/UserSignUp.tsx";
 import UsersPage from "./Components/Users/UsersPage.tsx";
 import UserEdit from "./Components/Users/UserEdit.tsx";
 import UserNew from "./Components/Users/UserNew.tsx";
@@ -20,12 +19,15 @@ import PolicyPage from "./Components/Policy/PolicyPage.tsx";
 import PolicyView from "./Components/Policy/PolicyView.tsx";
 import PolicyNew from "./Components/Policy/PolicyNew.tsx";
 
+import UserNewFormik from "./Components/Users/UserNew.tsx"
+
 import MailingAddressPage from "./Components/MailingAddress/MailingAddressPage.tsx";
 import MailingAddressCardGrid from "./Components/MailingAddress/MailingAddressCardGrid";
 import MailingAddressForm from "./Components/MailingAddress/MailingAddressForm.tsx";
 
 import { MGATheme } from "./Theme/MGATheme";
 import { AuthenticationContext } from "./Components/Scaffold/context/AuthenticationContext";
+
 
 
 function App() {

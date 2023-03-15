@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { USERS } from './UserValues';
+import { USERS, RoleValues } from './UserValues';
 import { UserValues, UserItemValues } from './UserValues';
+import UserItem from './UserItem';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
-import UserItem from './UserItem';
 
 
 export default function UserEdit () {
@@ -30,14 +30,15 @@ export default function UserEdit () {
 
     const newId = USERS.length;
     
-    selectedUser = !selectedUserUndefined ? selectedUser :
+    selectedUser = !selectedUserUndefined ? 
+        selectedUser :
         {
             id : newId,
             name: '',
             email: '',
             password: '',
             image: '',
-            role: '',
+            role: {label: 'User', value: 'User'},
             creatorId: 1,
             creatorName: 'Able Baker',
             created: new Date(),

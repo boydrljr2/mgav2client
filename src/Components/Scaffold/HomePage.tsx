@@ -16,8 +16,8 @@ export default function HomePage() {
         <React.Fragment>
             <PageBar {...pageBarProps}/>
             <Paper variant="outlined" sx={{margin:2}}>
-                <Typography sx={{padding: 2}}>
-                    <h3>Home Page Dashboard to be developed</h3>
+                <Typography variant="h6" sx={{padding: 2}}>
+                    Home Page Dashboard to be developed
                 </Typography>
             </Paper>
         </React.Fragment>

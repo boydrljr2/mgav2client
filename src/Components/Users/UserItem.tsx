@@ -1,208 +1,228 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
-import { Paper, Grid, Autocomplete, Button, Dialog, Alert, AlertTitle, Typography } from '@mui/material';
+import { Paper, Grid, AutocompleteRenderInputParams, Button } from '@mui/material';
+import MuiTextField from '@mui/material/TextField';
+import { Autocomplete, TextField } from 'formik-mui'
 
+import ObjectFooter from '../Scaffold/PageParts/ObjectFooter';
+import {ObjectFooterValues} from '../Scaffold/PageParts/ObjectFooter';
+
+import { MGAAutocomplete } from '../Scaffold/FieldParts/MGAAutocomplete';
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
-import { RoleValues, UserValues, UserItemValues } from './UserValues';
-import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
-import ObjectFooter from '../Scaffold/PageParts/ObjectFooter';
-import { USERS } from './UserValues'; 
+import { UserItemValues, USERS, ROLES } from './UserValues'; 
 
-export default function UserItem (userItemProps : UserItemValues) {
+export default function UserItem (userItemProps : UserItemValues ) {
 
-    console.log("userItemProps: ", userItemProps)
+    const { user } = userItemProps;
+    const newId = USERS.length
 
-    const { user } = userItemProps
+    const userUndefined = ( user === undefined );
 
-    const [alertOpen, setAlertOpen] = useState<boolean>(false);
-
-    const newId = USERS.length;
-    console.log("newId: ", newId)
-
-
-    const userUndefined = (user === undefined);
-    console.log("userIdUndefined: ", userUndefined)
-    
     const initialFormValues = 
-        !userUndefined ? user :  
-        {
-            id : newId,
-            name: '',
-            email: '',
-            password: '',
-            image: '',
-            role: '',
-            creatorId: 1,
-            creatorName: 'Able Baker',
-            created: new Date(),
-            lastModified: new Date()
-        }
-
-    const [formValues, setFormValues] = useState({...initialFormValues});
-    console.log("formValues: ", formValues)
-    const [nameIsValid, setNameIsValid] = useState<boolean>(true);
-    const [emailIsValid, setEmailIsValid] = useState<boolean>(true);
-    const [passwordIsValid, setPasswordIsValid] = useState<boolean>(true);
-    const [formIsValid, setFormIsValid] = useState<boolean>(true);
-
-    const footerValues = 
         !userUndefined ?
-        {
-            creatorName     : user.creatorName, 
-            created         : user.created, 
-            lastModified    : user.lastModified
-        } :
-        {   
-            creatorName     : "Able Baker",
-            created         : new Date(),
-            lastModified    : new Date()
-        }
-    console.log('footerValues: ', footerValues)
-
-    const handleMGATextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = event.target;
-        setFormValues({...formValues, [name]: value});
-    }
+            user
+            :
+            {
+                id : newId,
+                name: '',
+                email: '',
+                password: '',
+                image: '',
+                role: ROLES[0],
+                creatorId: 1,
+                creatorName: 'Able Baker',
+                created: new Date(),
+                lastModified: new Date()
+            }
     
-    const handleAutocompleteChange = (
-        event: React.ChangeEvent<{}>, 
-        value: string | null) => {
-        setFormValues({...formValues, role: value || ""});
-    }
-
-    const handleSubmit = () => {
-        console.log("Save clicked")
-        console.log("nameIsValid: ", nameIsValid)
-        setFormIsValid(nameIsValid ? true : false)
-        console.log("formIsValid: ", formIsValid)
-        if (formIsValid) {
-            USERS.push(formValues);
-            setFormValues({...initialFormValues});
-            setEmailIsValid(true);
-            setNameIsValid(true);
-            setPasswordIsValid(true);
-            console.log("Form Is Valid")
-        }
-        if (!formIsValid) {
-            console.log("Form Is Not Valid");
-            setAlertOpen(true);
-        }
-        //setAlertOpen(true);
-    }
-
-    const handleAlertClick = () => {
-        setAlertOpen(false);
-    }  
-
-    if (userItemProps === undefined) {
-        return (
-            <Typography>
-                User Item Undefined 
-            </Typography>
-        )
-    }
+    const objectFooterProps : ObjectFooterValues = 
+        !userUndefined ?
+            {
+                creatorName     : user.creatorName, 
+                created         : user.created, 
+                lastModified    : user.lastModified
+            } :
+            {   
+                creatorName     : "Able Baker",
+                created         : new Date(),
+                lastModified    : new Date()
+            }
 
     return (
-            <Paper variant="outlined" sx={{padding:2}}>
-                <form>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <MGATextField
-                                id="name" name="name" label="Name"
-                                fullWidth
-                                required
-                                error = {!nameIsValid}
-                                helperText = {!nameIsValid ? "Name must be at least 8 characters" : ""}
-                                value = {formValues.name}
-                                onChange={handleMGATextFieldChange}
-                                onBlur={() => formValues.name.length > 7 ? setNameIsValid(true) : setNameIsValid(false)}
-                            />
+        <Formik
+            initialValues={initialFormValues}
+            validate= {(values) => {
+                const errors = {
+                    name: '',
+                    role: '',
+                    email: '',
+                    password: ''
+                };
+                
+                if (!values.name) {
+                    errors.name='Required';
+                } else if (values.name.length < 8) {    
+                    errors.name='Must be 8 characters or more';
+                }
+            
+               if (values.role.value !== 'Administrator' && values.role.value !== 'User') 
+                    { errors.role='Select One'; }
+            
+                if (!values.email) {
+                    errors.email='Required';
+                } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                    errors.email='Invalid email address';
+                }
+            
+                if (!values.password) {
+                    errors.password='Required';
+                } else if (values.password.length < 8) {
+                    errors.email='Must be 8 characters or more';
+                }
+            
+                console.log("userValidation errors: ", errors);
+            
+                return errors;
+                    
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+                setTimeout(() => {
+                    setSubmitting(false);
+                    alert(JSON.stringify(values, null, 2));
+                }, 500 );
+            }}
+        >
+            {formik => (
+                <Paper variant='outlined' sx={{padding:2}} >
+                    <Form>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={9} >
+                                <MGATextField 
+                                    id='name' name='name' label='Name'
+                                    type='text'
+                                    fullWidth 
+                                    //required
+                                    placeholder="Enter your full name"
+                                    error= {formik.touched.name && formik.errors.name !== '' ? true : false}
+                                    helperText={formik.touched.name && formik.errors.name !== '' ? "Must be at least 8 characters" : ""}
+                                    value={formik.values.name}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={3}>
+                                <Field
+                                    name="role"
+                                    component={Autocomplete}
+                                    options={ROLES}
+                                    getOptionLabel={(option : any) => option.label}
+                                    style={{width: 300}}
+                                    renderInput={(params: AutocompleteRenderInputParams) => (
+                                        <MGATextField
+                                        {...params}
+                                        name="role"
+                                        error={formik.touched['role'] && !!formik.errors['role']}
+                                        helperText={formik.touched.role && !!formik.errors['role'] 
+                                            ? "Select One" : ' '}
+                                        //error = {formik.touched.role && formik.errors.role !== '' ? true : false}
+                                        //helperText={formik.touched['role'] && formik.errors['role']}
+                                        label="Role"
+                                        variant="outlined"
+                                        />
+                                    )}
+                                />
+                                {/* 
+                                <Autocomplete 
+                                    id="role"
+                                    value={roleValue}
+                                    onChange={(event, newValue: string | null) => {
+                                        //@ts-ignore
+                                        setRoleValue(newValue);
+                                    }}
+                                    inputValue={inputRoleValue}
+                                    onInputChange={(event, newInputValue: string | null) => {
+                                        //@ts-ignore
+                                        setInputRoleValue(newInputValue);
+                                    }}
+                                    options={ROLES}
+                                    renderInput={(params) => 
+                                        <MGATextField {...params} 
+                                            label="Roles"
+                                            placeholder="Select a role"  
+                                        />
+                                    }
+                                />
+                                */}
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Autocomplete
-                                disablePortal
-                                id="role-values" 
-                                options={RoleValues}
-                                isOptionEqualToValue={(option, value) => option === value || value === ""}
-                                renderInput={(params) => 
-                                    <MGATextField {...params} 
-                                        name='role' label="Role" required
-                                        //apply sx styling to the textfield, not the autocomplete
-                                        sx={{}}
-                                    />
-                                }
-                                renderOption={(props, option, state) => {
-                                    return (
-                                        <li {...props}>
-                                            {`${option} `}
-                                        </li>
-                                    )
-                                }}
-                                ListboxProps={{
-                                    //@ts-ignore
-                                    sx:{maxHeight: 200}
-                                }}
-                                onInputChange={handleAutocompleteChange}
-                            />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <MGATextField
+                                    id="email" name="email" label="Email Address"
+                                    type="email"
+                                    fullWidth 
+                                    //required
+                                    placeholder="Enter email address"
+                                    error = {formik.touched.email && formik.errors.email !== '' ? true : false}
+                                    helperText={formik.touched.email && formik.errors.email !== '' ? "Invalid email address" : ""}
+                                    value = {formik.values.email}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <MGATextField
+                                    id="password" name="password" label="Password"
+                                    type="password"
+                                    placeholder="Enter password"
+                                    fullWidth 
+                                    //required
+                                    error = {formik.touched.password && formik.errors.password !== '' ? true : false}
+                                    helperText={formik.touched.password && formik.errors.password !== '' ? "Must be at least 8 characters" : ""}
+                                    value = {formik.values.password}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <MGATextField
-                                id="email" name="email" label="Email Address"
-                                fullWidth
-                                value = {formValues.email}
-                                required
-                                error = {!emailIsValid}
-                                helperText = {!emailIsValid ? "Email format incorrect" : ""}
-                                onChange={handleMGATextFieldChange}
-                                onBlur={()=> (/$^|.+@.+..+/).test(formValues.email) ? setEmailIsValid(true) : setEmailIsValid(false)}
-                            />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <MGATextField
+                                    id="image" name="image" label="Image"
+                                    type="url"
+                                    fullWidth
+                                    placeholder="Enter URL of image" 
+                                    value={formik.values.image}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <MGATextField
-                                id="password" name="password" label="Password"
-                                fullWidth
-                                value = {formValues.password}
-                                required
-                                error = {!passwordIsValid}
-                                helperText = {!passwordIsValid ? "Password must be at least 8 characters" : ""}
-                                onChange={handleMGATextFieldChange}
-                                onBlur={()=> formValues.password.length > 7 ? setPasswordIsValid(true) : setPasswordIsValid(false)}
-                            />
+                        <ObjectFooter footerValues={objectFooterProps} />
+                        <Grid container direction="row" spacing={2}
+                            sx={{margin:'auto', justifyContent:"flex-end"}}>
+                            <Grid item >
+                                <Button
+                                    variant="contained" size='medium'
+                                    type="submit"
+                                    //onClick={handleSubmit}
+                                >Save</Button>
+                            </Grid>
+                            <Grid item sx={{mr:1}}>
+                                <Button
+                                    variant="outlined" size='medium'
+                                    component={Link} to='/users'
+                                >Cancel</Button>
+                            </Grid>
                         </Grid>
-
-                    </Grid>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <MGATextField
-                                id="image" name="image" label="Image"
-                                fullWidth
-                                value = {formValues.image}
-                                onChange={handleMGATextFieldChange}
-                            />
-                        </Grid>
-                    </Grid>
-                    <ObjectFooter footerValues={footerValues} />
-                    <Grid container direction="row" spacing={2}
-                        sx={{margin:'auto', justifyContent:"flex-end"}}
-                    >
-                        <Grid item >
-                            <Button
-                                variant="contained" size='medium'
-                                //onClick={handleSubmit}
-                            >Save</Button>
-                        </Grid>
-                        <Grid item sx={{mr:1}}>
-                            <Button
-                                variant="outlined" size='medium'
-                                component={Link} to='/users'
-                            >Cancel</Button>
-                        </Grid>
-                    </Grid>
-                </form>
-            </Paper>
+                    </Form>
+                </Paper>
+            )}
+        </Formik>
     )
-}
+};
+
