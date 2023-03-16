@@ -1,16 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 
 import { Paper, Grid, AutocompleteRenderInputParams, Button } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
-import { Autocomplete, TextField } from 'formik-mui'
+import { Autocomplete } from 'formik-mui'
 
 import ObjectFooter from '../Scaffold/PageParts/ObjectFooter';
 import {ObjectFooterValues} from '../Scaffold/PageParts/ObjectFooter';
 
-import { MGAAutocomplete } from '../Scaffold/FieldParts/MGAAutocomplete';
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
 import { UserItemValues, USERS, ROLES } from './UserValues'; 
@@ -69,7 +67,9 @@ export default function UserItem (userItemProps : UserItemValues ) {
                     errors.name='Must be 8 characters or more';
                 }
             
-               if (values.role.value !== 'Administrator' && values.role.value !== 'User') 
+               if (values.role )
+                    errors.role = '';
+                else 
                     { errors.role='Select One'; }
             
                 if (!values.email) {
@@ -81,37 +81,33 @@ export default function UserItem (userItemProps : UserItemValues ) {
                 if (!values.password) {
                     errors.password='Required';
                 } else if (values.password.length < 8) {
-                    errors.email='Must be 8 characters or more';
+                    errors.password='Must be 8 characters or more';
                 }
             
                 console.log("userValidation errors: ", errors);
-            
                 return errors;
                     
             }}
-            onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                    setSubmitting(false);
-                    alert(JSON.stringify(values, null, 2));
-                }, 500 );
+            onSubmit={(values) => {
+                console.log("onSubmit userValidation values: ", values)
+                USERS.push(values);
             }}
         >
-            {formik => (
+            {({values, submitForm, resetForm, handleChange, handleBlur, isSubmitting, isValidating, touched, errors}) => (
                 <Paper variant='outlined' sx={{padding:2}} >
-                    <Form>
+                    <Form >
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={9} >
                                 <MGATextField 
                                     id='name' name='name' label='Name'
                                     type='text'
                                     fullWidth 
-                                    //required
                                     placeholder="Enter your full name"
-                                    error= {formik.touched.name && formik.errors.name !== '' ? true : false}
-                                    helperText={formik.touched.name && formik.errors.name !== '' ? "Must be at least 8 characters" : ""}
-                                    value={formik.values.name}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    error= {touched.name && errors.name !== '' ? true : false}
+                                    helperText={touched.name && errors.name !== '' ? "Must be at least 8 characters" : ""}
+                                    value={values.name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={3}>
@@ -125,38 +121,14 @@ export default function UserItem (userItemProps : UserItemValues ) {
                                         <MGATextField
                                         {...params}
                                         name="role"
-                                        error={formik.touched['role'] && !!formik.errors['role']}
-                                        helperText={formik.touched.role && !!formik.errors['role'] 
+                                        error={touched['role'] && !!errors['role']}
+                                        helperText={touched.role && !!errors['role'] 
                                             ? "Select One" : ' '}
-                                        //error = {formik.touched.role && formik.errors.role !== '' ? true : false}
-                                        //helperText={formik.touched['role'] && formik.errors['role']}
                                         label="Role"
                                         variant="outlined"
                                         />
                                     )}
                                 />
-                                {/* 
-                                <Autocomplete 
-                                    id="role"
-                                    value={roleValue}
-                                    onChange={(event, newValue: string | null) => {
-                                        //@ts-ignore
-                                        setRoleValue(newValue);
-                                    }}
-                                    inputValue={inputRoleValue}
-                                    onInputChange={(event, newInputValue: string | null) => {
-                                        //@ts-ignore
-                                        setInputRoleValue(newInputValue);
-                                    }}
-                                    options={ROLES}
-                                    renderInput={(params) => 
-                                        <MGATextField {...params} 
-                                            label="Roles"
-                                            placeholder="Select a role"  
-                                        />
-                                    }
-                                />
-                                */}
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
@@ -165,13 +137,12 @@ export default function UserItem (userItemProps : UserItemValues ) {
                                     id="email" name="email" label="Email Address"
                                     type="email"
                                     fullWidth 
-                                    //required
                                     placeholder="Enter email address"
-                                    error = {formik.touched.email && formik.errors.email !== '' ? true : false}
-                                    helperText={formik.touched.email && formik.errors.email !== '' ? "Invalid email address" : ""}
-                                    value = {formik.values.email}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    error = {touched.email && errors.email !== '' ? true : false}
+                                    helperText={touched.email && errors.email !== '' ? "Invalid email address" : ""}
+                                    value = {values.email}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -180,12 +151,11 @@ export default function UserItem (userItemProps : UserItemValues ) {
                                     type="password"
                                     placeholder="Enter password"
                                     fullWidth 
-                                    //required
-                                    error = {formik.touched.password && formik.errors.password !== '' ? true : false}
-                                    helperText={formik.touched.password && formik.errors.password !== '' ? "Must be at least 8 characters" : ""}
-                                    value = {formik.values.password}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    error = {touched.password && errors.password !== '' ? true : false}
+                                    helperText={touched.password && errors.password !== '' ? "Must be at least 8 characters" : ""}
+                                    value = {values.password}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             </Grid>
                         </Grid>
@@ -196,9 +166,9 @@ export default function UserItem (userItemProps : UserItemValues ) {
                                     type="url"
                                     fullWidth
                                     placeholder="Enter URL of image" 
-                                    value={formik.values.image}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    value={values.image}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             </Grid>
                         </Grid>
@@ -209,8 +179,17 @@ export default function UserItem (userItemProps : UserItemValues ) {
                                 <Button
                                     variant="contained" size='medium'
                                     type="submit"
-                                    //onClick={handleSubmit}
+                                    disabled={isSubmitting}
+                                    onClick={() => submitForm()}
                                 >Save</Button>
+                            </Grid>
+                            <Grid item >
+                                <Button
+                                    variant="outlined" size='medium'
+                                    type="reset"
+                                    disabled={isSubmitting}
+                                    onClick={() => resetForm()}
+                                >Reset</Button>
                             </Grid>
                             <Grid item sx={{mr:1}}>
                                 <Button
@@ -220,6 +199,11 @@ export default function UserItem (userItemProps : UserItemValues ) {
                             </Grid>
                         </Grid>
                     </Form>
+                    <pre>{JSON.stringify(USERS, null, 2)}</pre>
+                    <pre>{JSON.stringify(values, null, 2)}</pre>
+                    <pre>{JSON.stringify(errors, null, 2)}</pre>
+                    <pre>{JSON.stringify(isSubmitting, null, 2)}</pre>
+                    <pre>{JSON.stringify(isValidating, null, 2)}</pre>
                 </Paper>
             )}
         </Formik>

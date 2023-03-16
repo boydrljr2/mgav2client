@@ -14,7 +14,7 @@ export default function UserNew () {
         pageButtons : pageButtons
     }
 
-    const newId = USERS.length;
+    const newId = USERS.length + 1;
 
     const newUser = {
         id          : newId,
