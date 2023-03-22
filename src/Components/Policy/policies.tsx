@@ -1,8 +1,9 @@
 import { PolicyValues } from '../Scaffold/MGAValues';
+import { v4 as uuidv4 } from 'uuid';
 
 export const policies : Array<PolicyValues> = [
     {
-        id: 1,
+        id              : uuidv4(),
         policyNumber    : "PPW1303522",
         periodStartDate : new Date("01-01-2020"),
         periodEndDate   : new Date("12-31-2020"),
@@ -11,14 +12,14 @@ export const policies : Array<PolicyValues> = [
             productName     : "Personal Automobile Insurance Policy",
             insuranceType   : "Personal Automobile Insurance",
             insurer         : {
-                id              : 1,
+                id              : uuidv4(),
                 insurerFEIN     : "36-2222222",
                 insurerStatus   : "Active",
                 insurerName     : "United Equitable Insurance Company",
                 insurerEmail    : "service@ueilink.com",
                 insurerPhone    : "1-847-583-4600",
                 insurerMailingAddress : {
-                        id: 1,
+                        id: uuidv4(),
                         streetAddress: "9040 Waukegan Road",
                         city: "Morton Grove",
                         state: "IL",
@@ -35,11 +36,11 @@ export const policies : Array<PolicyValues> = [
             agencyName      : "Insure On The Spot Agency",
             agencyPhone    : "1-773-202-45060",
             agencyMailingAddress : {
-                id: 2,
-                streetAddress: "5485 N Elston Ave",
-                city: "Chicago",
-                state: "IL",
-                zip: "60630"
+                id              : uuidv4(),
+                streetAddress   : "5485 N Elston Ave",
+                city            : "Chicago",
+                state           : "IL",
+                zip             : "60630"
             }
         },
         insured        : {
@@ -48,11 +49,11 @@ export const policies : Array<PolicyValues> = [
                 lastName    : "Zavala"
             },
             personMailingAddress   : {
-                id: 3,
-                streetAddress: "714 Lenox Ave",
-                city: "Waukegan",
-                state: "IL",
-                zip: "60085"
+                id              : uuidv4(),
+                streetAddress   : "714 Lenox Ave",
+                city            : "Waukegan",
+                state           : "IL",
+                zip             : "60085"
             },
             personPhone    : "1-847-123-1234",
             personEmail :   "esmazavala@gmail.com"
@@ -205,11 +206,11 @@ export const policies : Array<PolicyValues> = [
                     {
                         lienholderName  : "Bank of America",
                         lienholderMailingAddress : {
-                            id : 1,
+                            id              : uuidv4(),
                             streetAddress   : "123 Main Street",
                             city            : "Chicago",
                             state           : "IL",
-                            zip         : "60606"
+                            zip             : "60606"
                         }
                     }
                 ]

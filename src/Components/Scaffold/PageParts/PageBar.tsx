@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Box, Button, Toolbar, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { PageButtonValues, PageBarValues } from './PageValues'
+import { PageBarValues } from './PageValues'
 
 export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
 
@@ -27,9 +27,9 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                 <Typography
                     variant="h6"
                     sx={{ color: 'primary.main' }}
-                >
-                    {title}
+                >{title} 
                 </Typography>
+
                 {/* wrap the Box statement in a conditional statement */}
                 {makeButtons && (
                     <Box sx={{
@@ -48,12 +48,6 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                                     color:'primary', 
                                     display: 'block',
                                     mr:2,
-                                    /*
-                                    '&:hover': {
-                                        color: 'white',
-                                        backgroundColor: 'primary.main',
-                                    }
-                                    */
                                 }}
                             >
                                 {button.name}
@@ -73,8 +67,9 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                 <Typography 
                     variant="h5"
                     sx={{ color: 'primary.main' }}
-                >{title}
+                >{title} : 
                 </Typography>
+
                 {/* wrap the Box statement in a conditional statement */}
                 {makeButtons && (
                     <Box sx={{ 
@@ -93,11 +88,6 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                                     color:'primary', 
                                     display: 'block',
                                     mr:2,
-                                    /*
-                                    '&:hover': {
-                                        color: 'white',
-                                        backgroundColor: 'primary.main',
-                                    } */ 
                                 }}
                             >
                                 {button.name}

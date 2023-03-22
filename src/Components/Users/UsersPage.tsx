@@ -2,9 +2,9 @@ import React from 'react';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
-import UsersTable from './UsersTable';
 
-import {UserValues, USERS} from './UserValues';
+import UsersTable from './UsersTable';
+import {USERS} from './UserValues';
 
 export default function UserPage() {
 
@@ -13,7 +13,7 @@ export default function UserPage() {
     ];
     const pageBarProps : PageBarValues = {
         title: "Users",
-        pageButtons: pageButtons
+        pageButtons: pageButtons,
     }
 
     return (

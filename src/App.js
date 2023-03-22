@@ -12,14 +12,14 @@ import UserEdit from "./Components/Users/UserEdit.tsx";
 import UserNew from "./Components/Users/UserNew.tsx";
 import AgencyPage from "./Components/Agency/AgencyPage.tsx";
 import ProductPage from "./Components/Product/ProductPage.tsx";
-import InsurerPage from "./Components/Insurer/InsurerPage.tsx";
-import InsurerView from "./Components/Insurer/InsurerView.tsx";
+import InsurerPage from "./Components/Insurer/InsurersPage.tsx";
+import InsurerView from "./Components/Insurer/InsurerView.bak";
 import InsurerNew from "./Components/Insurer/InsurerNew.tsx";
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
 import PolicyView from "./Components/Policy/PolicyView.tsx";
 import PolicyNew from "./Components/Policy/PolicyNew.tsx";
 
-import UserNewFormik from "./Components/Users/UserNew.tsx"
+//import UserNewFormik from "./Components/Users/UserNew.tsx"
 
 import MailingAddressPage from "./Components/MailingAddress/MailingAddressPage.tsx";
 import MailingAddressCardGrid from "./Components/MailingAddress/MailingAddressCardGrid";
@@ -58,10 +58,13 @@ function App() {
                 <Route path={"/users/signup"} element={<UserNew />} />
                 <Route path={"/users/new"} element={<UserNew />} />
                 <Route path={"/users/:userId"} element={<UserEdit />} />
+
                 <Route path={"/agencies"} element={<AgencyPage />} />
+
                 <Route path={"/insurers"} element={<InsurerPage />} />
-                <Route path={"/insurers/view/:insurerId"} element={<InsurerView />} />
+                <Route path={"/insurers/:insurerId"} element={<InsurerEdit />} />
                 <Route path={"/insurers/new"} element={<InsurerNew />} />
+                
                 <Route path={"/products"} element={<ProductPage />} />
                 <Route path={"/policies"} element={<PolicyPage />} />        
                 <Route path={"/policies/new"} element={<PolicyNew />} />

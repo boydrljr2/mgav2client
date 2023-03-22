@@ -5,8 +5,7 @@ import { useParams } from 'react-router-dom';
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
-import { USERS, ROLES } from './UserValues';
-import { UserValues, UserItemValues } from './UserValues';
+import { USERS, ROLES, UserValues, newUser, UserItemValues } from './UserValues';
 import UserItem from './UserItemMuiOnly';
 
 export default function UserEdit () {
@@ -23,20 +22,7 @@ export default function UserEdit () {
     let selectedUser : UserValues | undefined  = USERS.find(user => String(user.id) === userId);
     const selectedUserUndefined = (selectedUser === undefined);
     
-    selectedUser = !selectedUserUndefined ? 
-        selectedUser :
-        {
-            id : uuidv4(),
-            name: '',
-            email: '',
-            password: '',
-            image: '',
-            role: ROLES[0],
-            creatorId: 1,
-            creatorName: 'Able Baker',
-            created: new Date(),
-            lastModified: new Date()
-        };
+    selectedUser = !selectedUserUndefined ? selectedUser : newUser;
 
     const userItemProps : UserItemValues =  {
         user : selectedUser,

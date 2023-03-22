@@ -1,15 +1,15 @@
 export interface MailingAddressValues {
-    id: number;
-    name?: string;
-    initial?: string;
-    streetAddress: string;
-    city: string;
-    state: string;
-    zip: string;
+    id              : string;
+    name?           : string;
+    initial?        : string;
+    streetAddress   : string;
+    city            : string;
+    state           : string;
+    zip             : string;
 }
 
 export interface InsurerValues {
-    id                      : number;
+    id                      : string;
     insurerFEIN             : string;
     insurerStatus           : string;
     insurerName             : string;
@@ -59,7 +59,7 @@ export interface PersonValues {
 }
 
 export interface OperatorValues extends PersonValues {
-    id: number;
+    id                      : number;
     operatorType            : "ADDL" | "PRIN" | "EXCL";
     sr22                    : "N" | "Y";
     operatorLicenseNumber   : string;
@@ -112,7 +112,7 @@ export interface LienholderValues {
 }
 
 export interface PolicyValues {
-    id              : number;
+    id              : string;
     policyNumber    : string;
     periodStartDate : Date;
     periodEndDate   : Date;

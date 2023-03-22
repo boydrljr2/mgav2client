@@ -1,8 +1,10 @@
 import React from 'react';
 
-import InsurerTable from './InsurerTable';
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
+
+import InsurerTable from './InsurerTable';
+import { INSURERS } from './InsurerValues';
 
 export default function InsurerPage() {
     
@@ -17,7 +19,7 @@ export default function InsurerPage() {
     return (
         <div>
             <PageBar {...pageBarProps}/>
-            <InsurerTable />
+            <InsurerTable insurers={INSURERS} />
         </div>
     )
 }

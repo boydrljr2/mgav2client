@@ -34,13 +34,6 @@ export default function UsersTable(props: {users: UserValues[]}) {
         setPage(0);
     };
 
-    //Create a function to edit an existing user using UserEdit  
-    /*const handleEditUser = () => {
-        console.log("Edit an existing user");
-
-    }
-    */
-
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 480 }}>
@@ -52,7 +45,6 @@ export default function UsersTable(props: {users: UserValues[]}) {
                             <TableCell>Password</TableCell>
                             <TableCell>Image</TableCell>
                             <TableCell>Creator</TableCell>
-                            {/* <TableCell sx={{fontStyle:"italic"}}>Actions</TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -73,13 +65,6 @@ export default function UsersTable(props: {users: UserValues[]}) {
                                 <TableCell>{user.password}</TableCell>
                                 <TableCell>{user.image}</TableCell> 
                                 <TableCell>{user.creatorName}</TableCell>
-                                {/* <TableCell>
-                                    <Button
-                                        onClick={handleEditUser}
-                                    >Edit
-                                    </Button>
-                                </TableCell>
-                                */}
                             </TableRow>
                         ))}
                     </TableBody>

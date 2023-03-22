@@ -1,34 +1,23 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid'
+import { Link, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Paper, Grid, Autocomplete, Button, Typography } from '@mui/material';
 
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
-import { UserItemValues, USERS, ROLES } from './UserValues';
+import { UserItemValues, USERS, ROLES, newUser } from './UserValues';
 import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import ObjectFooter from '../Scaffold/PageParts/ObjectFooter';
 
 export default function UserItem (userItemProps : UserItemValues) {
 
-    const { user } = userItemProps
+    const navigate = useNavigate();
+
+    const { user } = userItemProps;
     const userUndefined = (user === undefined);
     
-    const initialFormValues = !userUndefined ?
-        user :
-        {
-            id : uuidv4(),
-            name: '',
-            email: '',
-            password: '',
-            image: '',
-            role: ROLES[0],
-            creatorId: 1,
-            creatorName: 'Able Baker',
-            created: new Date(),
-            lastModified: new Date()
-        }
+    const initialFormValues = !userUndefined ? user : newUser;
     
     const initialFormErrors = {
         name: "",
@@ -182,6 +171,8 @@ export default function UserItem (userItemProps : UserItemValues) {
             } else {
                 USERS[userIndex] = formValues
             }
+        //navigate to the UserPage
+            navigate("/users")
         }
     }
 

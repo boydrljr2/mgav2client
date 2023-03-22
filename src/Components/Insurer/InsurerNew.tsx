@@ -3,7 +3,8 @@ import React from 'react';
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
-import InsurerAdd from './InsurerAdd';
+import { InsurerItemValues, newInsurer } from './InsurerValues';
+import InsurerItem from './InsurerItemMuiOnly';
 
 export default function InsurerNew() {
 
@@ -13,10 +14,14 @@ export default function InsurerNew() {
         pageButtons: pageButtons
     }
 
+    const insurerItemProps : InsurerItemValues = {
+        insurer: newInsurer
+    };
+
     return (
         <React.Fragment>
             <PageBar {...pageBarProps}/>
-            <InsurerAdd />
+            <InsurerItem {...insurerItemProps} />
         </React.Fragment>
     )
 }

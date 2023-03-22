@@ -10,8 +10,6 @@ export const ROLES : Array<RoleValues> = [
     {label: 'Administrator', value: 'Administrator'}, 
 ]
 
-//export const ROLES = [ 'User', 'Administrator   ']
-
 export interface UserValues {
     id          : string;
     name        : string;
@@ -23,6 +21,19 @@ export interface UserValues {
     creatorName : string;
     created     : Date;
     lastModified: Date;
+}
+
+export const newUser : UserValues = { 
+        id          : uuidv4(),
+        name        : '',
+        email       : '',
+        password    : '',
+        image       : '',
+        role        : ROLES[0],
+        creatorId   : 1,
+        creatorName : 'Able Baker',
+        created     : new Date(),
+        lastModified: new Date()
 }
 
 export interface UserItemValues {
@@ -69,7 +80,7 @@ export const USERS : Array<UserValues> = [
     }
 ]
 
-    //@ts-ignore
+//@ts-ignore
 export const userValidation = values => {
 
     console.log("userValidation values: ", values);
@@ -88,11 +99,6 @@ export const userValidation = values => {
         errors.name='Must be 8 characters or more';
     }
 
-    /*
-    if (values.role.value !== 'Administrator' && values.role.value !== 'User') {
-        errors.role='Select One';
-    } 
-    */
    if (values.role !== 'Administrator' && values.role !== 'User') { errors.role='Select One'; }
 
 
