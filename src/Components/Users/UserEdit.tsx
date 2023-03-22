@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import { Link, useParams } from 'react-router-dom';
-
-import { USERS, RoleValues } from './UserValues';
-import { UserValues, UserItemValues } from './UserValues';
-import UserItem from './UserItem';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useParams } from 'react-router-dom';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
+import { USERS, ROLES } from './UserValues';
+import { UserValues, UserItemValues } from './UserValues';
+import UserItem from './UserItemMuiOnly';
 
 export default function UserEdit () {
 
@@ -20,25 +20,18 @@ export default function UserEdit () {
     }
 
     const userId = useParams().userId;
-    console.log("useParams userId: ", userId)
-    const userIdUndefined = (userId === undefined);
-    console.log("userIdUndefined: ", userIdUndefined)
     let selectedUser : UserValues | undefined  = USERS.find(user => String(user.id) === userId);
-    console.log("selectedUser: ", selectedUser)
     const selectedUserUndefined = (selectedUser === undefined);
-    console.log("selectedUserUndefined: ", selectedUserUndefined)
-
-    const newId = USERS.length;
     
     selectedUser = !selectedUserUndefined ? 
         selectedUser :
         {
-            id : newId,
+            id : uuidv4(),
             name: '',
             email: '',
             password: '',
             image: '',
-            role: {label: 'User', value: 'User'},
+            role: ROLES[0],
             creatorId: 1,
             creatorName: 'Able Baker',
             created: new Date(),

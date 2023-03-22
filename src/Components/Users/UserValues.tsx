@@ -1,9 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export interface RoleValues {
     label: string;
     value: string;
 }
 
-export const ROLES = [
+export const ROLES : Array<RoleValues> = [
     {label: 'User', value: 'User'},
     {label: 'Administrator', value: 'Administrator'}, 
 ]
@@ -11,7 +13,7 @@ export const ROLES = [
 //export const ROLES = [ 'User', 'Administrator   ']
 
 export interface UserValues {
-    id          : number;
+    id          : string;
     name        : string;
     email       : string;
     password    : string;
@@ -42,7 +44,7 @@ export interface UserErrors {
 
 export const USERS : Array<UserValues> = [
     {
-        id: 1,
+        id: uuidv4(),
         name: "Able Baker",
         email: "able@baker.com",
         password: "passwordAB",
@@ -54,7 +56,7 @@ export const USERS : Array<UserValues> = [
         lastModified: new Date("2023-03-08T19:56:54.874Z")
     },
     {
-        id: 2,
+        id: uuidv4(),
         name: "Charlie Dog",
         email: "charlie@dog.com",
         password: "passwordCD",

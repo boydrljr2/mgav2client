@@ -1,10 +1,11 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
-import { UserItemValues, USERS, ROLES } from './UserValues';
-import UserItem from './UserItem';
+import { UserItemValues, ROLES } from './UserValues';
+import UserItem from './UserItemMuiOnly';
 
 export default function UserNew () {
 
@@ -14,10 +15,8 @@ export default function UserNew () {
         pageButtons : pageButtons
     }
 
-    const newId = USERS.length + 1;
-
     const newUser = {
-        id          : newId,
+        id          : uuidv4(),
         name        : '',
         email       : '',
         password    : '',
