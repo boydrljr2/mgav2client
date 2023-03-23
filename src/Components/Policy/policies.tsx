@@ -1,7 +1,7 @@
 import { PolicyValues } from '../Scaffold/MGAValues';
 import { v4 as uuidv4 } from 'uuid';
 
-export const policies : Array<PolicyValues> = [
+export const POLICIES : Array<PolicyValues> = [
     {
         id              : uuidv4(),
         policyNumber    : "PPW1303522",

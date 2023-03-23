@@ -6,6 +6,7 @@ export default function MGATextField(props: TextFieldProps) {
             {...props}
             variant='outlined'
             sx={{margin:1}}
+            fullWidth
         />
     )
 }

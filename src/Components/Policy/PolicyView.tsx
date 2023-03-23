@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Paper, Typography, Divider, Stack, Box, Toolbar } from '@mui/material';
 
-import { policies } from './policies';
+import { POLICIES } from './policies';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageButtonValues, PageBarValues } from '../Scaffold/PageParts/PageValues';
@@ -13,10 +13,11 @@ import AutoCardView from '../Auto/AutoCardView';
 import CoveragesView from '../Coverages/CoveragesView';
 import PolicyHeader from './PolicyHeader';
 import LienholderView from '../Lienholder/LienholderView';
+import { PolicyValues } from '../Scaffold/MGAValues';
 
 export default function PolicyView () {
 
-    const [policy, setPolicy] = useState(policies[0]);
+    const [policy, setPolicy] = useState(POLICIES[0]);
 
     const pageButtons : PageButtonValues[] = [
         {name: "Edit", link: "/policy/edit/1"}
@@ -27,9 +28,7 @@ export default function PolicyView () {
     }
 
     const policyId = useParams().policyId;
-    const policyIdUndefined = (policyId === undefined);
-
-    const selectedPolicy = policies.find(policy => policy.id === Number(policyId));
+    const selectedPolicy : PolicyValues | undefined = POLICIES.find(policy => String(policy.id) === policyId);
     const selectedPolicyUndefined = (selectedPolicy === undefined);
 
     return (

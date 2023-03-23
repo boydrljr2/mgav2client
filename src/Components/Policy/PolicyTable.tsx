@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Paper, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
 
-import { policies } from './policies';
+import { POLICIES } from './policies';
 import {PersonValues} from '../Scaffold/MGAValues';
 
 
@@ -44,7 +44,7 @@ export default function PolicyTable() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {policies
+                            {POLICIES
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((policy) => (
                                     <TableRow key={policy.id}>
@@ -82,7 +82,7 @@ export default function PolicyTable() {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 15]}
                     component='div'
-                    count={policies.length}
+                    count={POLICIES.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

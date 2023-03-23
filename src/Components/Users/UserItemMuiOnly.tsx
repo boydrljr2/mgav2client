@@ -16,7 +16,6 @@ export default function UserItem (userItemProps : UserItemValues) {
 
     const { user } = userItemProps;
     const userUndefined = (user === undefined);
-    
     const initialFormValues = !userUndefined ? user : newUser;
     
     const initialFormErrors = {

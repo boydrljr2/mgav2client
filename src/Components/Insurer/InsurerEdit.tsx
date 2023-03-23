@@ -1,11 +1,11 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-import PageBar from '../Scaffold/PageParts/PageBar'
-import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues'
+import PageBar from '../Scaffold/PageParts/PageBar';
+import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
-import { InsurerItemValues, INSURERS, InsurerValues, newInsurer } from './InsurerValues'
-import InsurerItem from './InsurerItemMuiOnly'
+import { InsurerItemValues, INSURERS, InsurerValues, newInsurer } from './InsurerValues';
+import InsurerItem from './InsurerItemMuiOnly';
 
 export default function InsurerEdit ()  {
 
@@ -27,7 +27,7 @@ export default function InsurerEdit ()  {
 
     return (
         <React.Fragment>
-            <PageBar{...pageBarProps} />
+            <PageBar {...pageBarProps} />
             <InsurerItem {...insurerItemProps} />
         </React.Fragment>
     )

@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
@@ -24,9 +23,7 @@ export default function UserEdit () {
     
     selectedUser = !selectedUserUndefined ? selectedUser : newUser;
 
-    const userItemProps : UserItemValues =  {
-        user : selectedUser,
-    };
+    const userItemProps : UserItemValues =  { user : selectedUser };
 
 
     return (

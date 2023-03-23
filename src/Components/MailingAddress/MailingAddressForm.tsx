@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import { v4 as  uuidv4 } from 'uuid';
 
 import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert, AlertTitle, Autocomplete } from '@mui/material';
 
@@ -12,7 +13,7 @@ export default function MailingAddressForm() {
 
     const getDefaultMailingAddressFormValues = () => {
         return {
-            id: mailingAddresses.length + 1,
+            id: uuidv4(),
             name: "",
             initial: "",
             streetAddress: "",

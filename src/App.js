@@ -13,7 +13,7 @@ import UserNew from "./Components/Users/UserNew.tsx";
 import AgencyPage from "./Components/Agency/AgencyPage.tsx";
 import ProductPage from "./Components/Product/ProductPage.tsx";
 import InsurerPage from "./Components/Insurer/InsurersPage.tsx";
-import InsurerView from "./Components/Insurer/InsurerView.bak";
+import InsurerEdit from "./Components/Insurer/InsurerEdit.tsx";
 import InsurerNew from "./Components/Insurer/InsurerNew.tsx";
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
 import PolicyView from "./Components/Policy/PolicyView.tsx";
@@ -21,14 +21,8 @@ import PolicyNew from "./Components/Policy/PolicyNew.tsx";
 
 //import UserNewFormik from "./Components/Users/UserNew.tsx"
 
-import MailingAddressPage from "./Components/MailingAddress/MailingAddressPage.tsx";
-import MailingAddressCardGrid from "./Components/MailingAddress/MailingAddressCardGrid";
-import MailingAddressForm from "./Components/MailingAddress/MailingAddressForm.tsx";
-
 import { MGATheme } from "./Theme/MGATheme";
 import { AuthenticationContext } from "./Components/Scaffold/context/AuthenticationContext";
-
-
 
 function App() {
   return (
@@ -71,9 +65,7 @@ function App() {
                 <Route path={"/policies/view/:policyId"} element={<PolicyView />} />
                 <Route path={"/login"} element={<UserLogin />} />
                 <Route path={"/signup"} element={<UserNew />} />
-                <Route path={"/mailing" } element={<MailingAddressPage />} />
-                <Route path={"/mailingaddressform/"} element={<MailingAddressForm />} />
-                <Route path={"/mailingaddresscardgrid/"} element={<MailingAddressCardGrid />} />
+
               </Routes>
             </main>
           </AuthenticationContext.Provider>
