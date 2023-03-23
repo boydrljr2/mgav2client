@@ -3,12 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Paper, Grid, Autocomplete, Button, Typography } from '@mui/material';
-
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
-import { UserItemValues, USERS, ROLES, newUser } from './UserValues';
-import { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
-import ObjectFooter from '../Scaffold/PageParts/ObjectFooter';
+import { UserItemValues, USERS, ROLES, newUser } from '../Scaffold/MGAValues';
+import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 
 export default function UserItem (userItemProps : UserItemValues) {
 
@@ -50,15 +48,17 @@ export default function UserItem (userItemProps : UserItemValues) {
     const objectFooterProps : ObjectFooterValues = 
         !userUndefined ?
         {
+            creatorId       : user.creatorId,
             creatorName     : user.creatorName, 
             created         : user.created, 
             lastModified    : user.lastModified
         } :
         {   
-            creatorName     : "Able Baker",
+            creatorId       : uuidv4(),
+            creatorName     : "Yankee Zulu",
             created         : new Date(),
             lastModified    : new Date()
-        }
+        };
 
     const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -190,8 +190,7 @@ export default function UserItem (userItemProps : UserItemValues) {
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <MGATextField
-                            id="name" name="name" label="Name"
-                            fullWidth 
+                            id="name" name="name" label="Name" 
                             value = {formValues.name}
                             onChange = {handleTextFieldChange} 
                             onBlur = {handleNameFieldBlur}
@@ -287,10 +286,6 @@ export default function UserItem (userItemProps : UserItemValues) {
                     </Grid>
                 </Grid>
             </form>
-            <pre>{JSON.stringify(USERS, null, 2)}</pre>
-            <pre>{JSON.stringify(formValues, null, 2)}</pre>
-            <pre>{JSON.stringify(formErrors, null, 2)}</pre>
-            <pre>{JSON.stringify(formValid, null, 2)}</pre>
         </Paper>
     )
 }

@@ -4,7 +4,7 @@ import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 import UsersTable from './UsersTable';
-import {USERS} from './UserValues';
+import {USERS} from '../Scaffold/MGAValues';
 
 export default function UserPage() {
 

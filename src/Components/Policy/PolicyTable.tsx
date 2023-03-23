@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Paper, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
 
-import { POLICIES } from './policies';
+import { POLICIES } from '../Scaffold/MGAValues';
 import {PersonValues} from '../Scaffold/MGAValues';
-
 
 export default function PolicyTable() {
 
@@ -24,7 +23,7 @@ export default function PolicyTable() {
     //write a const to return full name based on PersonValues.
     //if middleName is null, return a space instead of null
     const getFullName = (person: PersonValues) => {
-        return `${person.personName.firstName} ${person.personName.middleName || ' '} ${person.personName.lastName}`;
+        return `${person.name.first} ${person.name.middle || ' '} ${person.name.last}`;
     }
 
     return (
@@ -53,10 +52,10 @@ export default function PolicyTable() {
                                             {policy.policyNumber}
                                             </Link>
                                         </TableCell>
-                                        <TableCell>{policy.product.insurer.insurerName}</TableCell>
-                                        <TableCell>{policy.product.productName}</TableCell>
+                                        <TableCell>{policy.product.insurer.name}</TableCell>
+                                        <TableCell>{policy.product.name}</TableCell>
                                         <TableCell>{policy.product.insuranceType}</TableCell>
-                                        <TableCell>{policy.agency.agencyName}</TableCell>
+                                        <TableCell>{policy.agency.name}</TableCell>
                                         <TableCell>
                                             {getFullName(policy.insured)}
                                         </TableCell>

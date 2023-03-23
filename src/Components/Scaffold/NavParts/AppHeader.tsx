@@ -19,16 +19,13 @@ import MenuItem from '@mui/material/MenuItem';
 import logo from './K1logo192.png';
 
 
-const allPages = ['Insurers', 'Products', 'Agencies', 'Policies', 'LogIn', 'SignUp'];
-const mainPages = ['Insurers', 'Products', 'Agencies', 'Policies'];
+const allPages = ['Agencies', 'Insurers', 'Products', 'Policies', 'LogIn', 'SignUp'];
+const mainPages = ['Agencies', 'Insurers', 'Products', 'Policies'];
 const minorPages = ['LogIn', 'SignUp', 'Users'];
 
-//const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const settings = ['Login', 'Register'];
 
 function ResponsiveAppBar() {
-
-    //const theme = useTheme();
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);

@@ -7,7 +7,7 @@ import {InsurerValues} from '../Scaffold/MGAValues'
 export default function InsurerCardView(props: {insurer: InsurerValues}) {
 
     const insurer = props.insurer;
-    const mailingAddress = insurer.insurerMailingAddress;
+    const mailingAddress = insurer.mailingAddress;
     const insurerNotUndefined = (insurer !== undefined);
 
     return (
@@ -17,8 +17,8 @@ export default function InsurerCardView(props: {insurer: InsurerValues}) {
         >
             <CardHeader
                 sx={{ fontSize : '2.0 rem'}}
-                title={insurer.insurerName}
-                subheader={insurer.insurerFEIN}
+                title={insurer.name}
+                subheader={insurer.FEIN}
                 avatar={
                     <Avatar
                            sx={{ bgcolor: 'primary.main' }}
@@ -33,8 +33,8 @@ export default function InsurerCardView(props: {insurer: InsurerValues}) {
                                     {mailingAddress.state} 
                                     {mailingAddress.zip}
                         </Typography>
-                    <Typography>{insurer.insurerPhone}</Typography>
-                    <Typography>{insurer.insurerEmail}</Typography>
+                    <Typography>{insurer.phone}</Typography>
+                    <Typography>{insurer.principalEmail}</Typography>
                 </Stack>
             </CardContent>
         </Card>

@@ -13,7 +13,7 @@ export default function AgencyCardView(props: {agency: AgencyValues}) {
         >
             <CardHeader
                 sx={{ fontSize : '2.0 rem'}}
-                title={props.agency.agencyName}
+                title={props.agency.name}
                 subheader="Agency"
                 avatar={
                     <Avatar
@@ -24,10 +24,10 @@ export default function AgencyCardView(props: {agency: AgencyValues}) {
             />
             <CardContent sx={{ flexGrow: 1 }}>
                 <Stack>
-                    <Typography>{props.agency.agencyMailingAddress.streetAddress}</Typography>
-                    <Typography>{props.agency.agencyMailingAddress.city}, {props.agency.agencyMailingAddress.state} {props.agency.agencyMailingAddress.zip}</Typography>
-                    <Typography>{props.agency.agencyPhone}</Typography>
-                    <Typography>{props.agency.agencyEmail}</Typography>
+                    <Typography>{props.agency.mailingAddress.streetAddress}</Typography>
+                    <Typography>{props.agency.mailingAddress.city}, {props.agency.mailingAddress.state} {props.agency.mailingAddress.zip}</Typography>
+                    <Typography>{props.agency.phone}</Typography>
+                    <Typography>{props.agency.principalEmail}</Typography>
                 </Stack>
             </CardContent>
         </Card>

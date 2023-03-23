@@ -1,22 +1,28 @@
+import React from 'react';
 
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
-import MailingAddressList from "../MailingAddress/MailingAddressTable";
 import PageBar from '../Scaffold/PageParts/PageBar';
+import { AGENCIES } from '../Scaffold/MGAValues';
 
-const pageButtons : PageButtonValues[] = [
-    {name: 'New', link: 'agencies'}
-];
-
-const pageBarProps : PageBarValues = {
-    title: "Agencies",
-    pageButtons: pageButtons
-}
+import AgencyTable from './AgencyTable';
 
 export default function AgencyPage() {
+
+    const agencies = AGENCIES;
+
+    const pageButtons : PageButtonValues[] = [
+        {name: 'New', link: 'agencies'}
+    ];
+    
+    const pageBarProps : PageBarValues = {
+        title: "Agencies",
+        pageButtons: pageButtons
+    }
+
     return (
         <div>
             <PageBar {...pageBarProps} />
-            <MailingAddressList />
+            <AgencyTable agencies={agencies} />
         </div>
     )
 }

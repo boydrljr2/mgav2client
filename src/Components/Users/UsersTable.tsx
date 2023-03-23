@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {Paper, Typography, Button, 
-    TableContainer, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, 
+import {Paper, Typography, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, 
     } from '@mui/material';
 
-import {UserValues} from './UserValues';
+import {UserValues} from '../Scaffold/MGAValues';
 
 //Create a function called UsersTable to display users in a Table with headers and an Edit button for each row
 export default function UsersTable(props: {users: UserValues[]}) {

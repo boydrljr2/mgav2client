@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
     TablePagination } from '@mui/material';
+import { AgencyValues, MailingAddressValues } from '../Scaffold/MGAValues';
 
-import { InsurerValues, MailingAddressValues } from '../Scaffold/MGAValues';
+export default function AgencyTable(props: {agencies: AgencyValues[]}) {
 
-export default function InsurersTable(props: {insurers: InsurerValues[]}) {
-
-    const insurers = props.insurers;
+    const agencies = props.agencies;
 
     //Setup page and rowsPerPage for pagination
     const [page, setPage] = useState(0);
@@ -40,25 +39,25 @@ export default function InsurersTable(props: {insurers: InsurerValues[]}) {
                     <TableHead>
                         <TableRow sx={{backgroundColor:"gray"}}>
                             <TableCell>Status?</TableCell>
-                            <TableCell>Insurer Name</TableCell>
+                            <TableCell>Agency Name</TableCell>
                             <TableCell>Phone</TableCell>
                             <TableCell>Email</TableCell>
                             <TableCell>Address</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {insurers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((insurer : InsurerValues) => (
-                            <TableRow key={insurer.id}>
-                                <TableCell>{insurer.status.value}</TableCell>
+                        {agencies.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((agency : AgencyValues) => (
+                            <TableRow key={agency.id}>
+                                <TableCell>{agency.status.value}</TableCell>
                                 <TableCell>
-                                    <Link to={`/insurers/${insurer.id}`}>
-                                        {insurer.name}
+                                    <Link to={`/agencies/${agency.id}`}>
+                                        {agency.name}
                                     </Link>
                                 </TableCell>
-                                <TableCell>{insurer.phone}</TableCell>
-                                <TableCell>{insurer.principalEmail}</TableCell>
+                                <TableCell>{agency.phone}</TableCell>
+                                <TableCell>{agency.principalEmail}</TableCell>
                                 <TableCell>
-                                    {getMailingAddress(insurer.mailingAddress)}
+                                    {getMailingAddress(agency.mailingAddress)}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -68,12 +67,12 @@ export default function InsurersTable(props: {insurers: InsurerValues[]}) {
             <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={insurers.length}
+                count={agencies.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
-    )
+    );
 }

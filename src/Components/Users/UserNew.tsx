@@ -3,7 +3,7 @@ import React from 'react';
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
-import { UserItemValues, newUser } from './UserValues';
+import { UserItemValues, newUser } from '../Scaffold/MGAValues';
 import UserItem from './UserItemMuiOnly';
 
 export default function UserNew () {

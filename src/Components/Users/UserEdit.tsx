@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
-import { USERS, ROLES, UserValues, newUser, UserItemValues } from './UserValues';
+import { USERS, UserValues, newUser, UserItemValues } from '../Scaffold/MGAValues';
 import UserItem from './UserItemMuiOnly';
 
 export default function UserEdit () {

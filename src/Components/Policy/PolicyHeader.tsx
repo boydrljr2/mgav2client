@@ -19,10 +19,11 @@ export default function PolicyHeader (props: {policy: PolicyValues}) {
     const endorsementDate = new Date(policy.endorsementDate).toString();
 
     //create a footerValues object to pass to the ObjectFooter component
+    const creatorId = "12345";
     const creatorName = "Able Baker";
     const created = new Date(policy.created);
     const lastModified = new Date(policy.lastModified);
-    const footerValues: ObjectFooterValues = { creatorName, created, lastModified};
+    const footerValues: ObjectFooterValues = { creatorId, creatorName, created, lastModified};
 
     return (
         <Box sx={{margin: 1}}>          
@@ -41,14 +42,14 @@ export default function PolicyHeader (props: {policy: PolicyValues}) {
             <Grid item xs={12} md={4}>
                 <MGATextField
                     id="insurerName" name="insurerName" label="Insurer"
-                    value={policy.product.insurer.insurerName}
+                    value={policy.product.insurer.name}
                     inputProps={{readOnly: true}}
                 />
             </Grid>
             <Grid item xs={12} md={4}>
                 <MGATextField
                     id="productName" name="productName" label="Product"
-                    value={policy.product.productName}
+                    value={policy.product.name}
                     inputProps={{readOnly: true}}
                 />
             </Grid>

@@ -41,11 +41,11 @@ export default function OperatorView( props: {operators: OperatorValues[]}) {
                                     <TableCell>{operator.operatorType}</TableCell>
                                     <TableCell>{operator.sr22}</TableCell>
                                     <TableCell>
-                                        {operator.personName.firstName + " " 
-                                        + ((operator.personName.middleName !== undefined) ? operator.personName.middleName : "") + " "
-                                        + operator.personName.lastName}
+                                        {operator.name.first + " " 
+                                        + ((operator.name.middle !== undefined) ? operator.name.middle : "") + " "
+                                        + operator.name.last}
                                     </TableCell>
-                                    <TableCell>{getDoB(operator.personDateOfBirth)}</TableCell>
+                                    <TableCell>{getDoB(operator.dateOfBirth)}</TableCell>
                                     <TableCell>{operator.operatorAccidentsViolations}</TableCell>
                                 </TableRow>
                             ))}

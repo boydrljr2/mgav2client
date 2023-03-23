@@ -4,7 +4,7 @@ import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 import InsurerTable from './InsurerTable';
-import { INSURERS } from './InsurerValues';
+import { INSURERS } from '../Scaffold/MGAValues';
 
 export default function InsurerPage() {
     

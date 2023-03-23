@@ -11,9 +11,9 @@ export default function InsuredCardView(props: {insured: InsuredValues}) {
             return " ";
         } else {
 
-        return (insured.personName.firstName + " " 
-                + ((insured.personName.middleName !== undefined) ? insured.personName.middleName : "") 
-                + " " + insured.personName.lastName);
+        return (insured.name.first + " " 
+                + ((insured.name.middle !== undefined) ? insured.name.middle : "") 
+                + " " + insured.name.last);
         }
     }
 
@@ -23,15 +23,15 @@ export default function InsuredCardView(props: {insured: InsuredValues}) {
                 <Typography>No Address </Typography>
             )
         } else {
-            if (insured.personMailingAddress === undefined) {
+            if (insured.mailingAddress === undefined) {
                 return (
                     <Typography>No Address </Typography>
                 )
             }
             return (
                 <React.Fragment>
-                    <Typography>{insured.personMailingAddress.streetAddress}</Typography>
-                    <Typography>{insured.personMailingAddress.city + ", " + insured.personMailingAddress.state + " " + insured.personMailingAddress.zip}</Typography>
+                    <Typography>{insured.mailingAddress.streetAddress}</Typography>
+                    <Typography>{insured.mailingAddress.city + ", " + insured.mailingAddress.state + " " + insured.mailingAddress.zip}</Typography>
                 </React.Fragment>
                 
             )
@@ -57,8 +57,8 @@ export default function InsuredCardView(props: {insured: InsuredValues}) {
             <CardContent sx={{ flexGrow: 1 }}>
                 <Stack>
                     {getCardContent(props.insured)} 
-                    <Typography>{props.insured.personPhone}</Typography>
-                    <Typography>{props.insured.personEmail}</Typography>
+                    <Typography>{props.insured.phone}</Typography>
+                    <Typography>{props.insured.email}</Typography>
                 </Stack>
             </CardContent>
         </Card>

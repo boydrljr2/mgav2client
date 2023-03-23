@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
-import { InsurerItemValues, INSURERS, InsurerValues, newInsurer } from './InsurerValues';
+import { InsurerItemValues, INSURERS, InsurerValues, newInsurer } from '../Scaffold/MGAValues';
 import InsurerItem from './InsurerItemMuiOnly';
 
 export default function InsurerEdit ()  {

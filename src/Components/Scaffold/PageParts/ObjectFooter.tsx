@@ -1,16 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Grid, Box } from '@mui/material';
+import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
-//import { ObjectFooterValues } from './ObjectFooterValues';
 export interface ObjectFooterValues {
-    creatorName?: String;
-    created: Date;
-    lastModified: Date;
+    creatorId       : string;
+    creatorName     : string;
+    created         : Date;
+    lastModified    : Date;
 }
-
 
 export default function ObjectFooter (props: {footerValues: ObjectFooterValues}) {
 
@@ -31,7 +31,10 @@ export default function ObjectFooter (props: {footerValues: ObjectFooterValues})
                 <Typography
                     sx={{margin: 1, fontSize: '.75rem'}}
                 >
-                    Created By: {footerValues.creatorName} :
+                    Created By: 
+                        <Link to={`/users/${footerValues.creatorId}`}>
+                            {footerValues.creatorName} :
+                        </Link>
                     Initialized Date: {created.toString()} : 
                     Last Modified Date: {lastModified.toString()}
                 </Typography>

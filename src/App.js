@@ -1,8 +1,10 @@
 import React, {BrowserRouter, Routes, Route} from "react-router-dom";
 import { ThemeProvider, Toolbar } from '@mui/material';
 
+import { MGATheme } from "./Theme/MGATheme";
+import { AuthenticationContext } from "./Components/Scaffold/context/AuthenticationContext";
+import { USERS }  from "./Components/Scaffold/MGAValues";
 import AppHeader from "./Components/Scaffold/NavParts/AppHeader";
-//import NavDrawer from "./Scaffold/NavDrawer.tsx";
 import { scaffoldStyles } from "./Components/Scaffold/ScaffoldStyles";
 
 import HomePage from "./Components/Scaffold/HomePage.tsx";
@@ -11,18 +13,13 @@ import UsersPage from "./Components/Users/UsersPage.tsx";
 import UserEdit from "./Components/Users/UserEdit.tsx";
 import UserNew from "./Components/Users/UserNew.tsx";
 import AgencyPage from "./Components/Agency/AgencyPage.tsx";
+import AgencyEdit from "./Components/Agency/AgencyEdit.tsx";
 import ProductPage from "./Components/Product/ProductPage.tsx";
 import InsurerPage from "./Components/Insurer/InsurersPage.tsx";
 import InsurerEdit from "./Components/Insurer/InsurerEdit.tsx";
 import InsurerNew from "./Components/Insurer/InsurerNew.tsx";
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
-import PolicyView from "./Components/Policy/PolicyView.tsx";
 import PolicyNew from "./Components/Policy/PolicyNew.tsx";
-
-//import UserNewFormik from "./Components/Users/UserNew.tsx"
-
-import { MGATheme } from "./Theme/MGATheme";
-import { AuthenticationContext } from "./Components/Scaffold/context/AuthenticationContext";
 
 function App() {
   return (
@@ -30,12 +27,8 @@ function App() {
         <ThemeProvider theme={MGATheme}>
           <AuthenticationContext.Provider
             value = {{
+              user : USERS[0],
               isUserAuthenticated : true,
-              userName : 'Able',
-              userRole : 'Admin',
-              userEmail : 'able@baker.com',
-              userImage : null,
-              userCreator : 'able@baker.com',
               userToken : null
             }}
           >
@@ -54,6 +47,7 @@ function App() {
                 <Route path={"/users/:userId"} element={<UserEdit />} />
 
                 <Route path={"/agencies"} element={<AgencyPage />} />
+                <Route path={"/agencies/:agencyId"} element={<AgencyEdit />} />
 
                 <Route path={"/insurers"} element={<InsurerPage />} />
                 <Route path={"/insurers/:insurerId"} element={<InsurerEdit />} />
@@ -62,7 +56,7 @@ function App() {
                 <Route path={"/products"} element={<ProductPage />} />
                 <Route path={"/policies"} element={<PolicyPage />} />        
                 <Route path={"/policies/new"} element={<PolicyNew />} />
-                <Route path={"/policies/view/:policyId"} element={<PolicyView />} />
+                <Route path={"/policies/view/:policyId"} element={<PolicyPage />} />
                 <Route path={"/login"} element={<UserLogin />} />
                 <Route path={"/signup"} element={<UserNew />} />
 
