@@ -42,8 +42,8 @@ export default function UsersTable(props: {users: UserValues[]}) {
                             <TableCell>Name</TableCell>
                             <TableCell>Email</TableCell>
                             <TableCell>Password</TableCell>
+                            <TableCell>Role</TableCell>
                             <TableCell>Image</TableCell>
-                            <TableCell>Creator</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -62,8 +62,8 @@ export default function UsersTable(props: {users: UserValues[]}) {
                                 </TableCell>
                                 <TableCell>{user.email}</TableCell>
                                 <TableCell>{user.password}</TableCell>
-                                <TableCell>{user.image}</TableCell> 
-                                <TableCell>{user.creatorName}</TableCell>
+                                <TableCell>{user.role.value}</TableCell> 
+                                <TableCell>{user.image}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

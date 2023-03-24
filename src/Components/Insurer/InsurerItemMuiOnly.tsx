@@ -42,84 +42,77 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
             <form> 
                 <Grid container spacing={1}>
                     {/* group 1 Name & ID */}
-                    <Grid item xs={8}>
+                    <Grid item xs={4}>
                         <MGATextField
-                            id="insurerName" name="insurerName" label="Insurer"
+                            id="name" name="name" label="Name"
                             value={formValues.name}
                             onChange={handleTextFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={4}>
-                        <MGATextField
-                            id="insurerID" name="insurerId" label="ID"
-                            value={formValues.id}
-                            onChange={handleTextFieldChange}
-                        />
-                    </Grid>
-                </Grid>
-                {/* group 2 FEIN & Domicile State & Status */}
-                <Grid container spacing={1}>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
                         <MGATextField
                             id="insurerFEIN" name="insurerFEIN" label="FEIN"
                             value={formValues.FEIN}
                             onChange={handleTextFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={4}>
-                        <MGATextField
-                            id="insurerDomicileState" name="insurerDomicileState" label="Domicile State"
-                            value={formValues.domicileState}
-                            onChange={handleTextFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <MGATextField 
-                            id="insurer-status" name="insurerStatus" label="Status"
-                            value={formValues.status}
-                            onChange={handleTextFieldChange}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={1}>
-                    {/* group 3 NAIC & AMBest */}
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={2}>
                         <MGATextField
                             id="naicCode" name="naicCode" label="NAIC Code"
                             value={formValues.NAICCode}
                             onChange={handleTextFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={2}>
+                        <MGATextField 
+                            id="insurer-status" name="insurerStatus" label="Status"
+                            value={formValues.status.value}
+                            onChange={handleTextFieldChange}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
                         <MGATextField
-                            id="naicGroup" name="naicGroup" label="Group"
+                            id="insurerDomicileState" name="insurerDomicileState" label="Domicile State"
+                            value={formValues.domicileState}
+                            onChange={handleTextFieldChange}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <MGATextField
+                            id="naicGroup" name="naicGroup" label="NAIC Group"
                             value={formValues.NAICGroup}
                             onChange={handleTextFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={4}>
                         <MGATextField
                             id="naicGroupName" name="naicGroupName" label="Group Name"
                             value={formValues.NAICGroupName}
                             onChange={handleTextFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={2}>
                         <MGATextField
                             id="amBestID" name="amBestID" label="AMBest ID"
                             value={formValues.AMBestID}
                             onChange={handleTextFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={2}>
                         <MGATextField
                             id="amBestRating" name="amBestRating" label="Rating"
                             value={formValues.AMBestRating}
                             onChange={handleTextFieldChange}
                         />
                     </Grid>
+                    <Grid item xs={2}>
+                        <MGATextField
+                            id="legacyId" name="legacyId" label="Legacy ID"
+                            value={formValues.legacyId}
+                            onChange={handleTextFieldChange}
+                        />
+                    </Grid>
                 </Grid>
-                {/* group 4 Mailing Address */}
                 <Grid container spacing={1}>
                     <Grid item xs={12} >
                         <MGATextField

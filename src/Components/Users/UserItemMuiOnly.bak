@@ -14,40 +14,37 @@ export default function UserItem (userItemProps : UserItemValues) {
 
     const { user } = userItemProps;
     const userUndefined = (user === undefined);
-    let updatedUser;
-
-    //Set initialFormValues and use these to generate initialFormErrors/Touches/Valid(s)
-    const initialFormValues = !userUndefined ?
-        {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            image : user.image,
-            role: user.role,
-        } :
-        {
-            id: uuidv4(),
-            name: "",
-            email: "",
-            password: "",
-            image : "",
-            role: ""
-        }
-
+    const initialFormValues = !userUndefined ? user : newUser;
     
-    //Create a new object with the same keys as initialFormValues and set the values to empty strings
-    const initialFormErrors = Object.assign({}, ...Object.keys(initialFormValues).map(k => ({[k]: ""})));
-    const initialFormTouches = Object.assign({}, ...Object.keys(initialFormValues).map(k => ({[k]: false})));
-    const initialFormValid = Object.assign({}, ...Object.keys(initialFormValues).map(k => ({[k]: true})));
+    const initialFormErrors = {
+        name: "",
+        role: "",
+        email: "",
+        password: "",
+        image: ""
+    }
 
-    //Set the state variables
+    const initialFormTouched = {
+        name: false,
+        role: false,
+        email: false,
+        password: false,
+        image: false
+    }
+
+    const initialFormValid = {
+        name: true,
+        role: true,
+        email: true,
+        password: true,
+        image: true
+    }
+
     const [formValues, setFormValues] = useState({...initialFormValues});
     const [formErrors, setFormErrors] = useState({...initialFormErrors});
-    const [formTouches, setFormTouches] = useState({...initialFormTouches});
+    const [formTouched, setFormTouched] = useState({...initialFormTouched});
     const [formValid, setFormValid] = useState({...initialFormValid});
 
-    //Set the objectFooterProps
     const objectFooterProps : ObjectFooterValues = 
         !userUndefined ?
         {
@@ -58,7 +55,7 @@ export default function UserItem (userItemProps : UserItemValues) {
         } :
         {   
             creatorId       : uuidv4(),
-            creatorName     : "userUndefined!",
+            creatorName     : "Yankee Zulu",
             created         : new Date(),
             lastModified    : new Date()
         };
@@ -69,7 +66,7 @@ export default function UserItem (userItemProps : UserItemValues) {
     };
 
     const handleNameFieldBlur = () => {
-        setFormTouches({...formTouches, name: true})
+        setFormTouched({...formTouched, name: true})
         validateName()
     }
     const validateName = () => {
@@ -86,7 +83,7 @@ export default function UserItem (userItemProps : UserItemValues) {
     }
 
     const handleRoleBlur = () => {
-        setFormTouches({...formTouches, role: true})
+        setFormTouched({...formTouched, role: true})
         validateRole()
     }
     const validateRole = () => {
@@ -106,7 +103,7 @@ export default function UserItem (userItemProps : UserItemValues) {
     }
 
     const handleEmailBlur = () => {
-        setFormTouches({...formTouches, email: true})
+        setFormTouched({...formTouched, email: true})
         validateEmail()
     }
     const validateEmail = () => {
@@ -123,7 +120,7 @@ export default function UserItem (userItemProps : UserItemValues) {
     }
 
     const handlePasswordBlur = () => {
-        setFormTouches({...formTouches, password: true})
+        setFormTouched({...formTouched, password: true})
         validatePassword()
     }
     const validatePassword = () => {
@@ -140,7 +137,7 @@ export default function UserItem (userItemProps : UserItemValues) {
     }
 
     const handleImageBlur = () => {
-        setFormTouches({...formTouches, image: true})
+        setFormTouched({...formTouched, image: true})
         validateImage()
     }
     const validateImage = () => {
@@ -166,16 +163,12 @@ export default function UserItem (userItemProps : UserItemValues) {
         validateImage()
         //Check if all formValid values are true
         const formIsValid = Object.values(formValid).every((v) => v );
-        //Merge the original props user with the updated formValues and update the lastModified date.
-        updatedUser = Object.assign({}, user, formValues)
-        updatedUser.lastModified = new Date()
-        //If the form is valid, update the USERS array
         if (formIsValid) {
             const userIndex = USERS.findIndex((user) => user.id === formValues.id)
             if (userIndex === -1) {
-                USERS.push(updatedUser)
+                USERS.push(formValues)
             } else {
-                USERS[userIndex] = updatedUser
+                USERS[userIndex] = formValues
             }
         //navigate to the UserPage
             navigate("/users")
@@ -293,13 +286,6 @@ export default function UserItem (userItemProps : UserItemValues) {
                     </Grid>
                 </Grid>
             </form>
-            <pre>user {JSON.stringify(user, null, 2)}</pre>
-            <pre>initialFormValues {JSON.stringify(initialFormValues, null, 2)}</pre>
-            <pre>formValues {JSON.stringify(formValues, null, 2)}</pre>
-            <pre>formErrors {JSON.stringify(formErrors, null, 2)}</pre>
-            <pre>formValid {JSON.stringify(formValid, null, 2)}</pre>
-            <pre>formTouches {JSON.stringify(formTouches, null, 2)}</pre>
-            <pre>updatedUser {JSON.stringify(updatedUser, null, 2)}</pre>
         </Paper>
     )
 }

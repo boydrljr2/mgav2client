@@ -14,9 +14,7 @@ export default function UserNew () {
         pageButtons : pageButtons
     }
     
-    const userItemProps : UserItemValues = {
-        user : newUser
-    };
+    const userItemProps : UserItemValues = { user : newUser };
 
     return (
         <React.Fragment>

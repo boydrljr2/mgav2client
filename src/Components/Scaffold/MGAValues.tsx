@@ -133,9 +133,10 @@ export const INSURERSTATUSES : Array<InsurerStatusValues> = [
 
 export interface InsurerValues {
     id                      : string;
-    FEIN                    : string;
-    status                  : InsurerStatusValues;
     name                    : string;
+    FEIN                    : string;
+    legacyId?               : string;
+    status                  : InsurerStatusValues;
     domicileState           : string;
     phone?                  : string;
     principalEmail?         : string;
@@ -159,6 +160,7 @@ export interface InsurerItemValues {
 export const newInsurer : InsurerValues = {
     id                      : uuidv4(),
     FEIN                    : '',
+    legacyId                : '',
     status                  : INSURERSTATUSES[2],
     name                    : '',
     domicileState           : '',
@@ -189,6 +191,7 @@ export const INSURERS   : InsurerValues[] = [
     {   
         id              : insurer1Id,
         FEIN            : '36-2222222',
+        legacyId        : '00225',
         status          : INSURERSTATUSES[2],
         name            : 'United Equitable Insurance Company',
         phone           : '800-234-6926',
@@ -215,6 +218,7 @@ export const INSURERS   : InsurerValues[] = [
     {   
         id              : insurer2Id,
         FEIN            : '36-11111111',
+        legacyId        : '20228',
         status          : INSURERSTATUSES[2],
         name            : 'American Heartland Insurance Company',
         phone           : '847-583-4800',
