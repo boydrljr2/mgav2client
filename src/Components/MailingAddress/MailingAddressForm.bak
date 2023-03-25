@@ -6,7 +6,7 @@ import { Paper, TextField, FormControl, FormGroup, Stack, Button, Dialog, Alert,
 
 import { mailingAddresses } from './MailingAddressData';
 import { MailingAddressValues } from '../Scaffold/MGAValues'; 
-import { USPSState, USPSStateAbbreviations } from "../Scaffold/FieldParts/USPSStates";
+import { USPSState, USPSSTATEABBREVIATIONS } from "../Scaffold/FieldParts/MGAUSPSStatesAutocomplete";
 import { USPSZipCode } from "../Scaffold/FieldParts/USPSZip";
 
 export default function MailingAddressForm() {
@@ -18,7 +18,7 @@ export default function MailingAddressForm() {
             initial: "",
             streetAddress: "",
             city: "",
-            state: "",
+            state: USPSStateAbbreviations[0],
             zip: ""
         };
 

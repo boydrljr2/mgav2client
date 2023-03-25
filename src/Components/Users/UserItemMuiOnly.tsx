@@ -14,27 +14,9 @@ export default function UserItem (userItemProps : UserItemValues) {
 
     const { user } = userItemProps;
     const userUndefined = (user === undefined);
-    let updatedUser;
 
     //Set initialFormValues and use these to generate initialFormErrors/Touches/Valid(s)
-    const initialFormValues = !userUndefined ?
-        {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            image : user.image,
-            role: user.role,
-        } :
-        {
-            id: uuidv4(),
-            name: "",
-            email: "",
-            password: "",
-            image : "",
-            role: ""
-        }
-
+    const initialFormValues = !userUndefined ? user : newUser;
     
     //Create a new object with the same keys as initialFormValues and set the values to empty strings
     const initialFormErrors = Object.assign({}, ...Object.keys(initialFormValues).map(k => ({[k]: ""})));
@@ -91,17 +73,12 @@ export default function UserItem (userItemProps : UserItemValues) {
     }
     const validateRole = () => {
         if (formValues.role === null) {
-            console.log("Role is null")
             setFormErrors({...formErrors, role: "Role is required"})
             setFormValid({...formValid, role: false})
-            console.log("validateRole formErrors: ", formErrors)
-            console.log("validateRole formValid: ", formValid)
         } else {
             console.log("Role is not null")
             setFormErrors({...formErrors, role: ""})
             setFormValid({...formValid, role: true})
-            console.log("validateRole formErrors: ", formErrors)
-            console.log("validateRole formValid: ", formValid)
         }
     }
 
@@ -157,6 +134,10 @@ export default function UserItem (userItemProps : UserItemValues) {
         }      
     }
 
+    const updateLastModified = () => {
+        setFormValues({...formValues, lastModified: new Date()})
+    }
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         validateName()
@@ -164,18 +145,18 @@ export default function UserItem (userItemProps : UserItemValues) {
         validateEmail()
         validatePassword()
         validateImage()
+        updateLastModified()
         //Check if all formValid values are true
         const formIsValid = Object.values(formValid).every((v) => v );
-        //Merge the original props user with the updated formValues and update the lastModified date.
-        updatedUser = Object.assign({}, user, formValues)
-        updatedUser.lastModified = new Date()
         //If the form is valid, update the USERS array
         if (formIsValid) {
+
+            console.log("onSubmit formIsValid: ", formValues);
             const userIndex = USERS.findIndex((user) => user.id === formValues.id)
             if (userIndex === -1) {
-                USERS.push(updatedUser)
+                USERS.push(formValues)
             } else {
-                USERS[userIndex] = updatedUser
+                USERS[userIndex] = formValues
             }
         //navigate to the UserPage
             navigate("/users")
@@ -299,7 +280,6 @@ export default function UserItem (userItemProps : UserItemValues) {
             <pre>formErrors {JSON.stringify(formErrors, null, 2)}</pre>
             <pre>formValid {JSON.stringify(formValid, null, 2)}</pre>
             <pre>formTouches {JSON.stringify(formTouches, null, 2)}</pre>
-            <pre>updatedUser {JSON.stringify(updatedUser, null, 2)}</pre>
         </Paper>
     )
 }

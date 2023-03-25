@@ -25,7 +25,7 @@ export default function MailingAddressCardGrid() {
                                 {mailingAddress.streetAddress}
                             </Typography>
                             <Typography color='text.secondary'>
-                                {mailingAddress.city}, {mailingAddress.state}  {mailingAddress.zip}
+                                {mailingAddress.city}, {mailingAddress.state.value}  {mailingAddress.zip}
                             </Typography>
                         </CardContent>
                         <CardActions>

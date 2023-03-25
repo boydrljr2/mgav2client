@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { Paper, FormControl, FormGroup, TextField } from '@mui/material';
+import { Paper, FormGroup, TextField } from '@mui/material';
 
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
-import MailingAddressForm from '../MailingAddress/MailingAddressForm';
 
 export default function PolicyNew() {
 

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import { Autocomplete, TextField } from "@mui/material";
 
-//array of all 50 US States
+//array of all 50 US States ++
 export const USPSStateAbbreviations = [
     { name: 'Alabama', abbreviation: 'AL' },
     { name: 'Alaska', abbreviation: 'AK' },

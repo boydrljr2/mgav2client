@@ -1,0 +1,57 @@
+import React from 'react';
+
+import {Paper, Grid, Autocomplete} from '@mui/material';
+
+import MGATextField from '../Scaffold/FieldParts/MGATextField';
+import { MailingAddressItemValues, USPSSTATEABBREVIATIONS } from '../Scaffold/MGAValues';
+
+export default function MailingAddressItem (mailingAddressItemProps : MailingAddressItemValues) {
+
+    const { mailingAddress } = mailingAddressItemProps;
+
+    return (
+        <Paper variant="outlined" sx={{p:2}}>
+            <Grid container spacing={1} >
+                <Grid item xs={12} >
+                    <MGATextField
+                    id="streetAddress" name="streetAddress" label="Street"
+                    value={mailingAddress.streetAddress}
+                />
+                </Grid>
+                <Grid item xs={6}>
+                    <MGATextField
+                        id="city" name="city" label="City"
+                        value={mailingAddress.city}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <Autocomplete 
+                        id="mailing-address-state"
+                        options={USPSSTATEABBREVIATIONS}
+                        getOptionLabel={(option : any) => option.label}
+                        freeSolo clearOnEscape
+                        value={formValues.mailingaddress.state}
+                        isOptionEqualToValue={(option, value) => option.label === value.label}
+                        onChange={(event, newValue) => {
+                            //@ts-ignore
+                            setFormValues({...formValues, domicileState : newValue})
+                        }}
+                        renderInput={(params) => 
+                            <MGATextField 
+                                {...params} 
+                                label="Domicile State" 
+                                error={!formValid.mailingaddress.state}
+                                helperText={formErrors.mailingaddress.state}
+                            />}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <MGATextField
+                        id="zip" name="zip" label="Zip"
+                        value={mailingAddress.zip}
+                    />
+                </Grid>
+            </Grid>
+        </Paper>
+    )
+}

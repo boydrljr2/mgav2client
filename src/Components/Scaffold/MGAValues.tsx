@@ -2,15 +2,94 @@ import { v4 as uuidv4 } from 'uuid';
 
 //MAILING ADDRESS
 
+
+export interface USPSStateAbbreviationValues {
+    label: string;
+    value: string;
+}
+
 export interface MailingAddressValues {
     id              : string;
     name?           : string;
     initial?        : string;
     streetAddress   : string;
     city            : string;
-    state           : string;
+    state           : USPSStateAbbreviationValues;
     zip             : string;
 }
+
+export interface MailingAddressItemValues {
+    mailingAddress  : MailingAddressValues;
+}
+
+//array of all 50 US States ++
+export const USPSSTATEABBREVIATIONS : Array<USPSStateAbbreviationValues>  = [
+    { label: 'Select a State', value: ''},
+    { label: 'Alabama', value: 'AL' },
+    { label: 'Alaska', value: 'AK' },
+    { label: 'American Samoa', value: 'AS' },
+    { label: 'Arizona', value: 'AZ' },
+    { label: 'Arkansas', value: 'AR' },
+    { label: 'California', value: 'CA' },
+    { label: 'Colorado', value: 'CO' },
+    { label: 'Connecticut', value: 'CT' },
+    { label: 'Delaware', value: 'DE' },
+    { label: 'District Of Columbia', value: 'DC' },
+    { label: 'Federated States Of Micronesia', value: 'FM' },
+    { label: 'Florida', value: 'FL' },
+    { label: 'Georgia', value: 'GA' },
+    { label: 'Guam', value: 'GU' },
+    { label: 'Hawaii', value: 'HI' },
+    { label: 'Idaho', value: 'ID' },
+    { label: 'Illinois', value: 'IL' },
+    { label: 'Indiana', value: 'IN' },
+    { label: 'Iowa', value: 'IA' },
+    { label: 'Kansas', value: 'KS' },
+    { label: 'Kentucky', value: 'KY' },
+    { label: 'Louisiana', value: 'LA' },
+    { label: 'Maine', value: 'ME' },
+    { label: 'Marshall Islands', value: 'MH' },
+    { label: 'Maryland', value: 'MD' },
+    { label: 'Massachusetts', value: 'MA' },
+    { label: 'Michigan', value: 'MI' },
+    { label: 'Minnesota', value: 'MN' },
+    { label: 'Mississippi', value: 'MS' },
+    { label: 'Missouri', value: 'MO' },
+    { label: 'Montana', value: 'MT' },
+    { label: 'Nebraska', value: 'NE' },
+    { label: 'Nevada', value: 'NV' },
+    { label: 'New Hampshire', value: 'NH' },
+    { label: 'New Jersey', value: 'NJ' },
+    { label: 'New York', value: 'NY' },
+    { label: 'New Mexico', value: 'NM' },
+    { label: 'North Carolina', value: 'NC' },
+    { label: 'North Dakota', value: 'ND' },
+    { label: 'Ohio', value: 'OH' },
+    { label: 'Oklahoma', value: 'OK' },
+    { label: 'Oregon', value: 'OR' },
+    { label: 'Pennsylvania', value: 'PA' },
+    { label: 'Puerto Rico', value: 'PR' },
+    { label: 'Rhode Island', value: 'RI' },
+    { label: 'South Carolina', value: 'SC' },
+    { label: 'South Dakota', value: 'SD' },
+    { label: 'Tennessee', value: 'TN' },
+    { label: 'Texas', value: 'TX' },
+    { label: 'Utah', value: 'UT' },
+    { label: 'Vermont', value: 'VT' },
+    { label: 'Virgin Islands', value: 'VI' },
+    { label: 'Virginia', value: 'VA' },
+    { label: 'Washington', value: 'WA' },
+    { label: 'West Virginia', value: 'WV' },
+    { label: 'Wisconsin', value: 'WI' },
+    { label: 'Wyoming', value: 'WY' },
+    { label: 'Armed Forces Americas', value: 'AA' },
+    { label: 'Armed Forces Europe', value: 'AE' },
+    { label: 'Armed Forces Pacific', value: 'AP' },
+    { label: 'Alberta', value: 'AB' },
+    { label: 'British Columbia', value: 'BC' },
+    { label: 'Manitoba', value: 'MB' },
+    { label: '', value: ''}
+]
 
 //PERSON
 export interface PersonValues {
@@ -60,19 +139,6 @@ export interface UserItemValues {
     user? : UserValues;
 }
 
-export interface UserErrors {
-    id          : string;
-    name        : string;
-    email       : string;
-    password    : string;
-    image       : string;
-    role        : string;
-    creatorId   : string;
-    creatorName : string;
-    created     : string;
-    lastModified: string;
-}
-
 export const USERS : Array<UserValues> = [
     {
         id          : user1Id,
@@ -83,8 +149,8 @@ export const USERS : Array<UserValues> = [
         role        : {label: "Administrator", value: "Administrator"},
         creatorId   : user1Id,
         creatorName : "Able Baker",
-        created     : new Date("2023-03-08T19:56:54.874Z"),
-        lastModified: new Date("2023-03-08T19:56:54.874Z")
+        created     : new Date(),
+        lastModified: new Date()
     },
     {
         id          : user2Id,
@@ -95,8 +161,8 @@ export const USERS : Array<UserValues> = [
         role        : {label : "User", value: "User"},
         creatorId   : user1Id,
         creatorName : "Able Baker",
-        created     : new Date("2023-03-08T19:56:54.874Z"),
-        lastModified: new Date("2023-03-08T19:56:54.874Z")
+        created     : new Date(),
+        lastModified: new Date()
     }
 ]
 
@@ -137,7 +203,7 @@ export interface InsurerValues {
     FEIN                    : string;
     legacyId?               : string;
     status                  : InsurerStatusValues;
-    domicileState           : string;
+    domicileState           : USPSStateAbbreviationValues;
     phone?                  : string;
     principalEmail?         : string;
     URL?                    : string;
@@ -163,7 +229,7 @@ export const newInsurer : InsurerValues = {
     legacyId                : '',
     status                  : INSURERSTATUSES[2],
     name                    : '',
-    domicileState           : '',
+    domicileState           : USPSSTATEABBREVIATIONS[0],
     phone                   : '',
     principalEmail          : '',
     URL                     : '',
@@ -172,7 +238,7 @@ export const newInsurer : InsurerValues = {
         name            : '',
         streetAddress   : '',
         city            : '',
-        state           : '',
+        state           : USPSSTATEABBREVIATIONS[0],
         zip             : ''
     },
     NAICGroup               : '',
@@ -186,6 +252,92 @@ export const newInsurer : InsurerValues = {
     lastModified            : new Date()
 }
 
+export const initialInsurerFormErrors = {
+    id                      : '',
+    FEIN                    : '',
+    legacyId                : '',
+    status                  : '',
+    name                    : '',
+    domicileState           : '',
+    phone                   : '',
+    principalEmail          : '',
+    URL                     : '',
+    mailingAddress          : {
+        id              : '',
+        name            : '',
+        streetAddress   : '',
+        city            : '',
+        state           : '',
+        zip             : ''
+    },
+    NAICGroup               : '',
+    NAICCode                : '',
+    NAICGroupName           : '',
+    AMBestID                : '',
+    AMBestRating            : '',
+    creatorId               : '',
+    creatorName             : '',
+    created                 : '',
+    lastModified            : ''
+}
+
+export const initialInsurerFormTouches = {
+    id                      : false,
+    FEIN                    : false,
+    legacyId                : false,
+    status                  : false,
+    name                    : false,
+    domicileState           : false,
+    phone                   : false,
+    principalEmail          : false,
+    URL                     : false,
+    mailingAddress          : {
+        id              : false,
+        name            : false,
+        streetAddress   : false,
+        city            : false,
+        state           : false,
+        zip             : false
+    },
+    NAICGroup               : false,
+    NAICCode                : false,
+    NAICGroupName           : false,
+    AMBestID                : false,
+    AMBestRating            : false,
+    creatorId               : false,
+    creatorName             : false,
+    created                 : false,
+    lastModified            : false
+}
+
+export const initialInsurerFormValid = {
+    id                      : true,
+    FEIN                    : true,
+    legacyId                : true,
+    status                  : true,
+    name                    : true,
+    domicileState           : true,
+    phone                   : true,
+    principalEmail          : true,
+    URL                     : true,
+    mailingAddress          : {
+        id              : true,
+        name            : true,
+        streetAddress   : true,
+        city            : true,
+        state           : true,
+        zip             : true
+    },
+    NAICGroup               : true,
+    NAICCode                : true,
+    NAICGroupName           : true,
+    AMBestID                : true,
+    AMBestRating            : true,
+    creatorId               : true,
+    creatorName             : true,
+    created                 : true,
+    lastModified            : true
+}
 
 export const INSURERS   : InsurerValues[] = [
     {   
@@ -201,10 +353,10 @@ export const INSURERS   : InsurerValues[] = [
                 name            : "UEIC Headquarters",
                 streetAddress   : "9040 Waukegan Road, Suite 100",
                 city            : "Morton Grove",
-                state           : "IL",
+                state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60053"
             },
-        domicileState   : 'IL',
+        domicileState   : USPSSTATEABBREVIATIONS[16],
         NAICGroup       : '167',
         NAICCode        : '24910',
         NAICGroupName   : 'United Equitable Group',
@@ -228,10 +380,10 @@ export const INSURERS   : InsurerValues[] = [
                 name            : "AHIC Headquarters",
                 streetAddress   : "9040 Waukegan Road, Suite 200",
                 city            : "Morton Grove",
-                state           : "IL",
+                state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60053"
             },
-        domicileState   : 'IL',
+        domicileState   : USPSSTATEABBREVIATIONS[17],
         NAICGroup       : '167',
         NAICCode        : '24910',
         NAICGroupName   : 'United Equitable Group',
@@ -308,7 +460,7 @@ export const newAgency : AgencyValues = {
         id              : uuidv4(),
         streetAddress   : '',
         city            : '',
-        state           : '',
+        state           : USPSSTATEABBREVIATIONS[0],
         zip             : ''
     },
     contact             : {
@@ -343,7 +495,7 @@ export const AGENCIES : AgencyValues[] = [
             id              : uuidv4(),
             streetAddress   : "5485 N Elston Ave",
             city            : "Chicago",
-            state           : "IL",
+            state           : USPSSTATEABBREVIATIONS[17],
             zip             : "60630"
         },
         contact         : {
@@ -374,7 +526,7 @@ export const AGENCIES : AgencyValues[] = [
             id              : uuidv4(),
             streetAddress   : "4712 W Cermak Rd",
             city            : "Cicero",
-            state           : "IL",
+            state           : USPSSTATEABBREVIATIONS[17],
             zip             : "60804"
         },
         contact : {
@@ -405,7 +557,7 @@ export const AGENCIES : AgencyValues[] = [
             id              : uuidv4(),
             streetAddress   : "5485 N Elston Ave",
             city            : "Atlanta",
-            state           : "GA",
+            state           : USPSSTATEABBREVIATIONS[11],
             zip             : "60630"
         },
         contact : {
@@ -441,7 +593,7 @@ export interface OperatorValues extends PersonValues {
     operatorType                    : "ADDL" | "PRIN" | "EXCL";
     sr22                            : "N" | "Y";
     operatorLicenseNumber           : string;
-    operatorLicenseState            : string;
+    operatorLicenseState            : USPSStateAbbreviationValues;
     operatorLicenseExpirationDate   : Date;
     operatorCoverageStatus          : string; 
     operatorAccidentsViolations     : string;
@@ -528,7 +680,7 @@ export const POLICIES : Array<PolicyValues> = [
                 id              : uuidv4(),
                 streetAddress   : "714 Lenox Ave",
                 city            : "Waukegan",
-                state           : "IL",
+                state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60085"
             },
             phone    : "1-847-123-1234",
@@ -540,7 +692,7 @@ export const POLICIES : Array<PolicyValues> = [
                 operatorType                : "PRIN",
                 sr22                        : "N",
                 operatorLicenseNumber       : "A1234567",
-                operatorLicenseState        : "IL",
+                operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("12-31-2020"),
                 operatorCoverageStatus      : "COV",
                 name     : {
@@ -556,7 +708,7 @@ export const POLICIES : Array<PolicyValues> = [
                 operatorType            : "ADDL",
                 sr22                    : "N",
                 operatorLicenseNumber   : "A1234567",
-                operatorLicenseState    : "IL",
+                operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("12-31-2025"),
                 operatorCoverageStatus  : "COV",
                 name              : {
@@ -572,7 +724,7 @@ export const POLICIES : Array<PolicyValues> = [
                 operatorType            : "EXCL",
                 sr22                    : "N",
                 operatorLicenseNumber   : "A1234567",
-                operatorLicenseState    : "IL",
+                operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("01-31-2025"),
                 operatorCoverageStatus  : "NONE",
                 name              : {
@@ -588,7 +740,7 @@ export const POLICIES : Array<PolicyValues> = [
                 operatorType            : "EXCL",
                 sr22                    : "N",
                 operatorLicenseNumber   : "A7654321",
-                operatorLicenseState    : "IL",
+                operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("12-31-2023"),
                 operatorCoverageStatus  : "NONE",
                 name              : {
@@ -685,7 +837,7 @@ export const POLICIES : Array<PolicyValues> = [
                             id              : uuidv4(),
                             streetAddress   : "123 Main Street",
                             city            : "Chicago",
-                            state           : "IL",
+                            state           : USPSSTATEABBREVIATIONS[17],
                             zip             : "60606"
                         }
                     }

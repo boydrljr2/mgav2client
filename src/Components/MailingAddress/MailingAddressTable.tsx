@@ -53,7 +53,7 @@ export default function MailingAddressTable() {
                                         <TableCell>{(mailingAddress.name !== undefined) ? mailingAddress.name : mailingAddress.streetAddress }</TableCell>
                                         <TableCell>{mailingAddress.streetAddress}</TableCell>
                                         <TableCell>{mailingAddress.city}</TableCell>
-                                        <TableCell>{mailingAddress.state}</TableCell>
+                                        <TableCell>{mailingAddress.state.value}</TableCell>
                                         <TableCell>{mailingAddress.zip}</TableCell>
                                         
                                         {/*

@@ -30,7 +30,7 @@ export default function InsurerCardView(props: {insurer: InsurerValues}) {
                 <Stack>
                         <Typography>{mailingAddress.streetAddress}</Typography>
                         <Typography>{mailingAddress.city}, 
-                                    {mailingAddress.state} 
+                                    {mailingAddress.state.value} 
                                     {mailingAddress.zip}
                         </Typography>
                     <Typography>{insurer.phone}</Typography>

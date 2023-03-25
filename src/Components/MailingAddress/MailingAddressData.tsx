@@ -1,4 +1,4 @@
-import { MailingAddressValues } from "../Scaffold/MGAValues";
+import { MailingAddressValues, USPSSTATEABBREVIATIONS } from "../Scaffold/MGAValues";
 import { v4 as uuidv4 } from "uuid";
 
 export const mailingAddresses : Array<MailingAddressValues> = [
@@ -8,7 +8,7 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         initial         : "W",
         streetAddress   : "1600 Pennsylvania Avenue NW",
         city            : "Washington",
-        state           : "DC",
+        state           : USPSSTATEABBREVIATIONS[0],
         zip             : "20500"
     },
     {
@@ -17,7 +17,7 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         initial         : "D",
         streetAddress   : "1313 Disneyland Drive",
         city            : "Anaheim",
-        state           : "CA",
+        state           : USPSSTATEABBREVIATIONS[1],
         zip             : "92802"
     },
     {
@@ -26,7 +26,7 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         initial         : "C",
         streetAddress   : "U.S. Capitol",
         city            : "Washington",
-        state           : "DC",
+        state           : USPSSTATEABBREVIATIONS[0],
         zip             : "20510"
     },
     {
@@ -35,7 +35,7 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         initial         : "S",
         streetAddress   : "1 First Street NE",
         city            : "Washington",
-        state           : "DC",
+        state           : USPSSTATEABBREVIATIONS[0],
         zip             : "20543"
     },
     {
@@ -44,7 +44,7 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         initial         : "L",
         streetAddress   : "Liberty Island",
         city            : "New York",
-        state           : "NY",
+        state           : USPSSTATEABBREVIATIONS[2],
         zip             : "10004"
     },
     {
@@ -53,7 +53,7 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         initial         : "E",
         streetAddress   : "350 5th Ave",
         city            : "New York",
-        state           : "NY",
+        state           : USPSSTATEABBREVIATIONS[2],
         zip             : "10118"
     }
 ]
