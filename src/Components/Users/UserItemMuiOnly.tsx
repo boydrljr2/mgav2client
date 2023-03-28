@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Paper, Grid, Autocomplete, Button, Typography } from '@mui/material';
-import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
+import MGATextField from '../Scaffold/FieldParts/MGATextField';
 import { UserItemValues, USERS, ROLES, newUser } from '../Scaffold/MGAValues';
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
+import { emailValidation } from '../Scaffold/Validators/simpleValidations';
 
 export default function UserItem (userItemProps : UserItemValues) {
 
@@ -45,15 +46,38 @@ export default function UserItem (userItemProps : UserItemValues) {
             lastModified    : new Date()
         };
 
-    const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormValues({...formValues, [name] : value})
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormValues({...formValues, [e.target.name] : e.target.value})
     };
 
-    const handleNameFieldBlur = () => {
-        setFormTouches({...formTouches, name: true})
-        validateName()
+    //write one handleBlur function for all fields
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        setFormTouches({...formTouches, [e.target.name]: true})
+        validateField(e.target.name)
     }
+
+    const validateField = ( fieldName: string ) => {
+        switch (fieldName) {
+            case "name":
+                validateName()
+                break;
+            case "role":
+                validateRole()
+                break;
+            case "email":
+                validateEmail();
+                break;
+            case "password":
+                validatePassword();
+                break;
+            case "image":
+                validateImage();
+                break;
+            default:
+                break;
+        }
+    }
+
     const validateName = () => {
         if (formValues.name === undefined) {
             setFormErrors({...formErrors, name: "Name is required"})
@@ -67,25 +91,16 @@ export default function UserItem (userItemProps : UserItemValues) {
         }
     }
 
-    const handleRoleBlur = () => {
-        setFormTouches({...formTouches, role: true})
-        validateRole()
-    }
     const validateRole = () => {
         if (formValues.role === null) {
             setFormErrors({...formErrors, role: "Role is required"})
             setFormValid({...formValid, role: false})
         } else {
-            console.log("Role is not null")
             setFormErrors({...formErrors, role: ""})
             setFormValid({...formValid, role: true})
         }
     }
 
-    const handleEmailBlur = () => {
-        setFormTouches({...formTouches, email: true})
-        validateEmail()
-    }
     const validateEmail = () => {
         if (formValues.email === undefined) {
             setFormErrors({...formErrors, email: "Email is required"})
@@ -99,10 +114,6 @@ export default function UserItem (userItemProps : UserItemValues) {
         }
     }
 
-    const handlePasswordBlur = () => {
-        setFormTouches({...formTouches, password: true})
-        validatePassword()
-    }
     const validatePassword = () => {
         if (formValues.password === undefined) {
             setFormErrors({...formErrors, password: "Password is required"})
@@ -116,17 +127,13 @@ export default function UserItem (userItemProps : UserItemValues) {
         }
     }
 
-    const handleImageBlur = () => {
-        setFormTouches({...formTouches, image: true})
-        validateImage()
-    }
     const validateImage = () => {
         if (formValues.image === undefined || formValues.image === "") {
             setFormValues({...formValues, image: ""})
             setFormErrors({...formErrors, image: ""})
             setFormValid({...formValid, image: true})
         } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(formValues.image)) {
-            setFormErrors({...formErrors, image: "Valid image URL required"})
+            setFormErrors({...formErrors, image: "Valid (or empty) image URL required"})
             setFormValid({...formValid, image: false})
         } else {
             setFormErrors({...formErrors, image: ""})
@@ -134,6 +141,7 @@ export default function UserItem (userItemProps : UserItemValues) {
         }      
     }
 
+    //Don't forget to update the lastModified date and run this in handleSubmit before saving
     const updateLastModified = () => {
         setFormValues({...formValues, lastModified: new Date()})
     }
@@ -151,7 +159,6 @@ export default function UserItem (userItemProps : UserItemValues) {
         //If the form is valid, update the USERS array
         if (formIsValid) {
 
-            console.log("onSubmit formIsValid: ", formValues);
             const userIndex = USERS.findIndex((user) => user.id === formValues.id)
             if (userIndex === -1) {
                 USERS.push(formValues)
@@ -180,8 +187,8 @@ export default function UserItem (userItemProps : UserItemValues) {
                         <MGATextField
                             id="name" name="name" label="Name" 
                             value = {formValues.name}
-                            onChange = {handleTextFieldChange} 
-                            onBlur = {handleNameFieldBlur}
+                            onChange = {handleChange} 
+                            onBlur = {handleBlur}
                             error = {formErrors.name !== ""}
                             helperText = {formErrors.name}
                         />
@@ -200,7 +207,7 @@ export default function UserItem (userItemProps : UserItemValues) {
                                 //@ts-ignore
                                 setFormValues({...formValues, role: newValue})
                             }}
-                            onBlur={handleRoleBlur}
+                            onBlur={handleBlur}
                             renderInput={(params) => 
                                 <MGATextField 
                                     {...params} 
@@ -221,8 +228,8 @@ export default function UserItem (userItemProps : UserItemValues) {
                             fullWidth 
                             placeholder="Enter email address"
                             value = {formValues.email}
-                            onChange={handleTextFieldChange}
-                            onBlur={handleEmailBlur}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             error = {!formValid.email}
                             helperText={formErrors.email}
                         />
@@ -234,8 +241,8 @@ export default function UserItem (userItemProps : UserItemValues) {
                             placeholder="Enter password"
                             fullWidth 
                             value = {formValues.password}
-                            onChange={handleTextFieldChange}
-                            onBlur={handlePasswordBlur}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             error = {!formValid.password}
                             helperText={formErrors.password}
                         />
@@ -249,8 +256,8 @@ export default function UserItem (userItemProps : UserItemValues) {
                             placeholder="http://www.example.com/image.jpg"
                             fullWidth
                             value = {formValues.image}
-                            onChange={handleTextFieldChange}
-                            onBlur={handleImageBlur}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             error = {!formValid.image}
                             helperText={formErrors.image}
                         />
@@ -274,12 +281,7 @@ export default function UserItem (userItemProps : UserItemValues) {
                     </Grid>
                 </Grid>
             </form>
-            <pre>user {JSON.stringify(user, null, 2)}</pre>
-            <pre>initialFormValues {JSON.stringify(initialFormValues, null, 2)}</pre>
-            <pre>formValues {JSON.stringify(formValues, null, 2)}</pre>
-            <pre>formErrors {JSON.stringify(formErrors, null, 2)}</pre>
-            <pre>formValid {JSON.stringify(formValid, null, 2)}</pre>
-            <pre>formTouches {JSON.stringify(formTouches, null, 2)}</pre>
+            {/* <Typography>formValues: {JSON.stringify(formValues, null, 2)}</Typography> */}
         </Paper>
     )
 }

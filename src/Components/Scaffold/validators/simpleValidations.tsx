@@ -1,3 +1,18 @@
+import React from 'react';
+
+export function emailValidation(props : any) {
+
+    if (!props.emailValue) {
+        props.emailError='Required';
+        props.emailValid=false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(props.emailValue)) {
+        props.emailError='Invalid email address';
+        props.emailValid=false;
+    }
+    return;
+}
+
+
 //@ts-ignore
 export const userValidation = values => {
 

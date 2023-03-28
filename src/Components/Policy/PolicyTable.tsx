@@ -39,7 +39,6 @@ export default function PolicyTable() {
                                 <TableCell>Type</TableCell>
                                 <TableCell>Agency</TableCell>
                                 <TableCell>Insured</TableCell>
-                                <TableCell sx={{fontStyle:"italic"}}>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -48,7 +47,7 @@ export default function PolicyTable() {
                                 .map((policy) => (
                                     <TableRow key={policy.id}>
                                         <TableCell>
-                                            <Link to={`/policies/view/${policy.id}`}>
+                                            <Link to={`/policies/${policy.id}`}>
                                             {policy.policyNumber}
                                             </Link>
                                         </TableCell>
@@ -59,19 +58,6 @@ export default function PolicyTable() {
                                         <TableCell>
                                             {getFullName(policy.insured)}
                                         </TableCell>
-                                        <TableCell>
-                                            <Button
-                                                variant="outlined"
-                                                color="primary"
-                                                size="small"
-                                                component={Link}
-                                                to={`/policies/view/${policy.id}`}
-                                                /* to={`/policies/view`} */
-                                            >
-                                                View
-                                            </Button>
-                                        </TableCell>
-
                                     </TableRow>
                                 ))
                             }

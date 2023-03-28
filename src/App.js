@@ -20,6 +20,7 @@ import InsurerEdit from "./Components/Insurer/InsurerEdit.tsx";
 import InsurerNew from "./Components/Insurer/InsurerNew.tsx";
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
 import PolicyNew from "./Components/Policy/PolicyNew.tsx";
+import PolicyEdit from "./Components/Policy/PolicyEdit.tsx";
 
 function App() {
   return (
@@ -54,9 +55,11 @@ function App() {
                 <Route path={"/insurers/new"} element={<InsurerNew />} />
                 
                 <Route path={"/products"} element={<ProductPage />} />
+                
                 <Route path={"/policies"} element={<PolicyPage />} />        
                 <Route path={"/policies/new"} element={<PolicyNew />} />
-                <Route path={"/policies/view/:policyId"} element={<PolicyPage />} />
+                <Route path={"/policies/:policyId"} element={<PolicyEdit />} />
+
                 <Route path={"/login"} element={<UserLogin />} />
                 <Route path={"/signup"} element={<UserNew />} />
 

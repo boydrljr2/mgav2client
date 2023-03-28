@@ -2,15 +2,17 @@ import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Paper, Grid, Autocomplete, Button } from '@mui/material';
+import { Paper, Grid, Autocomplete, Button, Typography } from '@mui/material';
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
-import { MailingAddressItemValues, USPSSTATEABBREVIATIONS,
-        InsurerItemValues, newInsurer, INSURERSTATUSES,
-         initialInsurerFormErrors, initialInsurerFormTouches, initialInsurerFormValid  } 
-         from '../Scaffold/MGAValues';
+import { 
+    MailingAddressItemValues, USPSSTATEABBREVIATIONS,
+    InsurerItemValues, newInsurer, INSURERS, INSURERSTATUSES,
+    initialInsurerFormErrors, initialInsurerFormTouches, initialInsurerFormValid  
+    } from '../Scaffold/MGAValues';
 
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
+import MGAUSPSMailingAddressItem from '../MailingAddress/MGAUSPSMailingAddressItem';
 
 export default function InsurerItem (insurerItemProps : InsurerItemValues) {
 
@@ -45,37 +47,82 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
         lastModified    : new Date()
     }
 
-    const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormValues({...formValues, [name] : value})
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormValues({...formValues, [e.target.name] : e.target.value})
     };
 
+    const handleChangeMailingAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormValues({
+            ...formValues,
+            mailingAddress : 
+                {...formValues.mailingAddress, [e.target.name] : e.target.value}}
+        )
+    };
 
+    const handleChangeMailingAddressState = (event: React.ChangeEvent<{}>, newValue: any) => {
+        setFormValues({
+            ...formValues,
+            mailingAddress :
+                {...formValues.mailingAddress, state : newValue}
+        })
+    };
+
+    //Don't forget to update the lastModified date by running this in handleSubmit
+    const updateLastModified = () => {
+        setFormValues({...formValues, lastModified: new Date()})
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        updateLastModified();
+        //TODO: Add validations for all the fields
+        const formIsValid = Object.values(formValid).every((v)=>v);
+        if (formIsValid) {
+            const insurerIndex = INSURERS.findIndex(insurer => insurer.id === formValues.id);
+            if (insurerIndex === -1) {
+                INSURERS.push(formValues);
+            } else {
+                INSURERS[insurerIndex] = formValues;
+            }
+            navigate('/insurers');
+        }
+    }
+
+
+
+    //This early return has to be called after all the useState calls otherwise React crashes
+    if (insurerItemProps === undefined) {
+        return (
+            <Typography>
+                Insurer Item Undefined 
+            </Typography>
+        )
+    }
 
     return (
         <Paper variant="outlined" sx={{padding: 2}}>
-            <form> 
+            <form onSubmit={handleSubmit} > 
                 <Grid container spacing={1}>
                     {/* group 1 Name & ID */}
                     <Grid item xs={4}>
                         <MGATextField
                             id="name" name="name" label="Name"
                             value={formValues.name}
-                            onChange={handleTextFieldChange}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={2}>
                         <MGATextField
                             id="insurerFEIN" name="insurerFEIN" label="FEIN"
                             value={formValues.FEIN}
-                            onChange={handleTextFieldChange}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={2}>
                         <MGATextField
                             id="naicCode" name="naicCode" label="NAIC Code"
                             value={formValues.NAICCode}
-                            onChange={handleTextFieldChange}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -103,7 +150,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                             id="domicile-state"
                             options={USPSSTATEABBREVIATIONS}
                             getOptionLabel={(option : any) => option.label}
-                            freeSolo clearOnEscape
+                            clearOnEscape
                             value={formValues.domicileState}
                             isOptionEqualToValue={(option, value) => option.label === value.label}
                             onChange={(event, newValue) => {
@@ -123,85 +170,45 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                         <MGATextField
                             id="naicGroup" name="naicGroup" label="NAIC Group"
                             value={formValues.NAICGroup}
-                            onChange={handleTextFieldChange}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <MGATextField
                             id="naicGroupName" name="naicGroupName" label="Group Name"
                             value={formValues.NAICGroupName}
-                            onChange={handleTextFieldChange}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={2}>
                         <MGATextField
                             id="amBestID" name="amBestID" label="AMBest ID"
                             value={formValues.AMBestID}
-                            onChange={handleTextFieldChange}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={2}>
                         <MGATextField
                             id="amBestRating" name="amBestRating" label="Rating"
                             value={formValues.AMBestRating}
-                            onChange={handleTextFieldChange}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={2}>
                         <MGATextField
                             id="legacyId" name="legacyId" label="Legacy ID"
                             value={formValues.legacyId}
-                            onChange={handleTextFieldChange}
+                            onChange={handleChange}
                         />
                     </Grid>
                 </Grid>
                 <Paper variant="outlined" sx={{p:2, mb:1}}>
-                    <Grid container spacing={1}>
-                        <Grid item xs={12} >
-                            <MGATextField
-                            id="streetAddress" name="streetAddress" label="Street"
-                            value={formValues.mailingAddress.streetAddress}
-                            onChange={handleTextFieldChange}
-                        />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <MGATextField
-                                id="city" name="city" label="City"
-                                value={formValues.mailingAddress.city}
-                                onChange={handleTextFieldChange}
-                            />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Autocomplete 
-                                id="mailing-address-state"
-                                options={USPSSTATEABBREVIATIONS}
-                                getOptionLabel={(option : any) => option.label}
-                                freeSolo clearOnEscape
-                                value={formValues.mailingAddress.state}
-                                isOptionEqualToValue={(option, value) => option.label === value.label}
-                                onChange={(event, newValue) => {
-                                    //@ts-ignore
-                                    setFormValues({...formValues, domicileState : newValue})
-                                }}
-                                renderInput={(params) => 
-                                    <MGATextField 
-                                        {...params} 
-                                        label="Domicile State" 
-                                        error={!formValid.domicileState}
-                                        helperText={formErrors.domicileState}
-                                    />}
-                            />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <MGATextField
-                                id="zip" name="zip" label="Zip"
-                                value={formValues.mailingAddress.zip}
-                                onChange={handleTextFieldChange}
-                            />
-                        </Grid>
-                    </Grid>
+                    <MGAUSPSMailingAddressItem
+                        formValues={formValues.mailingAddress}
+                        handleChangeMailingAddress={handleChangeMailingAddress}
+                        handleChangeMailingAddressState={handleChangeMailingAddressState}
+                    />
                 </Paper>
-                {/* <MailingAddressItem {...mailingAddressItemProps }/> */}
                 <ObjectFooter footerValues={footerProps} />
                 <Grid container direction="row" spacing={2}
                     sx={{margin:'auto', justifyContent:"flex-end"}}
@@ -220,11 +227,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                     </Grid>
                 </Grid>
             </form>
-            <pre>insurer {JSON.stringify(insurer, null, 2)}</pre>
-            <pre>formvalues {JSON.stringify(formValues, null, 2)}</pre>
-            <pre>formErrors {JSON.stringify(formErrors, null, 2)}</pre>
-            <pre>formValid {JSON.stringify(formValid, null, 2)}</pre>
-            <pre>formTouches {JSON.stringify(formTouches, null, 2)}</pre>
+            <pre>formValues {JSON.stringify(formValues, null, 2)}</pre>
         </Paper>
     )
 }

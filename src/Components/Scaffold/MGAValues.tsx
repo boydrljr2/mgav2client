@@ -181,7 +181,7 @@ export const newUser : UserValues = {
 }
 
 
-//INSURER
+//INSURER---------------------------------------------------------------------
 export const insurer1Id = uuidv4();
 export const insurer2Id = uuidv4();
 
@@ -356,7 +356,7 @@ export const INSURERS   : InsurerValues[] = [
                 state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60053"
             },
-        domicileState   : USPSSTATEABBREVIATIONS[16],
+        domicileState   : USPSSTATEABBREVIATIONS[17],
         NAICGroup       : '167',
         NAICCode        : '24910',
         NAICGroupName   : 'United Equitable Group',
@@ -397,7 +397,7 @@ export const INSURERS   : InsurerValues[] = [
 ]
 
 
-//AGENCY
+//----------------  AGENCY ------------ AGENCY -----------------
 export const agency1Id = uuidv4();
 export const agency2Id = uuidv4();
 export const agency3Id = uuidv4();
@@ -577,7 +577,7 @@ export const AGENCIES : AgencyValues[] = [
 ]
 
 
-//PRODUCT
+//------------  PRODUCT   ------------ PRODUCT -------------------------//
 export interface ProductValues {
     name            : string;
     insuranceType   : string;
@@ -585,7 +585,7 @@ export interface ProductValues {
 }
 
 
-//POLICY
+//------------ POLICY --------------- POLICY ----------------------------------------//
 export const policy1Id = uuidv4();
 export const policy2Id = uuidv4();
 
@@ -647,14 +647,20 @@ export interface PolicyValues {
     periodStartDate : Date;
     periodEndDate   : Date;
     endorsementDate : Date;
+    creatorId       : string;
+    creatorName     : string;
+    created         : Date;
+    lastModified    : Date;
     product         : ProductValues;
     agency          : AgencyValues;
     insured         : InsuredValues;
     operators       : OperatorValues[];
     autoUnits       : AutoValues[];
     endorsements?   : string[];
-    created         : Date;
-    lastModified    : Date;
+}
+
+export interface PolicyItemValues {
+    policy? : PolicyValues
 }
 
 export const POLICIES : Array<PolicyValues> = [
@@ -664,6 +670,10 @@ export const POLICIES : Array<PolicyValues> = [
         periodStartDate : new Date("01-01-2020"),
         periodEndDate   : new Date("12-31-2020"),
         endorsementDate : new Date("12-21-2019"),
+        creatorId       : USERS[0].id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date(),
         product         : {
             name            : "Personal Automobile Insurance Policy",
             insuranceType   : "Personal Automobile Insurance",
@@ -922,7 +932,149 @@ export const POLICIES : Array<PolicyValues> = [
             }
         ],
         endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
-        created             : new Date("12-15-2019"),
-        lastModified        : new Date("01-01-2020"),
     }
 ]
+
+export const newPolicy : PolicyValues = {
+        id              : uuidv4(),
+        policyNumber    : "",
+        periodStartDate : new Date(),
+        periodEndDate   : new Date(),
+        endorsementDate : new Date(),
+        creatorId       : user1Id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date(),
+        product         : {
+            name            : "",
+            insuranceType   : "",
+            insurer         : INSURERS[0],
+        },
+        agency        : AGENCIES[0],
+        insured        : {
+            id        : uuidv4(),
+            name     : {
+                first   : "",
+                last    : ""
+            },
+            mailingAddress   : {
+                id              : uuidv4(),
+                streetAddress   : "",
+                city            : "",
+                state           : USPSSTATEABBREVIATIONS[0],
+                zip             : ""
+            },
+            phone    : "",
+            email :   ""
+        },
+        operators       : [
+            {
+                id                          : uuidv4(),
+                operatorType                : "PRIN",
+                sr22                        : "N",
+                operatorLicenseNumber       : "",
+                operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
+                operatorLicenseExpirationDate : new Date(),
+                operatorCoverageStatus      : "COV",
+                name     : {
+                    first   : "",
+                    middle  : '',
+                    last    : ""
+                },
+                dateOfBirth           : new Date(),
+                operatorAccidentsViolations : "",
+            }
+        ],
+        autoUnits        : [
+            {
+                unit            : 1,
+                autoMake        : "",
+                autoModel       : "",
+                autoYear        : 0,
+                autoVIN         : "",
+                autoSYM         : "",
+                autoAGE         : 0,
+                autoTERR        : "",
+                autoCLASS       : "",
+                autoPTS         : 0,
+                autoATF         : "",
+                autoFLCV        : "",
+                autoMC         : "",
+                coverages       : [
+                    {
+                        coverageType    : "A. Bodily Injury",
+                        coverageLimit   : "$25,000 each person, $50,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 0
+                    },
+                    {
+                        coverageType    : "B. Porperty Damage",
+                        coverageLimit   : "$20,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 0
+                    },
+                    {
+                        coverageType    : "C. Automobile Medical Payments",
+                        coverageLimit   : "$- per person",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "D. Comprehensive",
+                        coverageLimit   : "Actual Cash Value less deductible",
+                        coverageDeductible : "",
+                        coveragePremium : 0
+                    },
+                    {
+                        coverageType    : "E. Collision",
+                        coverageLimit   : "Actual Cash Value less deductible",
+                        coverageDeductible : "",
+                        coveragePremium : 0
+                    },
+                    {
+                        coverageType    : "J. Uninsured Motorist Bodily Injury",
+                        coverageLimit   : "$25,000 each person, $50,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 0
+                    },
+                    {
+                        coverageType    : "K. Underinsured Motorist Property Damage",
+                        coverageLimit   : " ",
+                        coverageDeductible : "",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "Towing",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "Rental",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0
+                    },
+                    {
+                        coverageType    : "Additonal Coverages",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0
+                    }
+                ],
+                lienholders     : [
+                    {
+                        lienholderName  : "",
+                        lienholderMailingAddress : {
+                            id              : uuidv4(),
+                            streetAddress   : "",
+                            city            : "",
+                            state           : USPSSTATEABBREVIATIONS[17],
+                            zip             : ""
+                        }
+                    }
+                ]
+            }            
+        ],
+        endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+    }
