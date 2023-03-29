@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Paper, Grid, Autocomplete, Button, Typography } from '@mui/material';
+import { Paper, Stack, Grid, Autocomplete, Button, Typography } from '@mui/material';
 
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 import { UserItemValues, USERS, ROLES, newUser } from '../Scaffold/MGAValues';
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
-import { emailValidation } from '../Scaffold/Validators/simpleValidations';
+import { emailValidation } from '../Scaffold/Validators/SimpleValidations';
 
 export default function UserItem (userItemProps : UserItemValues) {
 
@@ -53,11 +53,8 @@ export default function UserItem (userItemProps : UserItemValues) {
     //write one handleBlur function for all fields
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         setFormTouches({...formTouches, [e.target.name]: true})
-        validateField(e.target.name)
-    }
-
-    const validateField = ( fieldName: string ) => {
-        switch (fieldName) {
+        let isValid = true;
+        switch (e.target.name) {
             case "name":
                 validateName()
                 break;
@@ -65,7 +62,14 @@ export default function UserItem (userItemProps : UserItemValues) {
                 validateRole()
                 break;
             case "email":
-                validateEmail();
+                isValid = emailValidation(formValues.email)
+                if (!isValid) {
+                    setFormErrors({...formErrors, email: "Invalid email address"})
+                    setFormValid({...formValid, email: false})
+                } else {
+                    setFormErrors({...formErrors, email: ""})
+                    setFormValid({...formValid, email: true})
+                }
                 break;
             case "password":
                 validatePassword();
@@ -188,7 +192,7 @@ export default function UserItem (userItemProps : UserItemValues) {
                             id="name" name="name" label="Name" 
                             value = {formValues.name}
                             onChange = {handleChange} 
-                            onBlur = {handleBlur}
+                            onBlur = {handleBlur} 
                             error = {formErrors.name !== ""}
                             helperText = {formErrors.name}
                         />

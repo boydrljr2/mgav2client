@@ -145,7 +145,7 @@ export const USERS : Array<UserValues> = [
         name        : "Able Baker",
         email       : "able@baker.com",
         password    : "passwordAB",
-        image       : "https://this-person-does-not-exist.com/fr",
+        image       : "https://this-person-does-not-exist.com/de",
         role        : {label: "Administrator", value: "Administrator"},
         creatorId   : user1Id,
         creatorName : "Able Baker",

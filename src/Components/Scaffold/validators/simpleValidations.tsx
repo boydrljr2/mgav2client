@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
 
 export function emailValidation(props : any) {
 
-    if (!props.emailValue) {
-        props.emailError='Required';
-        props.emailValid=false;
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(props.emailValue)) {
-        props.emailError='Invalid email address';
-        props.emailValid=false;
+    let isValid= true;
+    console.log( "emailValidation props: ", props)
+    console.log( "emailValidation isValid before: ", isValid)
+
+    if (!props) {
+        isValid =false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(props)) {
+        isValid = false;
+    } else {
+        isValid = true;
     }
-    return;
+
+    console.log( "emailValidation isValid after: ", isValid)
+
+    return isValid;
 }
 
 
