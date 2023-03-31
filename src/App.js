@@ -22,6 +22,8 @@ import PolicyPage from "./Components/Policy/PolicyPage.tsx";
 import PolicyNew from "./Components/Policy/PolicyNew.tsx";
 import PolicyEdit from "./Components/Policy/PolicyEdit.tsx";
 
+import MailingAddressItemRHF from "./Components/MailingAddress/MailingAddressItemRHF";
+
 function App() {
   return (
       <BrowserRouter>
@@ -62,6 +64,8 @@ function App() {
 
                 <Route path={"/login"} element={<UserLogin />} />
                 <Route path={"/signup"} element={<UserNew />} />
+
+                <Route path={"/mailingaddress"} element={<MailingAddressItemRHF />} />
 
               </Routes>
             </main>

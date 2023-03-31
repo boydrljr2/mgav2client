@@ -29,7 +29,7 @@ export default function InsurersTable(props: {insurers: InsurerValues[]}) {
     const getMailingAddress = (insurerMailingAddress: MailingAddressValues) => {
         return `${insurerMailingAddress.streetAddress} 
                 ${insurerMailingAddress.city}, 
-                ${insurerMailingAddress.state} 
+                ${insurerMailingAddress.state.value} 
                 ${insurerMailingAddress.zip}`;
     }
 

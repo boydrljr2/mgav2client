@@ -3,28 +3,37 @@ import React from 'react';
 import {Paper, Grid, Autocomplete } from '@mui/material';
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 import { USPSSTATEABBREVIATIONS } from '../Scaffold/MGAValues';
-  
-export default function MGAUSPSMailingAddressItem(props : 
-    {formValues : any, 
-        handleChangeMailingAddress : any
-        handleChangeMailingAddressState : any}) {
 
-    const {formValues, handleChangeMailingAddress, handleChangeMailingAddressState} = props;
+//pass the formValues/Errors/Valid nested object mailingAddress to this component.
+//then write the handlers onChange, onBlur inside this component.
+//then test.
+// one advantage is that the formValues/Errors/Valid can have interface definitions.   
+export default function MGAUSPSMailingAddressItem(props : {
+    mailingAddressFormValues : any, 
+    mailingAddressFormErrors : any,
+    mailingAddressFormTouches : any, 
+    mailingAddressFormValid : any,
+    }) {
+
+    console.log('MGAUSPSMailingAddressItem props: ', props);
+    const {mailingAddressFormValues, mailingAddressFormErrors, mailingAddressFormTouches, mailingAddressFormValid } = props;
 
     return (
             <Grid container spacing={1}>
                 <Grid item xs={12}>
                     <MGATextField 
                         id="street-address" name="streetAddress" label="Street Address"
-                        value={formValues.streetAddress}
-                        onChange={handleChangeMailingAddress}
+                        value={mailingAddressFormValues.streetAddress}
+                        //onChange={handleChangeMailingAddress}
+                        //onBlur
                     />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <MGATextField
                         id="mailing-address-city" name="city" label="City"
-                        value={formValues.city}
-                        onChange={handleChangeMailingAddress}
+                        value={mailingAddressFormValues.city}
+                        //onChange={handleChangeMailingAddress}
+                        //onBlur
                     />
                 </Grid>
                 <Grid item xs={6} md={2}>
@@ -33,9 +42,9 @@ export default function MGAUSPSMailingAddressItem(props :
                         options={USPSSTATEABBREVIATIONS}
                         getOptionLabel={(option : any) => option.label}
                         clearOnEscape
-                        value={formValues.state}
+                        value={mailingAddressFormValues.state}
                         isOptionEqualToValue={(option, value) => option.label === value.label}
-                        onChange={handleChangeMailingAddressState}
+                        //onChange={handleChangeMailingAddressState}
                         renderInput={(params) => 
                             <MGATextField 
                                 {...params} 
@@ -48,8 +57,9 @@ export default function MGAUSPSMailingAddressItem(props :
                 <Grid item xs={6} md={4}>
                     <MGATextField
                         id="mailing-address-zip" name="mailingAddressZip" label="Zip"
-                        value={formValues.zip}
-                        onChange={handleChangeMailingAddress}
+                        value={mailingAddressFormValues.zip}
+                        //onChange={handleChangeMailingAddress}
+                        //onBlur
                     />
                 </Grid>
             </Grid>
