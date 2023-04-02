@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
+import { yupResolver }  from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-//MAILING ADDRESS
-
+// ---------- MAILING ADDRESS  ----------  MAILING ADDRESS  -----------
 
 export interface USPSStateAbbreviationValues {
     label: string;
@@ -21,6 +22,13 @@ export interface MailingAddressValues {
 export interface MailingAddressItemValues {
     mailingAddress  : MailingAddressValues;
 }
+
+export const MailingAddressSchema = yup.object().shape({
+    streetAddress: yup.string().required('Street Required'),
+    city: yup.string().required('City Required'),
+    state: yup.string().required('State Required'),
+    zip: yup.string().required('Zip Required'),
+});
 
 //array of all 50 US States ++
 export const USPSSTATEABBREVIATIONS : Array<USPSStateAbbreviationValues>  = [
@@ -91,7 +99,7 @@ export const USPSSTATEABBREVIATIONS : Array<USPSStateAbbreviationValues>  = [
     { label: '', value: ''}
 ]
 
-//PERSON
+//--------------   PERSON ----------------- PERSON -----------------
 export interface PersonValues {
     id      : string;
     name : {
@@ -108,7 +116,7 @@ export interface PersonValues {
     maritalStatus? : string;
 }
 
-//USERS
+//---------------  USERS  ----------------- USERS  -----------------
 export const user1Id = uuidv4();
 export const user2Id = uuidv4();
 
@@ -222,6 +230,25 @@ export interface InsurerValues {
 export interface InsurerItemValues {
     insurer? : InsurerValues;
 }
+
+export const InsurerSchema = yup.object().shape({
+    name: yup.string().required('Name Required'),
+    FEIN: yup.string().required('FEIN Required'),
+    legacyId: yup.string(),
+    phone: yup.string(),
+    principalEmail: yup.string(),
+    URL: yup.string(),
+    mailingAddress: yup.object().shape({
+        streetAddress: yup.string().required('Street Address Required'),
+        city: yup.string().required('City Required'),
+        zip: yup.string().required('Zip Required'),
+    }),
+    NAICGroup: yup.string(),
+    NAICCode: yup.string(),
+    NAICGroupName: yup.string(),
+    AMBestID: yup.string(),
+    AMBestRating: yup.string(),
+});
 
 export const newInsurer : InsurerValues = {
     id                      : uuidv4(),

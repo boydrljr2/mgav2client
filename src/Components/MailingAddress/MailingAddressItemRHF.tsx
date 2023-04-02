@@ -24,7 +24,7 @@ const MailingAddressSchema = yup.object().shape({
     zip: yup.string(),
 });
 
-export default function MailingAddressItemRHF() {
+export default function MailingAddressItem() {
 
     const methods = 
         useForm<MailingAddress>({
