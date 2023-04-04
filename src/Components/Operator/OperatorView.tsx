@@ -26,7 +26,6 @@ export default function OperatorView( props: {operators: OperatorValues[]}) {
                 <Table stickyHeader size='small' aria-label='a dense table'>
                     <TableHead>
                         <TableRow>
-                            <TableCell>#</TableCell>
                             <TableCell>Type</TableCell>
                             <TableCell>SR22</TableCell>
                             <TableCell>Operator Name</TableCell>
@@ -36,15 +35,10 @@ export default function OperatorView( props: {operators: OperatorValues[]}) {
                     </TableHead>
                     <TableBody>
                         {props.operators.map((operator) => (
-                                <TableRow key={operator.id}>
-                                    <TableCell>{operator.id}</TableCell>
+                                <TableRow key={operator.name}>
                                     <TableCell>{operator.operatorType}</TableCell>
                                     <TableCell>{operator.sr22}</TableCell>
-                                    <TableCell>
-                                        {operator.name.first + " " 
-                                        + ((operator.name.middle !== undefined) ? operator.name.middle : "") + " "
-                                        + operator.name.last}
-                                    </TableCell>
+                                    <TableCell>{operator.name}</TableCell>
                                     <TableCell>{getDoB(operator.dateOfBirth)}</TableCell>
                                     <TableCell>{operator.operatorAccidentsViolations}</TableCell>
                                 </TableRow>

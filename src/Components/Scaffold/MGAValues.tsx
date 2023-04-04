@@ -2,6 +2,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { yupResolver }  from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+// ------  Some Regex Validations -------
+const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+const zipRegex = /^\d{5}(?:[-\s]\d{4})?$/;
+const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+
 // ---------- MAILING ADDRESS  ----------  MAILING ADDRESS  -----------
 
 export interface USPSStateAbbreviationValues {
@@ -13,7 +19,8 @@ export interface MailingAddressValues {
     id              : string;
     name?           : string;
     initial?        : string;
-    streetAddress   : string;
+    streetAddress1  : string;
+    streetAddress2? : string;
     city            : string;
     state           : USPSStateAbbreviationValues;
     zip             : string;
@@ -24,10 +31,16 @@ export interface MailingAddressItemValues {
 }
 
 export const MailingAddressSchema = yup.object().shape({
-    streetAddress: yup.string().required('Street Required'),
+    name : yup.string(),
+    initial : yup.string(),
+    streetAddress1: yup.string().required('Street Required'),
+    streetAddress2: yup.string(),
     city: yup.string().required('City Required'),
-    state: yup.string().required('State Required'),
-    zip: yup.string().required('Zip Required'),
+    state:  yup.object().shape({
+        label: yup.string().required('State Required'),
+        value: yup.string().required('State Required'),
+    }),
+    zip: yup.string().required('Zip Required').matches(zipRegex, 'Invalid Zip'),
 });
 
 //array of all 50 US States ++
@@ -99,22 +112,20 @@ export const USPSSTATEABBREVIATIONS : Array<USPSStateAbbreviationValues>  = [
     { label: '', value: ''}
 ]
 
-//--------------   PERSON ----------------- PERSON -----------------
+//--------------   PERSON CONTACT ----------------- PERSON CONTACT -----------------
 export interface PersonValues {
-    id      : string;
-    name : {
-        first   : string;
-        middle? : string;
-        last    : string;
-    }
-    SSN? : string;
+    name            : string;
     mailingAddress? : MailingAddressValues;
-    phone?    : string;
-    email?    : string;
-    dateOfBirth? : Date;
-    gender? : string;
-    maritalStatus? : string;
+    phone?          : string;
+    email?          : string;
 }
+
+export const PersonSchema = yup.object().shape({
+    name: yup.string().required('Name Required'),
+    mailingAddress: MailingAddressSchema,
+    phone: yup.string().matches(phoneRegex, 'Invalid Phone'),
+    email: yup.string().email('Invalid Email'),
+});
 
 //---------------  USERS  ----------------- USERS  -----------------
 export const user1Id = uuidv4();
@@ -189,7 +200,7 @@ export const newUser : UserValues = {
 }
 
 
-//INSURER---------------------------------------------------------------------
+//----------INSURER----------------------------------- INSURER -----------------
 export const insurer1Id = uuidv4();
 export const insurer2Id = uuidv4();
 
@@ -212,15 +223,21 @@ export interface InsurerValues {
     legacyId?               : string;
     status                  : InsurerStatusValues;
     domicileState           : USPSStateAbbreviationValues;
+    maxPolicyTerm           : number;
+    minPolicyTerm           : number;
+    renewalDaysAgent?       : number;
+    renewalDaysDirectBill?  : number;    
+    contactName?            : string;
     phone?                  : string;
     principalEmail?         : string;
-    URL?                    : string;
+    website?                : string;
     mailingAddress          : MailingAddressValues;
     NAICGroup?              : string;
     NAICCode?               : string;
     NAICGroupName?          : string;
     AMBestID?               : string;
     AMBestRating?           : string;
+    statementType?          : string;
     creatorId               : string;
     creatorName             : string;
     created                 : Date;
@@ -235,35 +252,52 @@ export const InsurerSchema = yup.object().shape({
     name: yup.string().required('Name Required'),
     FEIN: yup.string().required('FEIN Required'),
     legacyId: yup.string(),
-    phone: yup.string(),
-    principalEmail: yup.string(),
-    URL: yup.string(),
-    mailingAddress: yup.object().shape({
-        streetAddress: yup.string().required('Street Address Required'),
-        city: yup.string().required('City Required'),
-        zip: yup.string().required('Zip Required'),
+    status: yup.object().shape({
+        label: yup.string().required('Status Required'),
+        value: yup.string().required('Status Required'),
     }),
+    domicileState: yup.object().shape({
+        label: yup.string().required('Domicile State Required'),
+        value: yup.string().required('Domicile State Required'),
+    }),
+    maxPolicyTerm: yup.number().required('Max Policy Term Required').integer().min(1, "Must be greater than 0"),
+    minPolicyTerm: yup.number().required('Min Policy Term Required').integer().min(1, "Must be greater than 0"),
+    renewalDaysAgent: yup.number().integer().min(1, "Must be greater than 0"),
+    renewalDaysDirectBill: yup.number().integer().min(1, "Must be greater than 0"),
+    
+    contactName: yup.string(),
+    phone: yup.string().matches(phoneRegex, 'Invalid Phone'),
+    principalEmail: yup.string().email('Invalid Email'),
+    website: yup.string().url('Invalid URL'),
+    mailingAddress: MailingAddressSchema,
     NAICGroup: yup.string(),
     NAICCode: yup.string(),
     NAICGroupName: yup.string(),
     AMBestID: yup.string(),
     AMBestRating: yup.string(),
+    statementType: yup.string().required('Required'),
 });
 
 export const newInsurer : InsurerValues = {
     id                      : uuidv4(),
     FEIN                    : '',
     legacyId                : '',
-    status                  : INSURERSTATUSES[2],
+    status                  : INSURERSTATUSES[0],
     name                    : '',
     domicileState           : USPSSTATEABBREVIATIONS[0],
+    maxPolicyTerm           : 0,
+    minPolicyTerm           : 0,
+    renewalDaysAgent        : 0,
+    renewalDaysDirectBill   : 0,
+    contactName             : '',
     phone                   : '',
     principalEmail          : '',
-    URL                     : '',
+    website                     : '',
     mailingAddress          : {
         id              : uuidv4(),
         name            : '',
-        streetAddress   : '',
+        streetAddress1  : '',
+        streetAddress2  : '',
         city            : '',
         state           : USPSSTATEABBREVIATIONS[0],
         zip             : ''
@@ -279,111 +313,31 @@ export const newInsurer : InsurerValues = {
     lastModified            : new Date()
 }
 
-export const initialInsurerFormErrors = {
-    id                      : '',
-    FEIN                    : '',
-    legacyId                : '',
-    status                  : '',
-    name                    : '',
-    domicileState           : '',
-    phone                   : '',
-    principalEmail          : '',
-    URL                     : '',
-    mailingAddress          : {
-        id              : '',
-        name            : '',
-        streetAddress   : '',
-        city            : '',
-        state           : '',
-        zip             : ''
-    },
-    NAICGroup               : '',
-    NAICCode                : '',
-    NAICGroupName           : '',
-    AMBestID                : '',
-    AMBestRating            : '',
-    creatorId               : '',
-    creatorName             : '',
-    created                 : '',
-    lastModified            : ''
-}
-
-export const initialInsurerFormTouches = {
-    id                      : false,
-    FEIN                    : false,
-    legacyId                : false,
-    status                  : false,
-    name                    : false,
-    domicileState           : false,
-    phone                   : false,
-    principalEmail          : false,
-    URL                     : false,
-    mailingAddress          : {
-        id              : false,
-        name            : false,
-        streetAddress   : false,
-        city            : false,
-        state           : false,
-        zip             : false
-    },
-    NAICGroup               : false,
-    NAICCode                : false,
-    NAICGroupName           : false,
-    AMBestID                : false,
-    AMBestRating            : false,
-    creatorId               : false,
-    creatorName             : false,
-    created                 : false,
-    lastModified            : false
-}
-
-export const initialInsurerFormValid = {
-    id                      : true,
-    FEIN                    : true,
-    legacyId                : true,
-    status                  : true,
-    name                    : true,
-    domicileState           : true,
-    phone                   : true,
-    principalEmail          : true,
-    URL                     : true,
-    mailingAddress          : {
-        id              : true,
-        name            : true,
-        streetAddress   : true,
-        city            : true,
-        state           : true,
-        zip             : true
-    },
-    NAICGroup               : true,
-    NAICCode                : true,
-    NAICGroupName           : true,
-    AMBestID                : true,
-    AMBestRating            : true,
-    creatorId               : true,
-    creatorName             : true,
-    created                 : true,
-    lastModified            : true
-}
-
 export const INSURERS   : InsurerValues[] = [
     {   
         id              : insurer1Id,
         FEIN            : '36-2222222',
         legacyId        : '00225',
-        status          : INSURERSTATUSES[2],
+        status          : INSURERSTATUSES[1],
         name            : 'United Equitable Insurance Company',
+        domicileState   : USPSSTATEABBREVIATIONS[17],
+        maxPolicyTerm   : 84,
+        minPolicyTerm   : 1,
+        renewalDaysAgent: 90,
+        renewalDaysDirectBill: 45,
+        contactName     : 'John Doe',
         phone           : '800-234-6926',
         principalEmail  : 'service@ueilink.com',
+        website         : 'https://www.ueic.com',
         mailingAddress: {
                 id              : uuidv4(),
                 name            : "UEIC Headquarters",
-                streetAddress   : "9040 Waukegan Road, Suite 100",
+                streetAddress1  : "9040 Waukegan Road, Suite 100",
+                streetAddress2  : "",
                 city            : "Morton Grove",
                 state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60053"
             },
-        domicileState   : USPSSTATEABBREVIATIONS[17],
         NAICGroup       : '167',
         NAICCode        : '24910',
         NAICGroupName   : 'United Equitable Group',
@@ -400,17 +354,25 @@ export const INSURERS   : InsurerValues[] = [
         legacyId        : '20228',
         status          : INSURERSTATUSES[2],
         name            : 'American Heartland Insurance Company',
+        domicileState   : USPSSTATEABBREVIATIONS[17],
+        maxPolicyTerm   : 84,
+        minPolicyTerm   : 1,
+        renewalDaysAgent: 90,
+        renewalDaysDirectBill: 65,
+        contactName     : 'Jane Doe',
         phone           : '847-583-4800',
         principalEmail  : 'service@ahiclink.com',
+        website         : 'https://www.ahic.com',
         mailingAddress: {
                 id              : uuidv4(),
                 name            : "AHIC Headquarters",
-                streetAddress   : "9040 Waukegan Road, Suite 200",
+                streetAddress1  : "9040 Waukegan Road, Suite 200",
+                streetAddress2  : "",
                 city            : "Morton Grove",
                 state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60053"
             },
-        domicileState   : USPSSTATEABBREVIATIONS[17],
+
         NAICGroup       : '167',
         NAICCode        : '24910',
         NAICGroupName   : 'United Equitable Group',
@@ -444,7 +406,7 @@ export const AGENCYSTATUSES : Array<AgencyStatusValues> = [
 
 export interface AgencyValues {
     id                  : string;
-    astecNumber         : string;
+    legacyId?           : string;
     name                : string;
     irsName?            : string; //Company name for Corp, personal name for individual agent
     taxId               : string; //FEIN or SSN
@@ -452,13 +414,12 @@ export interface AgencyValues {
     principalEmail?     : string;
     documentEmail?      : string;
     website?            : string;
-    mailingAddress      : MailingAddressValues;
-    contact             : PersonValues;
+    mailingAddress?     : MailingAddressValues;
+    contactPerson?      : PersonValues;
     status              : AgencyStatusValues;
-    licenseNumber?      : string;
-    licenseDate?        : Date;
+    licenseNumber       : string;
+    licenseDate         : Date;
     licenseExpirationDate?  : Date;
-    prscmp?             : string;
     appointmentStatus?  : string;
     agentGrade?         : string;
     headquarterAgent?   : string;
@@ -474,9 +435,30 @@ export interface AgencyItemValues {
     agency? : AgencyValues;
 }
 
+export const AgencySchema = yup.object().shape({
+    id                  : yup.string().required(),
+    legacyId            : yup.string(),
+    name                : yup.string().required(),
+    irsName             : yup.string(),
+    taxId               : yup.string().required(),
+    phone               : yup.string().matches(phoneRegex, 'Phone number is not valid'),
+    principalEmail      : yup.string().email('Email is not valid'),
+    documentEmail       : yup.string().email('Email is not valid'),
+    website             : yup.string().url('Website is not valid'),
+    mailingAddress      : MailingAddressSchema,
+    contactPerson       : PersonSchema,
+    status              : yup.object().shape({
+        label: yup.string().required(),
+        value: yup.string().required()
+    }),
+    licenseNumber       : yup.string(),
+    licenseDate         : yup.date(),
+
+})
+
 export const newAgency : AgencyValues = {
     id                  : uuidv4(),
-    astecNumber         : '',
+    legacyId            : '',
     name                : '',
     taxId               : '',
     phone               : '',
@@ -485,21 +467,20 @@ export const newAgency : AgencyValues = {
     website             : '',
     mailingAddress      : {
         id              : uuidv4(),
-        streetAddress   : '',
+        streetAddress1  : '',
+        streetAddress2  : '',
         city            : '',
         state           : USPSSTATEABBREVIATIONS[0],
         zip             : ''
     },
-    contact             : {
-        id              : uuidv4(),
-        name      : {
-            first   : '',
-            last    : ''
-        },
+    contactPerson       : {
+        name            : '',
         phone           : '',
         email           : ''
     },
     status              : AGENCYSTATUSES[0],
+    licenseNumber       : '',
+    licenseDate         : new Date(),
     creatorId           : user1Id,
     creatorName         : USERS[0].name,
     created             : new Date(),
@@ -510,7 +491,7 @@ export const newAgency : AgencyValues = {
 export const AGENCIES : AgencyValues[] = [
     {
         id              : agency1Id,
-        astecNumber     : "123456",
+        legacyId        : "123456",
         name            : "Insure On The Spot Agency",
         taxId           : "36-1111111",
         phone           : "1-773-202-45060",
@@ -518,19 +499,18 @@ export const AGENCIES : AgencyValues[] = [
         documentEmail   : "documents@iots.com",
         website         : "https://www.insuranceonthespot.com",
         status          : AGENCYSTATUSES[2],
+        licenseNumber   : "123456",
+        licenseDate     : new Date(),
         mailingAddress  : {
             id              : uuidv4(),
-            streetAddress   : "5485 N Elston Ave",
+            streetAddress1  : "5485 N Elston Ave",
+            streetAddress2  : "",
             city            : "Chicago",
             state           : USPSSTATEABBREVIATIONS[17],
             zip             : "60630"
         },
-        contact         : {
-            id      : uuidv4(),
-            name    : {
-                first   : "John",
-                last    : "Doe"
-            },
+        contactPerson       : {
+            name    : "John Doe",
             phone     : "1-773-202-45060",
             email     : "j@iots.com"
         },
@@ -541,7 +521,7 @@ export const AGENCIES : AgencyValues[] = [
     },
     {
         id              : agency2Id,
-        astecNumber     : "027034",
+        legacyId         : "027034",
         name            : "Freeway Insurance Serv Amercia LLC",
         taxId           : "22-1234567",
         phone           : "(312) 517-9046",
@@ -549,19 +529,18 @@ export const AGENCIES : AgencyValues[] = [
         documentEmail   : "documents@freewayinsure.com",
         website         : "https://www.freewayinsurance.com",
         status          : AGENCYSTATUSES[2],
+        licenseNumber   : "123456",
+        licenseDate     : new Date(),
         mailingAddress : {
             id              : uuidv4(),
-            streetAddress   : "4712 W Cermak Rd",
+            streetAddress1  : "4712 W Cermak Rd",
+            streetAddress2  : "",
             city            : "Cicero",
             state           : USPSSTATEABBREVIATIONS[17],
             zip             : "60804"
         },
-        contact : {
-            id              : uuidv4(),
-            name    : {
-                first   : "Golf",
-                last    : "Hotel"
-            },
+        contactPerson : {
+            name        : "Golf Hotel",
             phone       : "1-770-202-45060",
             email       : "golf@freewayinsure.com"
         },
@@ -572,7 +551,7 @@ export const AGENCIES : AgencyValues[] = [
     },
     {
         id              : agency3Id,
-        astecNumber     : "000224",
+        legacyId     : "000224",
         name            : "CRC Insurance Services",
         taxId           : "33-1234567",
         phone           : "770-392-2700",
@@ -580,19 +559,18 @@ export const AGENCIES : AgencyValues[] = [
         documentEmail   : "docs@crcis.com",
         website         : "https://www.crcinsurance.com",
         status          : AGENCYSTATUSES[2],
+        licenseNumber   : "123456",
+        licenseDate     : new Date(),
         mailingAddress : {
             id              : uuidv4(),
-            streetAddress   : "5485 N Elston Ave",
+            streetAddress1  : "5485 N Elston Ave",
+            streetAddress2  : "",
             city            : "Atlanta",
             state           : USPSSTATEABBREVIATIONS[11],
             zip             : "60630"
         },
-        contact : {
-            id              : uuidv4(),
-            name    : {
-                first   : "Echo",
-                last    : "Foxtrot"
-            },
+        contactPerson : {
+            name    : "Echo Foxtrot",
             phone     : "1-770-202-45060",
             email     : "e@crcinsurance.com"
         },
@@ -617,6 +595,7 @@ export const policy1Id = uuidv4();
 export const policy2Id = uuidv4();
 
 export interface OperatorValues extends PersonValues {
+    dateOfBirth                     : Date;
     operatorType                    : "ADDL" | "PRIN" | "EXCL";
     sr22                            : "N" | "Y";
     operatorLicenseNumber           : string;
@@ -708,14 +687,11 @@ export const POLICIES : Array<PolicyValues> = [
         },
         agency        : AGENCIES[0],
         insured        : {
-            id        : uuidv4(),
-            name     : {
-                first   : "Esmeralda",
-                last    : "Zavala"
-            },
+            name     : "Esmeralda Zavala",
             mailingAddress   : {
                 id              : uuidv4(),
-                streetAddress   : "714 Lenox Ave",
+                streetAddress1  : "714 Lenox Ave",
+                streetAddress2  : "",
                 city            : "Waukegan",
                 state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60085"
@@ -725,66 +701,46 @@ export const POLICIES : Array<PolicyValues> = [
         },
         operators       : [
             {
-                id                          : uuidv4(),
+                name                        : "Esmeralda Zavala",
                 operatorType                : "PRIN",
                 sr22                        : "N",
                 operatorLicenseNumber       : "A1234567",
                 operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("12-31-2020"),
                 operatorCoverageStatus      : "COV",
-                name     : {
-                    first   : "Esmeralda",
-                    middle  : '',
-                    last    : "Zavala"
-                },
                 dateOfBirth           : new Date("02-19-1976"),
                 operatorAccidentsViolations : "09/01/18(V) 08/01/20(V) 11/01/20(V)",
             },
             {
-                id                      : uuidv4(),
+                name              : "Yasmeen Lopez",
                 operatorType            : "ADDL",
                 sr22                    : "N",
                 operatorLicenseNumber   : "A1234567",
                 operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("12-31-2025"),
                 operatorCoverageStatus  : "COV",
-                name              : {
-                    first   : "Yasmeen",
-                    middle  : '',
-                    last    : "Lopez"
-                },
                 dateOfBirth : new Date("02-19-1999"),
                 operatorAccidentsViolations : ""
             },
             {
-                id                      : uuidv4(),
+                name                    : "Fernando Sanchez",
                 operatorType            : "EXCL",
                 sr22                    : "N",
                 operatorLicenseNumber   : "A1234567",
                 operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("01-31-2025"),
                 operatorCoverageStatus  : "NONE",
-                name              : {
-                    first   : "Fernando",
-                    middle  : '',
-                    last    : "Sanchez"
-                },
                 dateOfBirth : new Date("06-19-1975"),
                 operatorAccidentsViolations : ""
             },
             {
-                id                      : uuidv4(),
+                name                    : "Janette Lopez",
                 operatorType            : "EXCL",
                 sr22                    : "N",
                 operatorLicenseNumber   : "A7654321",
                 operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("12-31-2023"),
                 operatorCoverageStatus  : "NONE",
-                name              : {
-                    first   : "Janette",
-                    middle  : '',
-                    last    : "Lopez"
-                },
                 dateOfBirth : new Date("06-19-2004"),
                 operatorAccidentsViolations : ""
             }
@@ -872,7 +828,8 @@ export const POLICIES : Array<PolicyValues> = [
                         lienholderName  : "Bank of America",
                         lienholderMailingAddress : {
                             id              : uuidv4(),
-                            streetAddress   : "123 Main Street",
+                            streetAddress1  : "123 Main Street",
+                            streetAddress2  : " ",
                             city            : "Chicago",
                             state           : USPSSTATEABBREVIATIONS[17],
                             zip             : "60606"
@@ -979,14 +936,11 @@ export const newPolicy : PolicyValues = {
         },
         agency        : AGENCIES[0],
         insured        : {
-            id        : uuidv4(),
-            name     : {
-                first   : "",
-                last    : ""
-            },
+            name     :  "",
             mailingAddress   : {
                 id              : uuidv4(),
-                streetAddress   : "",
+                streetAddress1  : "",
+                streetAddress2  : "",
                 city            : "",
                 state           : USPSSTATEABBREVIATIONS[0],
                 zip             : ""
@@ -996,18 +950,14 @@ export const newPolicy : PolicyValues = {
         },
         operators       : [
             {
-                id                          : uuidv4(),
+                name     :  "",
                 operatorType                : "PRIN",
                 sr22                        : "N",
                 operatorLicenseNumber       : "",
                 operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date(),
                 operatorCoverageStatus      : "COV",
-                name     : {
-                    first   : "",
-                    middle  : '',
-                    last    : ""
-                },
+
                 dateOfBirth           : new Date(),
                 operatorAccidentsViolations : "",
             }
@@ -1094,7 +1044,8 @@ export const newPolicy : PolicyValues = {
                         lienholderName  : "",
                         lienholderMailingAddress : {
                             id              : uuidv4(),
-                            streetAddress   : "",
+                            streetAddress1  : "",
+                            streetAddress2  : "",
                             city            : "",
                             state           : USPSSTATEABBREVIATIONS[17],
                             zip             : ""

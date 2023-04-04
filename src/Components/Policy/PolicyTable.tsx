@@ -20,12 +20,6 @@ export default function PolicyTable() {
         setPage(0);
     };
 
-    //write a const to return full name based on PersonValues.
-    //if middleName is null, return a space instead of null
-    const getFullName = (person: PersonValues) => {
-        return `${person.name.first} ${person.name.middle || ' '} ${person.name.last}`;
-    }
-
     return (
         <React.Fragment>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -55,9 +49,7 @@ export default function PolicyTable() {
                                         <TableCell>{policy.product.name}</TableCell>
                                         <TableCell>{policy.product.insuranceType}</TableCell>
                                         <TableCell>{policy.agency.name}</TableCell>
-                                        <TableCell>
-                                            {getFullName(policy.insured)}
-                                        </TableCell>
+                                        <TableCell>{policy.insured.name}</TableCell>
                                     </TableRow>
                                 ))
                             }

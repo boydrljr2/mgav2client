@@ -6,8 +6,7 @@ import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValue
 
 import { InsurerItemValues, INSURERS, InsurerValues, newInsurer } from '../Scaffold/MGAValues';
 
-//import InsurerItem from './InsurerItemMuiOnly';
-import InsurerItem from './InsurerItemRHFMui';
+import InsurerItem from './InsurerItem';
 
 export default function InsurerEdit ()  {
 

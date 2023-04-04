@@ -2,13 +2,12 @@ import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Paper, Grid, Autocomplete, Button, Typography } from '@mui/material';
+import { Paper, Grid, Button, Typography } from '@mui/material';
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 
 import { PolicyValues, PolicyItemValues, newPolicy } from '../Scaffold/MGAValues';
-import MGAUSPSMailingAddressItem from '../MailingAddress/MGAUSPSMailingAddressItem';
 
 export default function PolicyItem (policyItemProps : PolicyItemValues) {
 
@@ -75,7 +74,7 @@ export default function PolicyItem (policyItemProps : PolicyItemValues) {
                     <Grid item xs={12} md={3}>
                         <MGATextField
                             id="insured-name" name="insuredName" label="Primary Insured"
-                            value={formValues.insured.name.first + " " + formValues.insured.name.last}
+                            value={formValues.insured.name}
                             inputProps={{readOnly: true}}
                         />
                     </Grid>

@@ -27,7 +27,8 @@ export default function InsurersTable(props: {insurers: InsurerValues[]}) {
 
     //write a function to return insurer.insurerMailingAddress as a string
     const getMailingAddress = (insurerMailingAddress: MailingAddressValues) => {
-        return `${insurerMailingAddress.streetAddress} 
+        return `${insurerMailingAddress.streetAddress1}
+                ${insurerMailingAddress.streetAddress2} 
                 ${insurerMailingAddress.city}, 
                 ${insurerMailingAddress.state.value} 
                 ${insurerMailingAddress.zip}`;

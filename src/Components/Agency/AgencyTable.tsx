@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
     TablePagination } from '@mui/material';
-import { AgencyValues, MailingAddressValues } from '../Scaffold/MGAValues';
+import { AgencyValues } from '../Scaffold/MGAValues';
 
 export default function AgencyTable(props: {agencies: AgencyValues[]}) {
 
@@ -23,14 +23,6 @@ export default function AgencyTable(props: {agencies: AgencyValues[]}) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-    //write a function to return insurer.insurerMailingAddress as a string
-    const getMailingAddress = (insurerMailingAddress: MailingAddressValues) => {
-        return `${insurerMailingAddress.streetAddress} 
-                ${insurerMailingAddress.city}, 
-                ${insurerMailingAddress.state} 
-                ${insurerMailingAddress.zip}`;
-    }
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -56,9 +48,7 @@ export default function AgencyTable(props: {agencies: AgencyValues[]}) {
                                 </TableCell>
                                 <TableCell>{agency.phone}</TableCell>
                                 <TableCell>{agency.principalEmail}</TableCell>
-                                <TableCell>
-                                    {getMailingAddress(agency.mailingAddress)}
-                                </TableCell>
+                                <TableCell>"agency.mailingAddress"</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

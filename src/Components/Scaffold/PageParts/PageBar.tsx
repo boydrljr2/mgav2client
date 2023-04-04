@@ -67,7 +67,7 @@ export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
                 <Typography 
                     variant="h5"
                     sx={{ color: 'primary.main' }}
-                >{title} : 
+                >{title}
                 </Typography>
 
                 {/* wrap the Box statement in a conditional statement */}

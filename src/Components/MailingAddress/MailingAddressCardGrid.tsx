@@ -9,7 +9,7 @@ export default function MailingAddressCardGrid() {
                     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                         <CardHeader 
                             sx={{ fontSize : '1.5rem'}}
-                            title={(mailingAddress.name !== undefined) ? mailingAddress.name : mailingAddress.streetAddress}
+                            title={(mailingAddress.name !== undefined) ? mailingAddress.name : mailingAddress.streetAddress1}
                             avatar={
                                <Avatar> {(mailingAddress.initial !== undefined) ? mailingAddress.initial[0]  : 'X'} </Avatar>
                             }
@@ -22,7 +22,7 @@ export default function MailingAddressCardGrid() {
                                 : null
                             }
                             <Typography color='text.secondary'>
-                                {mailingAddress.streetAddress}
+                                {mailingAddress.streetAddress1}
                             </Typography>
                             <Typography color='text.secondary'>
                                 {mailingAddress.city}, {mailingAddress.state.value}  {mailingAddress.zip}

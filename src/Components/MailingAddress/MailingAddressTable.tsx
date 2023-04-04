@@ -22,13 +22,6 @@ export default function MailingAddressTable() {
         setPage(0);
     };
 
-/*Create a function to edit an existing address using MailingAddressForm
-    const handleEditMailingAddress = () => {
-        console.log("Edit an existing mailing address");
-
-    }
-*/
-
     return (
         <React.Fragment>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -50,20 +43,16 @@ export default function MailingAddressTable() {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((mailingAddress) => (
                                     <TableRow key={mailingAddress.id}>
-                                        <TableCell>{(mailingAddress.name !== undefined) ? mailingAddress.name : mailingAddress.streetAddress }</TableCell>
-                                        <TableCell>{mailingAddress.streetAddress}</TableCell>
+                                        <TableCell>{(mailingAddress.name !== undefined) 
+                                            ? 
+                                            mailingAddress.name 
+                                            : 
+                                            mailingAddress.streetAddress1 }
+                                        </TableCell>
+                                        <TableCell>{mailingAddress.streetAddress1}</TableCell>
                                         <TableCell>{mailingAddress.city}</TableCell>
                                         <TableCell>{mailingAddress.state.value}</TableCell>
                                         <TableCell>{mailingAddress.zip}</TableCell>
-                                        
-                                        {/*
-                                        <TableCell>
-                                            <Button
-                                                onClick={handleEditMailingAddress}
-                                            >Edit
-                                            </Button>
-                                        </TableCell>
-                                        */}
 
                                     </TableRow>
                             ))}

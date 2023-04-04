@@ -37,7 +37,7 @@ export default function LienholderView(props : {autoUnits : AutoValues[]}) {
                                 <TableRow key={lienholder.lienholderName}>
                                     <TableCell>{lienholder.lienholderName}</TableCell>
                                     <TableCell>
-                                        {lienholder.lienholderMailingAddress.streetAddress + " "
+                                        {lienholder.lienholderMailingAddress.streetAddress1 + " "
                                         + lienholder.lienholderMailingAddress.city + ", "
                                         + lienholder.lienholderMailingAddress.state + " "
                                         + lienholder.lienholderMailingAddress.zip}

@@ -6,17 +6,6 @@ import { InsuredValues } from '../Scaffold/MGAValues';
 
 export default function InsuredCardView(props: {insured: InsuredValues}) {
 
-    const getFullName = (insured: InsuredValues | undefined) => {
-        if (insured === undefined) {
-            return " ";
-        } else {
-
-        return (insured.name.first + " " 
-                + ((insured.name.middle !== undefined) ? insured.name.middle : "") 
-                + " " + insured.name.last);
-        }
-    }
-
     const getCardContent = (insured: InsuredValues | undefined)  => {
         if (insured === undefined) {
             return (
@@ -30,7 +19,7 @@ export default function InsuredCardView(props: {insured: InsuredValues}) {
             }
             return (
                 <React.Fragment>
-                    <Typography>{insured.mailingAddress.streetAddress}</Typography>
+                    <Typography>{insured.mailingAddress.streetAddress1}</Typography>
                     <Typography>{insured.mailingAddress.city + ", " + insured.mailingAddress.state + " " + insured.mailingAddress.zip}</Typography>
                 </React.Fragment>
                 
@@ -45,7 +34,7 @@ export default function InsuredCardView(props: {insured: InsuredValues}) {
         >
             <CardHeader
                 sx={{ fontSize : '2.0 rem'}}
-                title={getFullName(props.insured)}
+                title={props.insured.name}
                 subheader="Insured"
                 avatar={
                     <Avatar
