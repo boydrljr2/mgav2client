@@ -217,27 +217,32 @@ export const INSURERSTATUSES : Array<InsurerStatusValues> = [
 ]
 
 export interface InsurerValues {
+    //Identifiers
     id                      : string;
     name                    : string;
     FEIN                    : string;
     legacyId?               : string;
     status                  : InsurerStatusValues;
     domicileState           : USPSStateAbbreviationValues;
+    //Policy Terms
     maxPolicyTerm           : number;
     minPolicyTerm           : number;
     renewalDaysAgent?       : number;
     renewalDaysDirectBill?  : number;    
+    statementType?          : string;
+    //Contact Info
     contactName?            : string;
     phone?                  : string;
     principalEmail?         : string;
     website?                : string;
     mailingAddress          : MailingAddressValues;
+    //Rating Info
     NAICGroup?              : string;
     NAICCode?               : string;
     NAICGroupName?          : string;
     AMBestID?               : string;
     AMBestRating?           : string;
-    statementType?          : string;
+    //Record stamps
     creatorId               : string;
     creatorName             : string;
     created                 : Date;
@@ -260,10 +265,11 @@ export const InsurerSchema = yup.object().shape({
         label: yup.string().required('Domicile State Required'),
         value: yup.string().required('Domicile State Required'),
     }),
-    maxPolicyTerm: yup.number().required('Max Policy Term Required').integer().min(1, "Must be greater than 0"),
-    minPolicyTerm: yup.number().required('Min Policy Term Required').integer().min(1, "Must be greater than 0"),
+    maxPolicyTerm: yup.number().required('Required').integer("Must be an integer").min(1, "Must be greater than 0"),
+    minPolicyTerm: yup.number().required('Required').integer("Must be an integer").min(1, "Must be greater than 0"),
     renewalDaysAgent: yup.number().integer().min(1, "Must be greater than 0"),
-    renewalDaysDirectBill: yup.number().integer().min(1, "Must be greater than 0"),
+    renewalDaysDirectBill: yup.number().integer("Must be an integer").min(1, "Must be greater than 0"),
+    statementType: yup.string().required('Required'),
     
     contactName: yup.string(),
     phone: yup.string().matches(phoneRegex, 'Invalid Phone'),
@@ -275,7 +281,6 @@ export const InsurerSchema = yup.object().shape({
     NAICGroupName: yup.string(),
     AMBestID: yup.string(),
     AMBestRating: yup.string(),
-    statementType: yup.string().required('Required'),
 });
 
 export const newInsurer : InsurerValues = {
@@ -289,6 +294,7 @@ export const newInsurer : InsurerValues = {
     minPolicyTerm           : 0,
     renewalDaysAgent        : 0,
     renewalDaysDirectBill   : 0,
+    statementType           : '',
     contactName             : '',
     phone                   : '',
     principalEmail          : '',
@@ -325,6 +331,7 @@ export const INSURERS   : InsurerValues[] = [
         minPolicyTerm   : 1,
         renewalDaysAgent: 90,
         renewalDaysDirectBill: 45,
+        statementType   : 'A',
         contactName     : 'John Doe',
         phone           : '800-234-6926',
         principalEmail  : 'service@ueilink.com',
@@ -359,6 +366,7 @@ export const INSURERS   : InsurerValues[] = [
         minPolicyTerm   : 1,
         renewalDaysAgent: 90,
         renewalDaysDirectBill: 65,
+        statementType   : 'B',
         contactName     : 'Jane Doe',
         phone           : '847-583-4800',
         principalEmail  : 'service@ahiclink.com',
@@ -405,18 +413,21 @@ export const AGENCYSTATUSES : Array<AgencyStatusValues> = [
 ]
 
 export interface AgencyValues {
+    //Identifiers
     id                  : string;
     legacyId?           : string;
     name                : string;
     irsName?            : string; //Company name for Corp, personal name for individual agent
     taxId               : string; //FEIN or SSN
+    status              : AgencyStatusValues;
+    //Contact Info
+    contactName?        : string;
     phone?              : string;
     principalEmail?     : string;
     documentEmail?      : string;
     website?            : string;
-    mailingAddress?     : MailingAddressValues;
-    contactPerson?      : PersonValues;
-    status              : AgencyStatusValues;
+    mailingAddress      : MailingAddressValues;
+    //License Info
     licenseNumber       : string;
     licenseDate         : Date;
     licenseExpirationDate?  : Date;
@@ -424,7 +435,8 @@ export interface AgencyValues {
     agentGrade?         : string;
     headquarterAgent?   : string;
     locationCode?       : string;
-    commissionType?     : string;
+    commissionType?     : string;  
+    //Record stamps
     creatorId           : string;
     creatorName         : string;
     created             : Date;
@@ -436,31 +448,44 @@ export interface AgencyItemValues {
 }
 
 export const AgencySchema = yup.object().shape({
+    //Identifiers
     id                  : yup.string().required(),
     legacyId            : yup.string(),
     name                : yup.string().required(),
     irsName             : yup.string(),
     taxId               : yup.string().required(),
+    status              : yup.object().shape({
+        label: yup.string().required(),
+        value: yup.string().required()
+    }),
+    //Contact Info
+    contactName         : yup.string(),
     phone               : yup.string().matches(phoneRegex, 'Phone number is not valid'),
     principalEmail      : yup.string().email('Email is not valid'),
     documentEmail       : yup.string().email('Email is not valid'),
     website             : yup.string().url('Website is not valid'),
     mailingAddress      : MailingAddressSchema,
-    contactPerson       : PersonSchema,
-    status              : yup.object().shape({
-        label: yup.string().required(),
-        value: yup.string().required()
-    }),
+    //License Info
     licenseNumber       : yup.string(),
     licenseDate         : yup.date(),
-
+    licenseExpirationDate: yup.date(),
+    appointmentStatus   : yup.string(),
+    agentGrade          : yup.string(),
+    headquarterAgent    : yup.string(),
+    locationCode        : yup.string(),
+    commissionType      : yup.string(),
 })
 
 export const newAgency : AgencyValues = {
+    //Identifiers
     id                  : uuidv4(),
     legacyId            : '',
     name                : '',
+    irsName             : '',
     taxId               : '',
+    status              : AGENCYSTATUSES[0],
+    //Contact Info
+    contactName         : "",
     phone               : '',
     principalEmail      : '',
     documentEmail       : '',
@@ -473,14 +498,16 @@ export const newAgency : AgencyValues = {
         state           : USPSSTATEABBREVIATIONS[0],
         zip             : ''
     },
-    contactPerson       : {
-        name            : '',
-        phone           : '',
-        email           : ''
-    },
-    status              : AGENCYSTATUSES[0],
+    //License Info
     licenseNumber       : '',
     licenseDate         : new Date(),
+    licenseExpirationDate: new Date(),
+    appointmentStatus   : '',
+    agentGrade          : '',
+    headquarterAgent    : '',
+    locationCode        : '',
+    commissionType      : '',
+    //Record stamps
     creatorId           : user1Id,
     creatorName         : USERS[0].name,
     created             : new Date(),
@@ -490,17 +517,19 @@ export const newAgency : AgencyValues = {
 
 export const AGENCIES : AgencyValues[] = [
     {
-        id              : agency1Id,
+        //Identifiers ----------------
+        id              : uuidv4(),
         legacyId        : "123456",
         name            : "Insure On The Spot Agency",
+        irsName         : "Insure On The Spot Agency",
         taxId           : "36-1111111",
+        status          : AGENCYSTATUSES[2],
+        //Contact Info ----------------
+        contactName     : "John Doe",
         phone           : "1-773-202-45060",
         principalEmail  : "support@iots.com",
         documentEmail   : "documents@iots.com",
         website         : "https://www.insuranceonthespot.com",
-        status          : AGENCYSTATUSES[2],
-        licenseNumber   : "123456",
-        licenseDate     : new Date(),
         mailingAddress  : {
             id              : uuidv4(),
             streetAddress1  : "5485 N Elston Ave",
@@ -509,28 +538,35 @@ export const AGENCIES : AgencyValues[] = [
             state           : USPSSTATEABBREVIATIONS[17],
             zip             : "60630"
         },
-        contactPerson       : {
-            name    : "John Doe",
-            phone     : "1-773-202-45060",
-            email     : "j@iots.com"
-        },
-        creatorId       : user1Id,
-        creatorName     : USERS[0].name,
-        created         : new Date(),
-        lastModified    : new Date()
+        //License Info ----------------
+        licenseNumber       : "123456",
+        licenseDate         : new Date(),
+        licenseExpirationDate: new Date(),
+        appointmentStatus   : "Active",
+        agentGrade          : "A",
+        headquarterAgent    : "Yes",
+        locationCode        : "123456",
+        commissionType      : "C",
+        //Record stamps
+        creatorId           : user1Id,
+        creatorName         : USERS[0].name,
+        created             : new Date(),
+        lastModified        : new Date()
     },
     {
-        id              : agency2Id,
-        legacyId         : "027034",
+        //Identifiers ----------------
+        id              : uuidv4(),
+        legacyId         : "008164",
         name            : "Freeway Insurance Serv Amercia LLC",
+        irsName         : "Freeway Insurance Serv Amercia LLC",
         taxId           : "22-1234567",
+        status          : AGENCYSTATUSES[2],
+        //Contact Info
+        contactName     : "Lima Mike",
         phone           : "(312) 517-9046",
         principalEmail  : "support@freewayinsure.com",
         documentEmail   : "documents@freewayinsure.com",
         website         : "https://www.freewayinsurance.com",
-        status          : AGENCYSTATUSES[2],
-        licenseNumber   : "123456",
-        licenseDate     : new Date(),
         mailingAddress : {
             id              : uuidv4(),
             streetAddress1  : "4712 W Cermak Rd",
@@ -539,28 +575,35 @@ export const AGENCIES : AgencyValues[] = [
             state           : USPSSTATEABBREVIATIONS[17],
             zip             : "60804"
         },
-        contactPerson : {
-            name        : "Golf Hotel",
-            phone       : "1-770-202-45060",
-            email       : "golf@freewayinsure.com"
-        },
+        //License Info
+        licenseNumber   : "123456",
+        licenseDate     : new Date(),
+        licenseExpirationDate: new Date(),
+        appointmentStatus   : "Active",
+        agentGrade          : "A",
+        headquarterAgent    : "Yes",
+        locationCode    : "123456",
+        commissionType  : "C",
+        //Record stamps
         creatorId       : user1Id,
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date()
     },
     {
-        id              : agency3Id,
+        //Identifiers ----------------
+        id              : uuidv4(),
         legacyId     : "000224",
         name            : "CRC Insurance Services",
+        irsName         : "CRC Insurance Services",
         taxId           : "33-1234567",
+        status          : AGENCYSTATUSES[2],
+        //Contact Info
+        contactName     : "Sierra Tango",
         phone           : "770-392-2700",
         principalEmail  : "support@crcis.com",
         documentEmail   : "docs@crcis.com",
         website         : "https://www.crcinsurance.com",
-        status          : AGENCYSTATUSES[2],
-        licenseNumber   : "123456",
-        licenseDate     : new Date(),
         mailingAddress : {
             id              : uuidv4(),
             streetAddress1  : "5485 N Elston Ave",
@@ -569,11 +612,16 @@ export const AGENCIES : AgencyValues[] = [
             state           : USPSSTATEABBREVIATIONS[11],
             zip             : "60630"
         },
-        contactPerson : {
-            name    : "Echo Foxtrot",
-            phone     : "1-770-202-45060",
-            email     : "e@crcinsurance.com"
-        },
+        //License Info
+        licenseNumber   : "123456",
+        licenseDate     : new Date(),
+        licenseExpirationDate: new Date(),
+        appointmentStatus   : "Active",
+        agentGrade          : "A",
+        headquarterAgent    : "Yes",
+        locationCode    : "123456",
+        commissionType  : "C",
+        //Record stamps
         creatorId       : user1Id,
         creatorName     : USERS[0].name,
         created         : new Date(),

@@ -5,7 +5,7 @@ import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 import { AGENCIES, AgencyValues, newAgency, AgencyItemValues } from '../Scaffold/MGAValues';
-import AgencyItem from './AgencyItemMuiOnly';
+import AgencyItem from './AgencyItem';
 
 export default function AgencyEdit () {
 
@@ -13,11 +13,13 @@ export default function AgencyEdit () {
         {name: 'New', link: 'agencies/new'}
     ];
     const pageBarProps : PageBarValues = {
-        title: "Edit Agent",
+        title: "Edit Agency",
         pageButtons: pageButtons
     }
 
-    const agencyId = useParams().agentId;
+    const agencyId = useParams().agencyId;
+    console.log("agencyId: ", agencyId);
+
     let selectedAgency : AgencyValues | undefined  = 
         AGENCIES.find(agency => String(agency.id) === agencyId);
     const selectedAgencyUndefined = (selectedAgency === undefined);

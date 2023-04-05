@@ -19,7 +19,9 @@ export default function InsurerEdit ()  {
     }
 
     const insurerId = useParams().insurerId;
-    let selectedInsurer : InsurerValues | undefined  = INSURERS.find(insurer => String(insurer.id) === insurerId);
+    console.log("insurerId: ", insurerId);
+    let selectedInsurer : InsurerValues | undefined  = 
+        INSURERS.find(insurer => String(insurer.id) === insurerId);
     const selectedInsurerUndefined = (selectedInsurer === undefined);
 
     selectedInsurer = !selectedInsurerUndefined ? selectedInsurer : newInsurer;

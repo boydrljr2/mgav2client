@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
-    TablePagination } from '@mui/material';
-import { AgencyValues } from '../Scaffold/MGAValues';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
+import { MailingAddressValues, AgencyValues } from '../Scaffold/MGAValues';
 
 export default function AgencyTable(props: {agencies: AgencyValues[]}) {
 
@@ -24,6 +23,18 @@ export default function AgencyTable(props: {agencies: AgencyValues[]}) {
         setPage(0);
     };
 
+    const getMailingAddress = (agencyMailingAddress : MailingAddressValues) => {
+
+        //If the mailing address is undefined return an empty string
+        if (agencyMailingAddress === undefined) return "No Mailing Address";
+        return agencyMailingAddress.streetAddress1 + " " + 
+                agencyMailingAddress.streetAddress2 + " " + 
+                agencyMailingAddress.city + " " + 
+                agencyMailingAddress.state.value + " " + 
+                agencyMailingAddress.zip;
+    }
+                
+
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{maxHeight: 600}}>
@@ -32,8 +43,10 @@ export default function AgencyTable(props: {agencies: AgencyValues[]}) {
                         <TableRow sx={{backgroundColor:"gray"}}>
                             <TableCell>Status?</TableCell>
                             <TableCell>Agency Name</TableCell>
+                            <TableCell>License Number</TableCell>
                             <TableCell>Phone</TableCell>
                             <TableCell>Email</TableCell>
+                            <TableCell>Website</TableCell>
                             <TableCell>Address</TableCell>
                         </TableRow>
                     </TableHead>
@@ -46,9 +59,11 @@ export default function AgencyTable(props: {agencies: AgencyValues[]}) {
                                         {agency.name}
                                     </Link>
                                 </TableCell>
+                                <TableCell>{agency.licenseNumber}</TableCell>
                                 <TableCell>{agency.phone}</TableCell>
                                 <TableCell>{agency.principalEmail}</TableCell>
-                                <TableCell>"agency.mailingAddress"</TableCell>
+                                <TableCell>{agency.website}</TableCell>
+                                <TableCell>{getMailingAddress(agency.mailingAddress)}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

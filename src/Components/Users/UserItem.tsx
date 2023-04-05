@@ -285,7 +285,6 @@ export default function UserItem (userItemProps : UserItemValues) {
                     </Grid>
                 </Grid>
             </form>
-            {/* <Typography>formValues: {JSON.stringify(formValues, null, 2)}</Typography> */}
         </Paper>
     )
 }

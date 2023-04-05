@@ -16,6 +16,7 @@ import UserNew from "./Components/Users/UserNew.tsx";
 
 import AgencyPage from "./Components/Agency/AgencyPage.tsx";
 import AgencyEdit from "./Components/Agency/AgencyEdit.tsx";
+import AgencyNew from "./Components/Agency/AgencyNew.tsx";
 
 import InsurerPage from "./Components/Insurer/InsurersPage.tsx";
 import InsurerEdit from "./Components/Insurer/InsurerEdit.tsx";
@@ -57,6 +58,7 @@ function App() {
 
                 <Route path={"/agencies"} element={<AgencyPage />} />
                 <Route path={"/agencies/:agencyId"} element={<AgencyEdit />} />
+                <Route path={"/agencies/new"} element={<AgencyNew />} />
 
                 <Route path={"/insurers"} element={<InsurerPage />} />
                 <Route path={"/insurers/:insurerId"} element={<InsurerEdit />} />

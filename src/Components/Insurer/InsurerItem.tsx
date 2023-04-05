@@ -15,6 +15,7 @@ import { USPSSTATEABBREVIATIONS,
 
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import MailingAddressItem from '../MailingAddress/MailingAddressItem';
+import EditButtons from '../Scaffold/PageParts/EditButtons';
 
 
 export default function InsurerItem (insurerItemProps : InsurerItemValues) {
@@ -197,7 +198,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                                 control={methods.control}
                                 render={({field}) => (
                                     <TextField {...field}
-                                        id="maxPolicyTerm" label="Max Policy Term"
+                                        id="maxPolicyTerm" label="Max Policy Term  in Months"
                                         variant="outlined" sx={{margin:1}} fullWidth
                                         error={!!errors.maxPolicyTerm}
                                         helperText={errors.maxPolicyTerm?.message}
@@ -211,7 +212,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                                 control={methods.control}
                                 render={({field}) => (
                                     <TextField {...field}
-                                        id="minPolicyTerm" label="Min Policy Term"
+                                        id="minPolicyTerm" label="Min Policy Term in Months"
                                         variant="outlined" sx={{margin:1}} fullWidth
                                         error={!!errors.minPolicyTerm}
                                         helperText={errors.minPolicyTerm?.message}
@@ -219,13 +220,13 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                                 )}
                             />
                         </Grid>
-                        <Grid item xs={4} md={3} >
+                        <Grid item xs={4} md={2} >
                             <Controller
                                 name="renewalDaysAgent"
                                 control={methods.control}
                                 render={({field}) => (
                                     <TextField {...field}
-                                        id="renewalDaysAgent" label="Renewal Days Agent"
+                                        id="renewalDaysAgent" label="Renewal Days - Agent"
                                         variant="outlined" sx={{margin:1}} fullWidth
                                         error={!!errors.renewalDaysAgent}
                                         helperText={errors.renewalDaysAgent?.message}
@@ -233,16 +234,30 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                                 )}
                             />
                         </Grid>
-                        <Grid item xs={4} md={3} >
+                        <Grid item xs={4} md={2} >
                             <Controller
                                 name="renewalDaysDirectBill"
                                 control={methods.control}
                                 render={({field}) => (
                                     <TextField {...field}
-                                        id="renewalDaysDirectBill" label="Renewal Days Direct Bill"
+                                        id="renewalDaysDirectBill" label="Renewal Days - Direct Bill"
                                         variant="outlined" sx={{margin:1}} fullWidth
                                         error={!!errors.renewalDaysDirectBill}
                                         helperText={errors.renewalDaysDirectBill?.message}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={4} md={2} >
+                            <Controller
+                                name="statementType"
+                                control={methods.control}
+                                render={({field}) => (
+                                    <TextField {...field}
+                                        id="statementType" label="Statement Type"
+                                        variant="outlined" sx={{margin:1}} fullWidth
+                                        error={!!errors.statementType}
+                                        helperText={errors.statementType?.message}
                                     />
                                 )}
                             />
@@ -380,7 +395,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                     </Grid>
                     <MailingAddressItem /> 
                     <ObjectFooter footerValues={footerProps} />
-                    <Grid container direction="row" spacing={2}
+                    <Grid container direction="row" spacing={2} 
                         sx={{margin:'auto', justifyContent:"flex-end"}}
                     >
                         <Grid item >
@@ -392,7 +407,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                         <Grid item sx={{mr:1}}>
                             <Button
                                 variant="outlined" size='medium'
-                                component={Link} to='/insurers'
+                                component={Link} to={'/insurers'}
                             >Cancel</Button>
                         </Grid>
                     </Grid>

@@ -11,7 +11,7 @@ export default function AgencyPage() {
     const agencies = AGENCIES;
 
     const pageButtons : PageButtonValues[] = [
-        {name: 'New', link: 'agencies'}
+        {name: 'New', link: 'agencies/new'}
     ];
     
     const pageBarProps : PageBarValues = {

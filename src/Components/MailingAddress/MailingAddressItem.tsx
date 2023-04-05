@@ -16,109 +16,107 @@ export default function MailingAddressItem() {
 
 
     return (
-        <React.Fragment>
-            <Paper elevation={3} sx={{m:1, p:2}}>
-                <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} >
-                        <Controller 
-                            name="mailingAddress.streetAddress1"
-                            control={control} 
-                            render={({field}) => (
-                                <TextField
-                                    {...field} 
-                                    id="mailingAddress.streetAddress" label="Street"
-                                    variant="outlined" sx={{margin:1}} fullWidth
-                                    error={!!_.get(errors, 'mailingAddress.streetAddress1', null)}
-                                    //@ts-ignore
-                                    helperText={_.get(errors, 'mailingAddress.streetAddress1.message', '')}
-                                />
-                            )} 
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} >
-                        <Controller 
-                            name="mailingAddress.streetAddress2"
-                            control={control} 
-                            render={({field}) => (
-                                <TextField
-                                    {...field} 
-                                    id="mailingAddress.streetAddress" label="Street"
-                                    variant="outlined" sx={{margin:1}} fullWidth
-                                    error={!!_.get(errors, 'mailingAddress.streetAddress2', null)}
-                                    //@ts-ignore
-                                    helperText={_.get(errors, 'mailingAddress.streetAddress2.message', '')}
-                                />
-                            )} 
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Controller
-                            name="mailingAddress.city"
-                            control={control}
-                            render={({field}) => (
-                                <TextField 
-                                    {...field}
-                                    id="city" label="City"
-                                    variant="outlined" sx={{margin:1}} fullWidth
-                                    error={!!_.get(errors, 'mailingAddress.city', null)}
-                                    //@ts-ignore
-                                    helperText={_.get(errors, 'mailingAddress.city.message', '')}
-                                />
-                            )}
-                        />
-                    </Grid>
-                    <Grid item xs={3}>
-                            <Controller 
-                                name="mailingAddress.state"
-                                control={control}
-                                render={({field}) => (
-                                    <Autocomplete {...field}
-                                        id="status" 
-                                        options={USPSSTATEABBREVIATIONS}
-                                        getOptionLabel={(option) => option.label}
-                                        isOptionEqualToValue={(option, value) => option.value === value.value}
-                                        onChange={( event, newValue) => {
-                                            field.onChange(newValue);
-                                        }}
-                                        renderInput={(field) => 
-                                            <MGATextField 
-                                                {...field} 
-                                                label="State"
-                                                error={!!_.get(errors, 'mailingAddress.state', null)}
-                                                //Fix this helperText method so that it takes
-                                                //the error message from the schema without crashing
-                                                //if the state value is null.
-                                                helperText={
-                                                    (!!_.get(errors, 'mailingAddress.state', null)
-                                                    ? "Please select a state" 
-                                                    : '')}
-                                            />}
-                                    />
-                                )}
+        <Paper elevation={3} sx={{m:1, p:2}}>
+            <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography>
+            <Grid container spacing={2}>
+                <Grid item xs={12} >
+                    <Controller 
+                        name="mailingAddress.streetAddress1"
+                        control={control} 
+                        render={({field}) => (
+                            <TextField
+                                {...field} 
+                                id="mailingAddress.streetAddress" label="Street"
+                                variant="outlined" sx={{margin:1}} fullWidth
+                                error={!!_.get(errors, 'mailingAddress.streetAddress1', null)}
+                                //@ts-ignore
+                                helperText={_.get(errors, 'mailingAddress.streetAddress1.message', '')}
                             />
-                        </Grid>
-                    <Grid item xs={3}>
+                        )} 
+                    />
+                </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+                <Grid item xs={12} >
+                    <Controller 
+                        name="mailingAddress.streetAddress2"
+                        control={control} 
+                        render={({field}) => (
+                            <TextField
+                                {...field} 
+                                id="mailingAddress.streetAddress" label="Street"
+                                variant="outlined" sx={{margin:1}} fullWidth
+                                error={!!_.get(errors, 'mailingAddress.streetAddress2', null)}
+                                //@ts-ignore
+                                helperText={_.get(errors, 'mailingAddress.streetAddress2.message', '')}
+                            />
+                        )} 
+                    />
+                </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <Controller
+                        name="mailingAddress.city"
+                        control={control}
+                        render={({field}) => (
+                            <TextField 
+                                {...field}
+                                id="city" label="City"
+                                variant="outlined" sx={{margin:1}} fullWidth
+                                error={!!_.get(errors, 'mailingAddress.city', null)}
+                                //@ts-ignore
+                                helperText={_.get(errors, 'mailingAddress.city.message', '')}
+                            />
+                        )}
+                    />
+                </Grid>
+                <Grid item xs={3}>
                         <Controller 
-                            name="mailingAddress.zip"
+                            name="mailingAddress.state"
                             control={control}
                             render={({field}) => (
-                                <TextField {...field}
-                                    id="zip" label="Zip"
-                                    variant="outlined" sx={{margin:1}} fullWidth
-                                    error={!!_.get(errors, 'mailingAddress.zip', null)}
-                                    //@ts-ignore
-                                    helperText={_.get(errors, 'mailingAddress.zip.message', '')}
+                                <Autocomplete {...field}
+                                    id="status" 
+                                    options={USPSSTATEABBREVIATIONS}
+                                    getOptionLabel={(option) => option.label}
+                                    isOptionEqualToValue={(option, value) => option.value === value.value}
+                                    onChange={( event, newValue) => {
+                                        field.onChange(newValue);
+                                    }}
+                                    renderInput={(field) => 
+                                        <MGATextField 
+                                            {...field} 
+                                            label="State"
+                                            error={!!_.get(errors, 'mailingAddress.state', null)}
+                                            //Fix this helperText method so that it takes
+                                            //the error message from the schema without crashing
+                                            //if the state value is null.
+                                            helperText={
+                                                (!!_.get(errors, 'mailingAddress.state', null)
+                                                ? "Please select a state" 
+                                                : '')}
+                                        />}
                                 />
                             )}
                         />
                     </Grid>
+                <Grid item xs={3}>
+                    <Controller 
+                        name="mailingAddress.zip"
+                        control={control}
+                        render={({field}) => (
+                            <TextField {...field}
+                                id="zip" label="Zip"
+                                variant="outlined" sx={{margin:1}} fullWidth
+                                error={!!_.get(errors, 'mailingAddress.zip', null)}
+                                //@ts-ignore
+                                helperText={_.get(errors, 'mailingAddress.zip.message', '')}
+                            />
+                        )}
+                    />
                 </Grid>
-            </Paper>
-        </React.Fragment>
+            </Grid>
+        </Paper>
     );
 }

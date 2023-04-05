@@ -5,7 +5,7 @@ import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 import { USERS, UserValues, newUser, UserItemValues } from '../Scaffold/MGAValues';
-import UserItem from './UserItemMuiOnly';
+import UserItem from './UserItem';
 
 export default function UserEdit () {
 

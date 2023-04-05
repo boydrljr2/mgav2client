@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
-    TablePagination } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
 
 import { InsurerValues, MailingAddressValues } from '../Scaffold/MGAValues';
 
