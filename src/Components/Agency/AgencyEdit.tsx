@@ -9,14 +9,6 @@ import AgencyItem from './AgencyItem';
 
 export default function AgencyEdit () {
 
-    const pageButtons : PageButtonValues[] = [
-        {name: 'New', link: 'agencies/new'}
-    ];
-    const pageBarProps : PageBarValues = {
-        title: "Edit Agency",
-        pageButtons: pageButtons
-    }
-
     const agencyId = useParams().agencyId;
     console.log("agencyId: ", agencyId);
 
@@ -27,6 +19,15 @@ export default function AgencyEdit () {
     selectedAgency = !selectedAgencyUndefined ? selectedAgency : newAgency;
 
     const agencyItemProps : AgencyItemValues =  { agency : selectedAgency };
+
+
+    const pageButtons : PageButtonValues[] = [
+        {name: 'New', link: 'agencies/new'}
+    ];
+    const pageBarProps : PageBarValues = {
+        title: "Agency: " + selectedAgency?.name,
+        pageButtons: pageButtons
+    }
 
 
     return (

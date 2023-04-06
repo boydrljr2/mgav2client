@@ -177,22 +177,7 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                             />
                         </Grid>
                     </Grid>
-                    <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <Controller
-                                name="irsName"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField {...field}
-                                        id="irs-name" label="IRS Name"
-                                        variant="outlined" fullWidth  sx={{ m: 1 }}
-                                        error={!!errors.irsName}
-                                        helperText={errors.irsName?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                    </Grid>
+                    <ObjectFooter footerValues={objectFooterProps} />
                     <Paper elevation={2} sx={{ p: 2, m: 1, flexGrow: 1 }}>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'primary.main' }}>
                             Contact Information
@@ -276,8 +261,22 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                     <Paper elevation={2} sx={{ p: 2, m: 1, flexGrow: 1 }}>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'primary.main' }}>
                             License Information
-                        </Typography>
+                        </Typography>                             
                         <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <Controller
+                                    name="irsName"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField {...field}
+                                            id="irs-name" label="IRS Name"
+                                            variant="outlined" fullWidth  sx={{ m: 1 }}
+                                            error={!!errors.irsName}
+                                            helperText={errors.irsName?.message}
+                                        />
+                                    )}
+                                />
+                            </Grid>
                             <Grid item xs={2}>
                                 <Controller
                                     name="licenseNumber"
@@ -404,7 +403,6 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                             </Grid>
                         </Grid>
                     </Paper>
-                    <ObjectFooter footerValues={objectFooterProps} />
                     <Grid container direction="row" spacing={2} sx={{margin:'auto', justifyContent:"flex-end"}}>
                         <Grid item >
                             <Button
