@@ -10,12 +10,12 @@ import { Paper, Grid, TextField, Autocomplete, Button, Typography } from '@mui/m
 
 import { USPSSTATEABBREVIATIONS,
     USERS, user1Id, user2Id,
-    InsurerItemValues, InsurerSchema, INSURERS, INSURERSTATUSES, InsurerValues  
+    InsurerItemValues, InsurerSchema, INSURERS, INSURERSTATUSES, InsurerValues, InsurerProductTableValues,  
     } from '../Scaffold/MGAValues';
 
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import MailingAddressItem from '../MailingAddress/MailingAddressItem';
-import EditButtons from '../Scaffold/PageParts/EditButtons';
+import InsurerProductTable from '../Product/InsurerProductTable';
 
 
 export default function InsurerItem (insurerItemProps : InsurerItemValues) {
@@ -24,13 +24,14 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
 
     const { insurer } = insurerItemProps;
     const insurerUndefined = (insurer === undefined);
+    const newInsurerId = uuidv4();
 
     const methods =
         useForm<InsurerValues>({
             resolver: yupResolver(InsurerSchema),
             defaultValues:    
                 {
-                    id          : (!insurerUndefined) ? insurer.id : uuidv4(),
+                    id          : (!insurerUndefined) ? insurer.id : newInsurerId,
                     FEIN        : (!insurerUndefined) ? insurer.FEIN : '',
                     legacyId        : (!insurerUndefined) ? insurer.legacyId : '',
                     status          : (!insurerUndefined) ? insurer.status : INSURERSTATUSES[2],
@@ -59,7 +60,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                     AMBestID                : (!insurerUndefined) ? insurer.AMBestID : '',
                     AMBestRating            : (!insurerUndefined) ? insurer.AMBestRating : '',
                     statementType           : (!insurerUndefined) ? insurer.statementType : '',
-                    creatorId               : (!insurerUndefined) ? insurer.creatorId : user1Id,
+                    creatorId               : (!insurerUndefined) ? insurer.creatorId : USERS[0].id,
                     creatorName             : (!insurerUndefined) ? insurer.creatorName : USERS[0].name,
                     created                 : (!insurerUndefined) ? insurer.created : new Date(),
                     lastModified            : (!insurerUndefined) ? insurer.lastModified : new Date(),
@@ -79,6 +80,10 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
         created         : new Date(),
         lastModified    : new Date()
     }
+
+    const insurerProductTableProps : InsurerProductTableValues = { 
+        insurerId : (!insurerUndefined) ? insurer.id : newInsurerId
+    };
 
     const { control,handleSubmit, watch, formState, 
         formState: { errors, dirtyFields, isDirty, isValid, touchedFields} } 
@@ -109,7 +114,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
 
     return (
         <FormProvider {...methods} >
-            <Paper variant="outlined" sx={{padding: 2}}>
+            <Paper sx={{padding: 2}}>
                 <form onSubmit={handleSubmit(insurerFormHandler)} > 
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={6}>
@@ -395,6 +400,7 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                     </Grid>
                     <MailingAddressItem /> 
                     <ObjectFooter footerValues={footerProps} />
+                    <InsurerProductTable insurerProductTableProps={insurerProductTableProps} />
                     <Grid container direction="row" spacing={2} 
                         sx={{margin:'auto', justifyContent:"flex-end"}}
                     >

@@ -201,8 +201,6 @@ export const newUser : UserValues = {
 
 
 //----------INSURER----------------------------------- INSURER -----------------
-export const insurer1Id = uuidv4();
-export const insurer2Id = uuidv4();
 
 export interface InsurerStatusValues {
     label: string;
@@ -251,6 +249,10 @@ export interface InsurerValues {
 
 export interface InsurerItemValues {
     insurer? : InsurerValues;
+}
+
+export interface InsurerProductTableValues {
+    insurerId   : string | undefined;
 }
 
 export const InsurerSchema = yup.object().shape({
@@ -321,7 +323,7 @@ export const newInsurer : InsurerValues = {
 
 export const INSURERS   : InsurerValues[] = [
     {   
-        id              : insurer1Id,
+        id              : uuidv4(),
         FEIN            : '36-2222222',
         legacyId        : '00225',
         status          : INSURERSTATUSES[1],
@@ -356,7 +358,7 @@ export const INSURERS   : InsurerValues[] = [
         lastModified    : new Date()
     },
     {   
-        id              : insurer2Id,
+        id              : uuidv4(),
         FEIN            : '36-11111111',
         legacyId        : '20228',
         status          : INSURERSTATUSES[2],
@@ -395,10 +397,6 @@ export const INSURERS   : InsurerValues[] = [
 
 
 //----------------  AGENCY ------------ AGENCY -----------------
-export const agency1Id = uuidv4();
-export const agency2Id = uuidv4();
-export const agency3Id = uuidv4();
-export const agency4Id = uuidv4();
 
 export interface AgencyStatusValues {
     label: string;
@@ -508,7 +506,7 @@ export const newAgency : AgencyValues = {
     locationCode        : '',
     commissionType      : '',
     //Record stamps
-    creatorId           : user1Id,
+    creatorId           : USERS[0].id,
     creatorName         : USERS[0].name,
     created             : new Date(),
     lastModified        : new Date()
@@ -548,7 +546,7 @@ export const AGENCIES : AgencyValues[] = [
         locationCode        : "123456",
         commissionType      : "C",
         //Record stamps
-        creatorId           : user1Id,
+        creatorId           : USERS[0].id,
         creatorName         : USERS[0].name,
         created             : new Date(),
         lastModified        : new Date()
@@ -585,7 +583,7 @@ export const AGENCIES : AgencyValues[] = [
         locationCode    : "123456",
         commissionType  : "C",
         //Record stamps
-        creatorId       : user1Id,
+        creatorId       : USERS[0].id,
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date()
@@ -622,7 +620,7 @@ export const AGENCIES : AgencyValues[] = [
         locationCode    : "123456",
         commissionType  : "C",
         //Record stamps
-        creatorId       : user1Id,
+        creatorId       : USERS[0].id,
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date()
@@ -631,16 +629,73 @@ export const AGENCIES : AgencyValues[] = [
 
 
 //------------  PRODUCT   ------------ PRODUCT -------------------------//
+export interface ProductAssetType {
+    label   : string;
+    value   : string;
+}
+
+export const PRODUCTASSETTYPES : Array<ProductAssetType> = [
+    {label: 'Automobile', value: 'Automobile'},
+    {label: 'Homeowners', value: 'Homeowners'},
+    {label: 'Commercial', value: 'Commercial'},
+]
+
 export interface ProductValues {
+    //Identifiers
+    id              : string;
     name            : string;
-    insuranceType   : string;
+    assetType       : ProductAssetType;
+    defaultRatingTerritory : USPSStateAbbreviationValues;
     insurer         : InsurerValues
 }
 
+export interface ProductItemValues {
+    product?         : ProductValues;
+}
+
+export const ProductSchema = yup.object().shape({
+    id              : yup.string().required(),
+    name            : yup.string().required(),
+    assetType       : yup.object().shape({
+        label:  yup.string().required('Required'),
+        value:  yup.string().required('Required'),
+    }).required('Required'),
+    defaultRatingTerritory : yup.object().shape({
+        label:  yup.string().required('Required'),
+        value:  yup.string().required('Required'),
+    }).required('Required'),
+    insurer         : yup.object().shape({
+        id              : yup.string().required(),
+    })
+})
+
+export const newProduct : ProductValues = {
+    id              : uuidv4(),
+    name            : "",
+    assetType       : PRODUCTASSETTYPES[0],
+    defaultRatingTerritory : USPSSTATEABBREVIATIONS[0],
+    insurer         : INSURERS[0]
+}
+
+export const PRODUCTS : ProductValues[] = [
+    {
+        id              : uuidv4(),
+        name            : "Illinois Auto Insurance",
+        assetType       : PRODUCTASSETTYPES[0],
+        defaultRatingTerritory : USPSSTATEABBREVIATIONS[17],
+        insurer         : INSURERS[0]
+    },
+    {
+        id              : uuidv4(),
+        name            : "Indiana Auto Insurance",
+        assetType       : PRODUCTASSETTYPES[0],
+        defaultRatingTerritory : USPSSTATEABBREVIATIONS[18],
+        insurer         : INSURERS[1]
+    },
+]
+
 
 //------------ POLICY --------------- POLICY ----------------------------------------//
-export const policy1Id = uuidv4();
-export const policy2Id = uuidv4();
 
 export interface OperatorValues extends PersonValues {
     dateOfBirth                     : Date;
@@ -719,7 +774,7 @@ export interface PolicyItemValues {
 
 export const POLICIES : Array<PolicyValues> = [
     {
-        id              : policy1Id,
+        id              : uuidv4(),
         policyNumber    : "PPW1303522",
         periodStartDate : new Date("01-01-2020"),
         periodEndDate   : new Date("12-31-2020"),
@@ -728,11 +783,7 @@ export const POLICIES : Array<PolicyValues> = [
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date(),
-        product         : {
-            name            : "Personal Automobile Insurance Policy",
-            insuranceType   : "Personal Automobile Insurance",
-            insurer         : INSURERS[0],
-        },
+        product         : PRODUCTS[0],
         agency        : AGENCIES[0],
         insured        : {
             name     : "Esmeralda Zavala",
@@ -977,11 +1028,7 @@ export const newPolicy : PolicyValues = {
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date(),
-        product         : {
-            name            : "",
-            insuranceType   : "",
-            insurer         : INSURERS[0],
-        },
+        product         : PRODUCTS[0],
         agency        : AGENCIES[0],
         insured        : {
             name     :  "",

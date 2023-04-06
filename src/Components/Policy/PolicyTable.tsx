@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Paper, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
 
 import { POLICIES } from '../Scaffold/MGAValues';
-import {PersonValues} from '../Scaffold/MGAValues';
 
 export default function PolicyTable() {
 
@@ -30,7 +29,7 @@ export default function PolicyTable() {
                                 <TableCell>Policy Number</TableCell>
                                 <TableCell>Insurer</TableCell>
                                 <TableCell>Product</TableCell>
-                                <TableCell>Type</TableCell>
+                                <TableCell>Asset</TableCell>
                                 <TableCell>Agency</TableCell>
                                 <TableCell>Insured</TableCell>
                             </TableRow>
@@ -47,7 +46,7 @@ export default function PolicyTable() {
                                         </TableCell>
                                         <TableCell>{policy.product.insurer.name}</TableCell>
                                         <TableCell>{policy.product.name}</TableCell>
-                                        <TableCell>{policy.product.insuranceType}</TableCell>
+                                        <TableCell>{policy.product.assetType.value}</TableCell>
                                         <TableCell>{policy.agency.name}</TableCell>
                                         <TableCell>{policy.insured.name}</TableCell>
                                     </TableRow>

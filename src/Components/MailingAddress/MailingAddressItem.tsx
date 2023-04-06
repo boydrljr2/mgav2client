@@ -16,7 +16,7 @@ export default function MailingAddressItem() {
 
 
     return (
-        <Paper elevation={3} sx={{m:1, p:2}}>
+        <Paper elevation={3} sx={{p:2, m:0}}>
             <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography>
             <Grid container spacing={2}>
                 <Grid item xs={12} >
