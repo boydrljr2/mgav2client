@@ -24,7 +24,7 @@ export default function InsurerProductTable( props: {insurerProductTableProps : 
 
     return (
         <React.Fragment>
-            <Paper elevation={3}  sx={{ width: "100%", overflow: "hidden" }}>
+            <Paper elevation={3} sx={{ mt:2, p:1}}>
                 <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Products</Typography>
                 <TableContainer sx={{ maxHeight: 480 }}>
                     <Table stickyHeader aria-label="sticky table">

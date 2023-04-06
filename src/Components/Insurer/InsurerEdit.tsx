@@ -10,14 +10,6 @@ import InsurerItem from './InsurerItem';
 
 export default function InsurerEdit ()  {
 
-    const pageButtons : PageButtonValues[] = [
-        {name: 'New', link: 'insurers/new'}
-    ];
-    const pageBarProps : PageBarValues = {
-        title: "Edit Insurer",
-        pageButtons: pageButtons
-    }
-
     const insurerId = useParams().insurerId;
     console.log("insurerId: ", insurerId);
     let selectedInsurer : InsurerValues | undefined  = 
@@ -27,6 +19,14 @@ export default function InsurerEdit ()  {
     selectedInsurer = !selectedInsurerUndefined ? selectedInsurer : newInsurer;
 
     const insurerItemProps : InsurerItemValues =  { insurer : selectedInsurer };
+
+    const pageButtons : PageButtonValues[] = [
+        {name: 'New', link: 'insurers/new'}
+    ];
+    const pageBarProps : PageBarValues = {
+        title: 'Insurer: ' + selectedInsurer?.name,
+        pageButtons: pageButtons
+    }
 
     return (
         <React.Fragment>

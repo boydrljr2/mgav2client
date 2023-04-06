@@ -27,7 +27,6 @@ export default function ObjectFooter (props: {footerValues: ObjectFooterValues})
             <Grid item 
                 sx={{margin: 1, display : "flex", flexDirection: "column", width: '100%' }} 
             >
-                <Divider sx={{margin: 1}} />
                 <Typography
                     sx={{margin: 1, fontSize: '.75rem'}}
                 >
@@ -38,6 +37,7 @@ export default function ObjectFooter (props: {footerValues: ObjectFooterValues})
                     Initialized Date: {created.toString()} : 
                     Last Modified Date: {lastModified.toString()}
                 </Typography>
+                <Divider sx={{m:1, p:1}} />
             </Grid>
         </Grid>
     );

@@ -15,6 +15,7 @@ import { USPSSTATEABBREVIATIONS,
 
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import MailingAddressItem from '../MailingAddress/MailingAddressItem';
+import InsurerDetails from './InsurerDetails';
 import InsurerProductTable from '../Product/InsurerProductTable';
 
 
@@ -196,210 +197,8 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                             />
                         </Grid>
                     </Grid>
-                    <Grid container spacing={2}>
-                        <Grid item xs={4} md={3} >
-                            <Controller
-                                name="maxPolicyTerm"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="maxPolicyTerm" label="Max Policy Term  in Months"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.maxPolicyTerm}
-                                        helperText={errors.maxPolicyTerm?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={4} md={3} >
-                            <Controller
-                                name="minPolicyTerm"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="minPolicyTerm" label="Min Policy Term in Months"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.minPolicyTerm}
-                                        helperText={errors.minPolicyTerm?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={4} md={2} >
-                            <Controller
-                                name="renewalDaysAgent"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="renewalDaysAgent" label="Renewal Days - Agent"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.renewalDaysAgent}
-                                        helperText={errors.renewalDaysAgent?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={4} md={2} >
-                            <Controller
-                                name="renewalDaysDirectBill"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="renewalDaysDirectBill" label="Renewal Days - Direct Bill"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.renewalDaysDirectBill}
-                                        helperText={errors.renewalDaysDirectBill?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={4} md={2} >
-                            <Controller
-                                name="statementType"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="statementType" label="Statement Type"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.statementType}
-                                        helperText={errors.statementType?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={2}>
-                        <Grid item xs={6} md={2} >
-                            <Controller
-                                name="NAICCode"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="NAICCode" label="NAIC Code"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.NAICCode}
-                                        helperText={errors.NAICCode?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={6} md={2}>
-                            <Controller
-                                name="NAICGroup"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="NAICGroup" label="NAIC Group"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.NAICGroup}
-                                        helperText={errors.NAICGroup?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={6} md={4} >
-                            <Controller
-                                name="NAICGroupName"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="NAICGroupName" label="NAIC Group Name"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.NAICGroupName}
-                                        helperText={errors.NAICGroupName?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={6} md={2}>
-                            <Controller
-                                name="AMBestID"
-                                control={methods.control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="AMBestID" label="AM Best ID"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.AMBestID}
-                                        helperText={errors.AMBestID?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={6} md={2}>
-                            <Controller 
-                                name="AMBestRating"
-                                control={control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="AMBestRating" label="AM Best Rating"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.AMBestRating}
-                                        helperText={errors.AMBestRating?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={2}>
-                    <Grid item xs={6} md={3}>
-                            <Controller 
-                                name="contactName"
-                                control={control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="contact-name" label="Contact Name"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.contactName}
-                                        helperText={errors.contactName?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={6} md={3}>
-                            <Controller 
-                                name="phone"
-                                control={control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="phone" label="Phone"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.phone}
-                                        helperText={errors.phone?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={6} md={3}>
-                            <Controller
-                                name="principalEmail"
-                                control={control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="principalEmail" label="Principal Email"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.principalEmail}
-                                        helperText={errors.principalEmail?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={6} md={3}>
-                            <Controller
-                                name="website"
-                                control={control}
-                                render={({field}) => (
-                                    <TextField {...field}
-                                        id="website" label="Website"
-                                        variant="outlined" sx={{margin:1}} fullWidth
-                                        error={!!errors.website}
-                                        helperText={errors.website?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                    </Grid>
-                    <MailingAddressItem /> 
                     <ObjectFooter footerValues={footerProps} />
+                    <InsurerDetails />
                     <InsurerProductTable insurerProductTableProps={insurerProductTableProps} />
                     <Grid container direction="row" spacing={2} 
                         sx={{margin:'auto', justifyContent:"flex-end"}}
@@ -422,3 +221,209 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
         </FormProvider>
     )
 }
+
+/*
+<Grid container spacing={2}>
+<Grid item xs={4} md={3} >
+    <Controller
+        name="maxPolicyTerm"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="maxPolicyTerm" label="Max Policy Term  in Months"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.maxPolicyTerm}
+                helperText={errors.maxPolicyTerm?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={4} md={3} >
+    <Controller
+        name="minPolicyTerm"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="minPolicyTerm" label="Min Policy Term in Months"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.minPolicyTerm}
+                helperText={errors.minPolicyTerm?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={4} md={2} >
+    <Controller
+        name="renewalDaysAgent"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="renewalDaysAgent" label="Renewal Days - Agent"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.renewalDaysAgent}
+                helperText={errors.renewalDaysAgent?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={4} md={2} >
+    <Controller
+        name="renewalDaysDirectBill"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="renewalDaysDirectBill" label="Renewal Days - Direct Bill"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.renewalDaysDirectBill}
+                helperText={errors.renewalDaysDirectBill?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={4} md={2} >
+    <Controller
+        name="statementType"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="statementType" label="Statement Type"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.statementType}
+                helperText={errors.statementType?.message}
+            />
+        )}
+    />
+</Grid>
+</Grid>
+<Grid container spacing={2}>
+<Grid item xs={6} md={2} >
+    <Controller
+        name="NAICCode"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="NAICCode" label="NAIC Code"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.NAICCode}
+                helperText={errors.NAICCode?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={6} md={2}>
+    <Controller
+        name="NAICGroup"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="NAICGroup" label="NAIC Group"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.NAICGroup}
+                helperText={errors.NAICGroup?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={6} md={4} >
+    <Controller
+        name="NAICGroupName"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="NAICGroupName" label="NAIC Group Name"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.NAICGroupName}
+                helperText={errors.NAICGroupName?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={6} md={2}>
+    <Controller
+        name="AMBestID"
+        control={methods.control}
+        render={({field}) => (
+            <TextField {...field}
+                id="AMBestID" label="AM Best ID"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.AMBestID}
+                helperText={errors.AMBestID?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={6} md={2}>
+    <Controller 
+        name="AMBestRating"
+        control={control}
+        render={({field}) => (
+            <TextField {...field}
+                id="AMBestRating" label="AM Best Rating"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.AMBestRating}
+                helperText={errors.AMBestRating?.message}
+            />
+        )}
+    />
+</Grid>
+</Grid>
+<Grid container spacing={2}>
+<Grid item xs={6} md={3}>
+    <Controller 
+        name="contactName"
+        control={control}
+        render={({field}) => (
+            <TextField {...field}
+                id="contact-name" label="Contact Name"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.contactName}
+                helperText={errors.contactName?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={6} md={3}>
+    <Controller 
+        name="phone"
+        control={control}
+        render={({field}) => (
+            <TextField {...field}
+                id="phone" label="Phone"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.phone}
+                helperText={errors.phone?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={6} md={3}>
+    <Controller
+        name="principalEmail"
+        control={control}
+        render={({field}) => (
+            <TextField {...field}
+                id="principalEmail" label="Principal Email"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.principalEmail}
+                helperText={errors.principalEmail?.message}
+            />
+        )}
+    />
+</Grid>
+<Grid item xs={6} md={3}>
+    <Controller
+        name="website"
+        control={control}
+        render={({field}) => (
+            <TextField {...field}
+                id="website" label="Website"
+                variant="outlined" sx={{margin:1}} fullWidth
+                error={!!errors.website}
+                helperText={errors.website?.message}
+            />
+        )}
+    />
+</Grid>
+</Grid>
+<MailingAddressItem /> 
+*/

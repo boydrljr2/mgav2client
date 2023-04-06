@@ -4,7 +4,7 @@ import { useFormContext,  Controller } from 'react-hook-form';
 import _ from 'lodash';
 
 import { Paper, Grid, TextField, Autocomplete, Button, Typography } from '@mui/material';
-import MGATextField from '../Scaffold/FieldParts/MGATextField';
+//import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
 import { USPSSTATEABBREVIATIONS } from '../Scaffold/MGAValues';
 
@@ -17,7 +17,7 @@ export default function MailingAddressItem() {
 
     return (
         <Paper elevation={3} sx={{p:2, m:0}}>
-            <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography>
+            {/* <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography> */}
             <Grid container spacing={2}>
                 <Grid item xs={12} >
                     <Controller 
@@ -85,7 +85,7 @@ export default function MailingAddressItem() {
                                         field.onChange(newValue);
                                     }}
                                     renderInput={(field) => 
-                                        <MGATextField 
+                                        <TextField 
                                             {...field} 
                                             label="State"
                                             error={!!_.get(errors, 'mailingAddress.state', null)}
