@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
+import { Avatar, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
 
 import { InsurerValues, MailingAddressValues } from '../Scaffold/MGAValues';
+import { AvatarSXBuilder } from '../Scaffold/FieldParts/AvatarSXBuilder';
 
 export default function InsurersTable(props: {insurers: InsurerValues[]}) {
 
@@ -39,6 +40,7 @@ export default function InsurersTable(props: {insurers: InsurerValues[]}) {
                 <Table stickyHeader  aria-label='sticky table' >
                     <TableHead>
                         <TableRow sx={{backgroundColor:"gray"}}>
+                            <TableCell></TableCell>
                             <TableCell>Status?</TableCell>
                             <TableCell>Insurer Name</TableCell>
                             <TableCell>Phone</TableCell>
@@ -49,6 +51,13 @@ export default function InsurersTable(props: {insurers: InsurerValues[]}) {
                     <TableBody>
                         {insurers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((insurer : InsurerValues) => (
                             <TableRow key={insurer.id}>
+                                <TableCell>
+                                    <Avatar 
+                                        {...AvatarSXBuilder(insurer.name)}
+                                        alt={insurer.name} 
+                                        variant='square'
+                                />
+                                </TableCell>
                                 <TableCell>{insurer.status.value}</TableCell>
                                 <TableCell>
                                     <Link to={`/insurers/${insurer.id}`}>

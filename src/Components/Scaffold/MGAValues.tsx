@@ -218,6 +218,7 @@ export interface InsurerValues {
     //Identifiers
     id                      : string;
     name                    : string;
+    avatar?                 : string;
     FEIN                    : string;
     legacyId?               : string;
     status                  : InsurerStatusValues;
@@ -286,17 +287,21 @@ export const InsurerSchema = yup.object().shape({
 });
 
 export const newInsurer : InsurerValues = {
+    //Identifiers
     id                      : uuidv4(),
+    name                    : '',
+    avatar                  : '',
     FEIN                    : '',
     legacyId                : '',
     status                  : INSURERSTATUSES[0],
-    name                    : '',
     domicileState           : USPSSTATEABBREVIATIONS[0],
+    //Policy Terms
     maxPolicyTerm           : 0,
     minPolicyTerm           : 0,
     renewalDaysAgent        : 0,
     renewalDaysDirectBill   : 0,
     statementType           : '',
+    //Contact Info
     contactName             : '',
     phone                   : '',
     principalEmail          : '',
@@ -324,10 +329,12 @@ export const newInsurer : InsurerValues = {
 export const INSURERS   : InsurerValues[] = [
     {   
         id              : uuidv4(),
+        name            : 'United Educators Insurance Company',
+        avatar          : '/static/images/UnitedEquitableAvatar.jpg',
         FEIN            : '36-2222222',
         legacyId        : '00225',
         status          : INSURERSTATUSES[1],
-        name            : 'United Equitable Insurance Company',
+
         domicileState   : USPSSTATEABBREVIATIONS[17],
         maxPolicyTerm   : 84,
         minPolicyTerm   : 1,
@@ -359,10 +366,11 @@ export const INSURERS   : InsurerValues[] = [
     },
     {   
         id              : uuidv4(),
+        name            : 'American Heartland Insurance Company',
+        avatar          : '/static/images/AmericanHeartlandAvatar.jpg',
         FEIN            : '36-11111111',
         legacyId        : '20228',
         status          : INSURERSTATUSES[2],
-        name            : 'American Heartland Insurance Company',
         domicileState   : USPSSTATEABBREVIATIONS[17],
         maxPolicyTerm   : 84,
         minPolicyTerm   : 1,
@@ -381,6 +389,43 @@ export const INSURERS   : InsurerValues[] = [
                 city            : "Morton Grove",
                 state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60053"
+            },
+
+        NAICGroup       : '167',
+        NAICCode        : '24910',
+        NAICGroupName   : 'United Equitable Group',
+        AMBestID        : 'A+',
+        AMBestRating    : 'A+',
+        creatorId       : user1Id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date()
+    },
+    {   
+        id              : uuidv4(),
+        name            : 'Harley Heaven Motorcycle Insurance Co.',
+        avatar          : '/static/images/AmericanHeartlandAvatar.jpg',
+        FEIN            : '13-13131313',
+        legacyId        : '666',
+        status          : INSURERSTATUSES[2],
+        domicileState   : USPSSTATEABBREVIATIONS[17],
+        maxPolicyTerm   : 84,
+        minPolicyTerm   : 1,
+        renewalDaysAgent: 90,
+        renewalDaysDirectBill: 65,
+        statementType   : 'B',
+        contactName     : 'Jane Doe',
+        phone           : '847-583-4800',
+        principalEmail  : 'service@ahiclink.com',
+        website         : 'https://www.hhmi.com',
+        mailingAddress: {
+                id              : uuidv4(),
+                name            : "Harley Heaven Headquarters",
+                streetAddress1  : "9040 Waukegan Road, Suite 200",
+                streetAddress2  : "",
+                city            : "Milwaukee",
+                state           : USPSSTATEABBREVIATIONS[22],
+                zip             : "65053"
             },
 
         NAICGroup       : '167',
@@ -415,6 +460,7 @@ export interface AgencyValues {
     id                  : string;
     legacyId?           : string;
     name                : string;
+    avatar?             : string;
     irsName?            : string; //Company name for Corp, personal name for individual agent
     taxId               : string; //FEIN or SSN
     status              : AgencyStatusValues;
@@ -479,6 +525,7 @@ export const newAgency : AgencyValues = {
     id                  : uuidv4(),
     legacyId            : '',
     name                : '',
+    avatar              : '',
     irsName             : '',
     taxId               : '',
     status              : AGENCYSTATUSES[0],
@@ -519,6 +566,7 @@ export const AGENCIES : AgencyValues[] = [
         id              : uuidv4(),
         legacyId        : "123456",
         name            : "Insure On The Spot Agency",
+        avatar          : "/static/images/UnitedEquitableAvatar.jpg",
         irsName         : "Insure On The Spot Agency",
         taxId           : "36-1111111",
         status          : AGENCYSTATUSES[2],
@@ -558,6 +606,7 @@ export const AGENCIES : AgencyValues[] = [
         id              : uuidv4(),
         legacyId         : "008164",
         name            : "Freeway Insurance Serv Amercia LLC",
+        avatar          : "/static/images/UnitedEquitableAvatar.jpg",
         irsName         : "Freeway Insurance Serv Amercia LLC",
         taxId           : "22-1234567",
         status          : AGENCYSTATUSES[2],
@@ -597,6 +646,7 @@ export const AGENCIES : AgencyValues[] = [
         id              : uuidv4(),
         legacyId     : "000224",
         name            : "CRC Insurance Services",
+        avatar          : "/static/images/UnitedEquitableAvatar.jpg",
         irsName         : "CRC Insurance Services",
         taxId           : "33-1234567",
         status          : AGENCYSTATUSES[2],

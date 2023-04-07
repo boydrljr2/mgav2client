@@ -4,7 +4,7 @@ import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValue
 import PageBar from '../Scaffold/PageParts/PageBar';
 import { AGENCIES } from '../Scaffold/MGAValues';
 
-import AgencyTable from './AgencyTable';
+import AgencyTable from './AgencyTableEnhanced';
 
 export default function AgencyPage() {
 
