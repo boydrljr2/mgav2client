@@ -538,8 +538,10 @@ export const AGENCIES : AgencyValues[] = [
         },
         //License Info ----------------
         licenseNumber       : "123456",
-        licenseDate         : new Date(),
-        licenseExpirationDate: new Date(),
+        //set licenseDate to January 1 2020
+        licenseDate         : new Date(2020, 0, 1),
+        //set licenseExpirationDate to January 1 2031
+        licenseExpirationDate: new Date(2031, 0, 1),
         appointmentStatus   : "Active",
         agentGrade          : "A",
         headquarterAgent    : "Yes",
@@ -575,8 +577,10 @@ export const AGENCIES : AgencyValues[] = [
         },
         //License Info
         licenseNumber   : "123456",
-        licenseDate     : new Date(),
-        licenseExpirationDate: new Date(),
+        //set licenseDate to January 29, 2010 11:13:00 AM
+        licenseDate     : new Date(2010, 0, 29, 11, 13, 0),
+        //set licenseExpirationDate to January 29, 2030 11:13:00 AM
+        licenseExpirationDate: new Date(2030, 0, 29, 11, 13, 0),
         appointmentStatus   : "Active",
         agentGrade          : "A",
         headquarterAgent    : "Yes",
@@ -612,8 +616,10 @@ export const AGENCIES : AgencyValues[] = [
         },
         //License Info
         licenseNumber   : "123456",
-        licenseDate     : new Date(),
-        licenseExpirationDate: new Date(),
+        //set licenseDate to 5 years ago
+        licenseDate     : new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
+        //set licenseExpirationDate to 5 years from now
+        licenseExpirationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
         appointmentStatus   : "Active",
         agentGrade          : "A",
         headquarterAgent    : "Yes",
@@ -629,24 +635,45 @@ export const AGENCIES : AgencyValues[] = [
 
 
 //------------  PRODUCT   ------------ PRODUCT -------------------------//
-export interface ProductAssetType {
+export interface ProductAssetTypeValues {
     label   : string;
     value   : string;
 }
 
-export const PRODUCTASSETTYPES : Array<ProductAssetType> = [
+export const PRODUCTASSETTYPES : Array<ProductAssetTypeValues> = [
     {label: 'Automobile', value: 'Automobile'},
     {label: 'Homeowners', value: 'Homeowners'},
     {label: 'Commercial', value: 'Commercial'},
 ]
 
+export interface ProductStatusValues {
+    label   : string;
+    value   : string;
+}
+
+export const PRODUCTSTATUSES : Array<ProductStatusValues> = [
+    {label: 'Draft', value: 'Draft'},
+    {label: 'Pending', value: 'Pending'},
+    {label: 'Active', value: 'Active'},
+    {label: 'Inactive', value: 'Inactive'},
+]
+
 export interface ProductValues {
     //Identifiers
-    id              : string;
-    name            : string;
-    assetType       : ProductAssetType;
-    defaultRatingTerritory : USPSStateAbbreviationValues;
-    insurer         : InsurerValues
+    id                      : string;
+    name                    : string;
+    status                  : ProductStatusValues;
+    assetType               : ProductAssetTypeValues;
+    state                   : USPSStateAbbreviationValues;
+    defaultRatingTerritory  : USPSStateAbbreviationValues;
+    effectiveDate           : Date;
+    sr22                    : boolean;
+    insurer                 : InsurerValues
+    //Record stamps
+    creatorId           : string;
+    creatorName         : string;
+    created             : Date;
+    lastModified        : Date;
 }
 
 export interface ProductItemValues {
@@ -655,8 +682,16 @@ export interface ProductItemValues {
 
 export const ProductSchema = yup.object().shape({
     id              : yup.string().required(),
-    name            : yup.string().required(),
+    name            : yup.string().required('Required'),
+    status          : yup.object().shape({
+        label:  yup.string().required('Required'),
+        value:  yup.string().required('Required'),
+    }).required('Required'),
     assetType       : yup.object().shape({
+        label:  yup.string().required('Required'),
+        value:  yup.string().required('Required'),
+    }).required('Required'),
+    state        : yup.object().shape({
         label:  yup.string().required('Required'),
         value:  yup.string().required('Required'),
     }).required('Required'),
@@ -664,6 +699,7 @@ export const ProductSchema = yup.object().shape({
         label:  yup.string().required('Required'),
         value:  yup.string().required('Required'),
     }).required('Required'),
+    effectiveDate   : yup.date().required('Required'),
     insurer         : yup.object().shape({
         id              : yup.string().required(),
     })
@@ -672,25 +708,54 @@ export const ProductSchema = yup.object().shape({
 export const newProduct : ProductValues = {
     id              : uuidv4(),
     name            : "",
+    status          : PRODUCTSTATUSES[2],
     assetType       : PRODUCTASSETTYPES[0],
+    state           : USPSSTATEABBREVIATIONS[0],
     defaultRatingTerritory : USPSSTATEABBREVIATIONS[0],
-    insurer         : INSURERS[0]
+    effectiveDate   : new Date(),
+    sr22            : true,
+    insurer         : INSURERS[0],
+    //Record stamps
+    creatorId           : USERS[0].id,
+    creatorName         : USERS[0].name,
+    created             : new Date(),
+    lastModified        : new Date()
 }
 
 export const PRODUCTS : ProductValues[] = [
     {
         id              : uuidv4(),
-        name            : "Illinois Auto Insurance",
+        name            : "Illinois Auto Insurance 2020",
+        status          : PRODUCTSTATUSES[2],
         assetType       : PRODUCTASSETTYPES[0],
+        state           : USPSSTATEABBREVIATIONS[17],
         defaultRatingTerritory : USPSSTATEABBREVIATIONS[17],
-        insurer         : INSURERS[0]
+        //set effectiveDate to January 1, 2020 at 12:00:00 AM
+        effectiveDate   : new Date(2020, 0, 1),
+        sr22            : true,
+        insurer         : INSURERS[0],
+        //Record stamps
+        creatorId       : USERS[0].id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date()
     },
     {
         id              : uuidv4(),
-        name            : "Indiana Auto Insurance",
+        name            : "Indiana Auto Insurance 2020",
+        status          : PRODUCTSTATUSES[1],
         assetType       : PRODUCTASSETTYPES[0],
+        state           : USPSSTATEABBREVIATIONS[18],
         defaultRatingTerritory : USPSSTATEABBREVIATIONS[18],
-        insurer         : INSURERS[1]
+        //set effectiveDate to January 1, 2010 at 12:00:00 AM
+        effectiveDate   : new Date(2010, 0, 1),
+        sr22            : false,
+        insurer         : INSURERS[1],
+        //Record stamps
+        creatorId       : USERS[0].id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date()
     },
 ]
 

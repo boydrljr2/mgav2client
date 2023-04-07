@@ -23,6 +23,8 @@ import InsurerEdit from "./Components/Insurer/InsurerEdit.tsx";
 import InsurerNew from "./Components/Insurer/InsurerNew.tsx";
 
 import ProductPage from "./Components/Product/ProductPage.tsx";
+import ProductEdit from "./Components/Product/ProductEdit.tsx";
+import ProductNew from "./Components/Product/ProductNew.tsx";
 
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
 import PolicyNew from "./Components/Policy/PolicyNew.tsx";
@@ -65,7 +67,9 @@ function App() {
                 <Route path={"/insurers/new"} element={<InsurerNew />} />
                 
                 <Route path={"/products"} element={<ProductPage />} />
-                
+                <Route path={"/products/:productId"} element={<ProductEdit />} />
+                <Route path={"/products/new"} element={<ProductPage />} />
+
                 <Route path={"/policies"} element={<PolicyPage />} />        
                 <Route path={"/policies/new"} element={<PolicyNew />} />
                 <Route path={"/policies/:policyId"} element={<PolicyEdit />} />

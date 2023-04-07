@@ -24,8 +24,8 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
     console.log('AgencyItem: agency = ', agency)
 
     const agencyUndefined = (agency === undefined);
-    const [licenseDateValue, setLicenseDateValue] = useState<Date | null>
-        (!agencyUndefined ? agency.licenseDate : new Date());
+//    const [licenseDateValue, setLicenseDateValue] = useState<Date | null>
+//        (!agencyUndefined ? agency.licenseDate : new Date());
 
     const methods =
         useForm<AgencyValues>({
@@ -293,17 +293,24 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                             </Grid>
                             <Grid item xs={2}>
                                 <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                    <DatePicker 
-                                        value = {licenseDateValue}
-                                        onChange = {(newValue) => setLicenseDateValue(newValue)}
-                                        renderInput={(params) => (
-                                            <TextField {...params}
-                                                id="license-date" label="License Date"
-                                                variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                error={!!errors.licenseDate}
-                                                helperText={errors.licenseDate?.message}
-                                            />
-                                        )}
+                                    <Controller
+                                        name="licenseDate"
+                                        control={control}
+                                        render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                                        <DatePicker 
+                                            {...field}
+                                            inputRef={ref}
+                                            label="License Date"
+                                            renderInput={(inputProps) => (
+                                                <TextField 
+                                                    {...inputProps}
+                                                    variant="outlined" fullWidth  sx={{ m: 1 }}
+                                                    error={!!errors.licenseDate}
+                                                    helperText={errors.licenseDate?.message}
+                                                />
+                                            )}
+                                        />
+                                    )}
                                     />
                                 </LocalizationProvider>
                             </Grid>

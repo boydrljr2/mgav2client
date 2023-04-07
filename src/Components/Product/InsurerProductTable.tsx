@@ -43,8 +43,7 @@ export default function InsurerProductTable( props: {insurerProductTableProps : 
                                 .map((product : ProductValues) => (
                                 <TableRow key={product.id}>
                                     <TableCell>
-                                        {product.name}
-                                        {/* <Link to={`/products/${product.id}`}>{product.name}</Link> */}
+                                        <Link to={`/products/${product.id}`}>{product.name}</Link>
                                     </TableCell>
                                     <TableCell>{product.assetType.value}</TableCell>
                                     <TableCell>{product.defaultRatingTerritory.value}</TableCell>
