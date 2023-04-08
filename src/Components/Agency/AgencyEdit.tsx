@@ -10,10 +10,10 @@ import AgencyItem from './AgencyItem';
 export default function AgencyEdit () {
 
     const agencyId = useParams().agencyId;
-    console.log("agencyId: ", agencyId);
 
     let selectedAgency : AgencyValues | undefined  = 
         AGENCIES.find(agency => String(agency.id) === agencyId);
+        
     const selectedAgencyUndefined = (selectedAgency === undefined);
     
     selectedAgency = !selectedAgencyUndefined ? selectedAgency : newAgency;

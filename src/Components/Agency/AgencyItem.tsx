@@ -21,11 +21,8 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
     const navigate = useNavigate();
 
     const { agency } = agencyItemProps;
-    console.log('AgencyItem: agency = ', agency)
 
     const agencyUndefined = (agency === undefined);
-//    const [licenseDateValue, setLicenseDateValue] = useState<Date | null>
-//        (!agencyUndefined ? agency.licenseDate : new Date());
 
     const methods =
         useForm<AgencyValues>({

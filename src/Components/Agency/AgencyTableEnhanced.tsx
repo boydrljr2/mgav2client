@@ -9,224 +9,19 @@ import { Box, Paper,
         Avatar, Checkbox, IconButton, Tooltip, 
         FormControlLabel, Switch }
       from '@mui/material';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
 import {USERS, USPSSTATEABBREVIATIONS, MailingAddressValues, 
-        AgencyStatusValues, AGENCYSTATUSES, AgencyValues  } 
+        AgencyStatusValues, AGENCYSTATUSES, AgencyValues, AgencyTableProps, AgencyRowValues } 
         from '../Scaffold/MGAValues';
 import { AvatarSXBuilder }  from '../Scaffold/FieldParts/AvatarSXBuilder';
 import { v4 as uuidv4 } from 'uuid';
 
-/*
-interface Data {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-): Data {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
-
-*/
-
-interface Data {
-  //Identifiers
-  id                  : string;
-  legacyId            : string;
-  name                : string;
-  avatar              : string;
-  irsName             : string; //Company name for Corp, personal name for individual agent
-  taxId               : string; //FEIN or SSN
-  status              : string;
-  //Contact Info
-  contactName        : string;
-  phone              : string;
-  principalEmail      : string;
-  documentEmail       : string;
-  website             : string;
-  //mailingAddress      : MailingAddressValues;
-  //License Info
-  licenseNumber       : string;
-  licenseDate         : string;
-  licenseExpirationDate  : string;
-  appointmentStatus  : string;
-  agentGrade         : string;
-  headquarterAgent   : string;
-  locationCode      : string;
-  commissionType    : string;  
-  /*
-  //Record stamps
-  creatorId           : string;
-  creatorName         : string;
-  created             : Date;
-  lastModified        : Date;
-  */
-} 
-
-const rows : Data[] = [
-  {
-    //Identifiers ----------------
-    id              : uuidv4(),
-    legacyId        : "123456",
-    name            : "Insure On The Spot Agency",
-    avatar          : "/static/images/UnitedEquitableAvatar.jpg",
-    irsName         : "Insure On The Spot Agency",
-    taxId           : "36-1111111",
-    status          : AGENCYSTATUSES[2].value,
-    //Contact Info ----------------
-    contactName     : "John Doe",
-    phone           : "1-773-202-45060",
-    principalEmail  : "support@iots.com",
-    documentEmail   : "documents@iots.com",
-    website         : "https://www.insuranceonthespot.com",
-    /*
-    mailingAddress  : {
-        id              : uuidv4(),
-        streetAddress1  : "5485 N Elston Ave",
-        streetAddress2  : "",
-        city            : "Chicago",
-        state           : USPSSTATEABBREVIATIONS[17],
-        zip             : "60630"
-    },
-    */
-    //License Info ----------------
-    licenseNumber       : "123456",
-    //set licenseDate to January 1 2020
-    licenseDate         : new Date(2020, 0, 1).toString(),
-    //set licenseExpirationDate to January 1 2031
-    licenseExpirationDate: new Date(2031, 0, 1).toString(),
-    appointmentStatus   : "Active",
-    agentGrade          : "A",
-    headquarterAgent    : "Yes",
-    locationCode        : "123456",
-    commissionType      : "C",
-  },
-  {
-    //Identifiers ----------------
-    id              : uuidv4(),
-    legacyId         : "008164",
-    name            : "Freeway Insurance Serv Amercia LLC",
-    avatar          : "/static/images/FreewayInsuranceAvatar.jpg",
-    irsName         : "Freeway Insurance Serv Amercia LLC",
-    taxId           : "22-1234567",
-    status          : AGENCYSTATUSES[2].value,
-    //Contact Info
-    contactName     : "Lima Mike",
-    phone           : "(312) 517-9046",
-    principalEmail  : "support@freewayinsure.com",
-    documentEmail   : "documents@freewayinsure.com",
-    website         : "https://www.freewayinsurance.com",
-    /*
-    mailingAddress : {
-        id              : uuidv4(),
-        streetAddress1  : "4712 W Cermak Rd",
-        streetAddress2  : "",
-        city            : "Cicero",
-        state           : USPSSTATEABBREVIATIONS[17],
-        zip             : "60804"
-    },
-    */
-    //License Info
-    licenseNumber   : "123456",
-    //set licenseDate to January 29, 2010 11:13:00 AM
-    licenseDate     : new Date(2010, 0, 29, 11, 13, 0).toString(),
-    //set licenseExpirationDate to January 29, 2030 11:13:00 AM
-    licenseExpirationDate: new Date(2030, 0, 29, 11, 13, 0).toString(),
-    appointmentStatus   : "Active",
-    agentGrade          : "A",
-    headquarterAgent    : "Yes",
-    locationCode    : "123456",
-    commissionType  : "C",
-    /*
-    //Record stamps
-    creatorId       : USERS[0].id,
-    creatorName     : USERS[0].name,
-    created         : new Date(),
-    lastModified    : new Date()
-    */
-  },
-  {
-    //Identifiers ----------------
-    id              : uuidv4(),
-    legacyId        : "000224",
-    name            : "CRC Insurance Services",
-
-    avatar          : "/static/images/CRCInsuranceAvatar.jpg",
-    irsName         : "CRC Insurance Services",
-    taxId           : "33-1234567",
-    status          : AGENCYSTATUSES[2].value,
-    //Contact Info
-    contactName     : "Sierra Tango",
-    phone           : "770-392-2700",
-    principalEmail  : "support@crcis.com",
-    documentEmail   : "docs@crcis.com",
-    website         : "https://www.crcinsurance.com",
-    /*
-    mailingAddress : {
-        id              : uuidv4(),
-        streetAddress1  : "5485 N Elston Ave",
-        streetAddress2  : "",
-        city            : "Atlanta",
-        state           : USPSSTATEABBREVIATIONS[11],
-        zip             : "60630"
-    },
-    */
-    //License Info
-    licenseNumber   : "123456",
-    //set licenseDate to 5 years ago
-    licenseDate     : new Date(new Date().setFullYear(new Date().getFullYear() - 5)).toString(),
-    //set licenseExpirationDate to 5 years from now
-    licenseExpirationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toString(),
-    appointmentStatus   : "Active",
-    agentGrade          : "A",
-    headquarterAgent    : "Yes",
-    locationCode    : "123456",
-    commissionType  : "C",
-    /*
-    //Record stamps
-    creatorId       : USERS[0].id,
-    creatorName     : USERS[0].name,
-    created         : new Date(),
-    lastModified    : new Date()
-    */
-  },
-];
-
-
-console.log('rows: ', rows);
+//set interface Data to AgencyRowValues
+type Data = AgencyRowValues;
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -252,9 +47,7 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
+// If only supporting modern browsers you can replace stableSort(exampleArray, exampleComparator)
 // with exampleArray.slice().sort(exampleComparator)
 function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
@@ -299,6 +92,24 @@ const headCells: readonly HeadCell[] = [
     numeric         : false,
     disablePadding  : false,
     label           : 'Contact Name'
+  },
+  {
+    id              : 'phone',
+    numeric         : false,
+    disablePadding  : false,
+    label           : 'Phone'
+  },
+  {
+    id              : 'principalEmail',
+    numeric         : false,
+    disablePadding  : false,
+    label           : ' Email',
+  },
+  {
+    id              : 'mailingAddress',
+    numeric         : false,
+    disablePadding  : false,
+    label           : 'Address',
   }
 ];
 
@@ -327,17 +138,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">  
-{/*        
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-*/}
+
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -420,7 +221,13 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 
-export default function AgencyTableEnhanced(props: {agencies: AgencyValues[]}) {
+//------- THE FUNCTION THAT RETURNS THE TABLE --------
+export default function AgencyTableEnhanced(agencyTableProps : AgencyTableProps) {
+
+  const { agencyRows } = agencyTableProps;
+  const agencyRowsUndefined = (agencyRows === undefined);
+
+  const rows : AgencyRowValues[] = agencyRowsUndefined ? [] : agencyRows;
     
   const [order, setOrder] = React.useState<Order>(DEFAULT_ORDER);
   const [orderBy, setOrderBy] = React.useState<keyof Data>(DEFAULT_ORDER_BY);
@@ -601,6 +408,10 @@ export default function AgencyTableEnhanced(props: {agencies: AgencyValues[]}) {
                         <TableCell>{row.legacyId}</TableCell>
                         <TableCell>{row.taxId}</TableCell>
                         <TableCell>{row.contactName}</TableCell>
+                        <TableCell>{row.phone}</TableCell>
+                        <TableCell>{row.principalEmail}</TableCell>
+                        <TableCell>{row.mailingAddress}</TableCell>
+
                       </TableRow>
                     );
                   })
@@ -629,7 +440,7 @@ export default function AgencyTableEnhanced(props: {agencies: AgencyValues[]}) {
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        label="Dense"
       />
     </Box>
   );

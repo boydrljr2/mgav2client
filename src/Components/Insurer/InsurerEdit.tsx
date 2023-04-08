@@ -5,13 +5,12 @@ import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 import { InsurerItemValues, INSURERS, InsurerValues, newInsurer } from '../Scaffold/MGAValues';
-
 import InsurerItem from './InsurerItem';
 
 export default function InsurerEdit ()  {
 
     const insurerId = useParams().insurerId;
-    console.log("insurerId: ", insurerId);
+
     let selectedInsurer : InsurerValues | undefined  = 
         INSURERS.find(insurer => String(insurer.id) === insurerId);
     const selectedInsurerUndefined = (selectedInsurer === undefined);

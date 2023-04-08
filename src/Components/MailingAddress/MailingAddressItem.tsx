@@ -88,6 +88,7 @@ export default function MailingAddressItem() {
                                         <TextField 
                                             {...field} 
                                             label="State"
+                                            variant="outlined" sx={{margin:1}} fullWidth
                                             error={!!_.get(errors, 'mailingAddress.state', null)}
                                             //Fix this helperText method so that it takes
                                             //the error message from the schema without crashing

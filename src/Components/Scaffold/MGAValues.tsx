@@ -520,6 +520,23 @@ export const AgencySchema = yup.object().shape({
     commissionType      : yup.string(),
 })
 
+export interface AgencyRowValues {
+    id                  : string;
+    legacyId            : string;
+    name                : string;
+    taxId               : string;
+    status              : string;
+    contactName         : string;
+    phone               : string;
+    principalEmail      : string;
+    website             : string;
+    mailingAddress      : string;
+}
+
+export interface AgencyTableProps {
+    agencyRows          : Array<AgencyRowValues>;
+}
+
 export const newAgency : AgencyValues = {
     //Identifiers
     id                  : uuidv4(),
