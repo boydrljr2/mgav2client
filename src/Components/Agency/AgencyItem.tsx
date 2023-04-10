@@ -54,6 +54,7 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                     licenseDate: !agencyUndefined ? agency.licenseDate : new Date(),
                     licenseExpirationDate: !agencyUndefined ? agency.licenseExpirationDate : new Date(),
                     appointmentStatus: !agencyUndefined ? agency.appointmentStatus : '',
+                    agentGrade: !agencyUndefined ? agency.agentGrade : '',
                     headquarterAgent: !agencyUndefined ? agency.headquarterAgent : '',
                     locationCode: !agencyUndefined ? agency.locationCode : '',
                     commissionType: !agencyUndefined ? agency.commissionType : '',
@@ -106,7 +107,7 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
             <Paper variant='outlined' sx={{ p: 2, m: 1, flexGrow: 1 }}>
                 <form onSubmit={handleSubmit(agencyFormHandler)} >
                     <Grid container spacing={2}>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <Controller
                                 name="name"
                                 control={control}
@@ -116,20 +117,6 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                                         variant="outlined" fullWidth  sx={{ m: 1 }}
                                         error={!!errors.name}
                                         helperText={errors.name?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Controller
-                                name="taxId"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField {...field}
-                                        id="tax-id" label="Tax Id"
-                                        variant="outlined" fullWidth  sx={{ m: 1 }}
-                                        error={!!errors.taxId}
-                                        helperText={errors.taxId?.message}
                                     />
                                 )}
                             />
@@ -158,8 +145,22 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                                     />
                                 )}
                             />
+                        </Grid>                       
+                        <Grid item xs={4} md={2}>
+                            <Controller
+                                name="taxId"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField {...field}
+                                        id="tax-id" label="Tax Id"
+                                        variant="outlined" fullWidth  sx={{ m: 1 }}
+                                        error={!!errors.taxId}
+                                        helperText={errors.taxId?.message}
+                                    />
+                                )}
+                            />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={4} md={2}>
                             <Controller
                                 name="legacyId"
                                 control={control}

@@ -8,7 +8,7 @@ import AgencyTable from './AgencyTableEnhanced';
 
 export default function AgencyPage() {
 
-    //write a function to convert agency.mailingAddress to a string
+    //Select and transform rows from AGENCIES into agencyRows as rows for AgencyTable
     const agencyRows : AgencyRowValues[] = 
         AGENCIES.map(agency => {
             return {
@@ -37,11 +37,10 @@ export default function AgencyPage() {
         agencyRows: agencyRows
     }
 
-
+    //create pageButtons and pageBarProps for PageBar
     const pageButtons : PageButtonValues[] = [
         {name: 'New', link: 'agencies/new'}
     ];
-    
     const pageBarProps : PageBarValues = {
         title: "Agencies",
         pageButtons: pageButtons

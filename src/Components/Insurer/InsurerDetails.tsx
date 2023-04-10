@@ -3,7 +3,7 @@ import React from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import _ from 'lodash';
 
-import { Paper, Grid, TextField, Autocomplete, Button, Typography } from '@mui/material';
+import { Paper, Grid, TextField, Divider, Typography } from '@mui/material';
 
 import MailingAddressItem from '../MailingAddress/MailingAddressItem';
 
@@ -233,6 +233,7 @@ export default function InsurerDetails () {
                             />
                         </Grid>
                     </Grid>
+                    <Divider sx={{margin:1}} />
                     <MailingAddressItem /> 
             </Paper>
     )

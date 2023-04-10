@@ -7,9 +7,9 @@ import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 
-import { PolicyValues, PolicyItemValues, newPolicy } from '../Scaffold/MGAValues';
+import { PolicyValues, PolicyItemProps, newPolicy } from '../Scaffold/MGAValues';
 
-export default function PolicyItem (policyItemProps : PolicyItemValues) {
+export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
     const navigate = useNavigate();
 

@@ -2,13 +2,9 @@ import * as React from 'react';
 import { alpha } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
-import { Box, Paper, 
-        Table, TableBody, TableCell, TableContainer, TableHead, 
-        TablePagination, TableRow, TableSortLabel,
-        Toolbar, Typography,
-        Avatar, Checkbox, IconButton, Tooltip, 
-        FormControlLabel, Switch }
-      from '@mui/material';
+import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
+        TablePagination, TableRow, TableSortLabel, Toolbar, Typography,
+        Avatar, Checkbox, IconButton, Tooltip, FormControlLabel, Switch } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';

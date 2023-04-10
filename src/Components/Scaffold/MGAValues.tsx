@@ -329,7 +329,7 @@ export const newInsurer : InsurerValues = {
 export const INSURERS   : InsurerValues[] = [
     {   
         id              : uuidv4(),
-        name            : 'United Educators Insurance Company',
+        name            : 'United Equitable Insurance Company',
         avatar          : '/static/images/UnitedEquitableAvatar.jpg',
         FEIN            : '36-2222222',
         legacyId        : '00225',
@@ -589,7 +589,7 @@ export const AGENCIES : AgencyValues[] = [
         status          : AGENCYSTATUSES[2],
         //Contact Info ----------------
         contactName     : "John Doe",
-        phone           : "1-773-202-45060",
+        phone           : "1-773-202-4506",
         principalEmail  : "support@iots.com",
         documentEmail   : "documents@iots.com",
         website         : "https://www.insuranceonthespot.com",
@@ -622,7 +622,7 @@ export const AGENCIES : AgencyValues[] = [
         //Identifiers ----------------
         id              : uuidv4(),
         legacyId         : "008164",
-        name            : "Freeway Insurance Serv Amercia LLC",
+        name            : "Freeway Insurance Serv America LLC",
         avatar          : "/static/images/UnitedEquitableAvatar.jpg",
         irsName         : "Freeway Insurance Serv Amercia LLC",
         taxId           : "22-1234567",
@@ -698,6 +698,86 @@ export const AGENCIES : AgencyValues[] = [
         created         : new Date(),
         lastModified    : new Date()
     },
+    //add one more agency record with all the fields
+    {
+        //Identifiers ----------------
+        id              : uuidv4(),
+        legacyId     : "000225",
+        name            : "Secret Agency Insurance",
+        avatar          : "/static/images/UnitedEquitableAvatar.jpg",
+        irsName         : "Secret Agency Insurance",
+        taxId           : "44-1234567",
+        status          : AGENCYSTATUSES[2],
+        //Contact Info
+        contactName     : "Delta Echo",
+        phone           : "1-773-202-4506",
+        principalEmail  : "secret@shush.hmm",
+        documentEmail   : "dox@shush.mmm",
+        website         : "https://www.secretagencyinsurance.com",
+        mailingAddress : {
+            id              : uuidv4(),
+            streetAddress1  : "Quiet Alley",
+            streetAddress2  : "",
+            city            : "Chicago",
+            state           : USPSSTATEABBREVIATIONS[17],
+            zip             : "60630"
+        },
+        //License Info
+        licenseNumber   : "123456",
+        //set licenseDate to 5 years ago
+        licenseDate     : new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
+        //set licenseExpirationDate to 5 years from now
+        licenseExpirationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+        appointmentStatus   : "Active",
+        agentGrade          : "A",
+        headquarterAgent    : "Yes",
+        locationCode    : "123456",
+        commissionType  : "C",
+        //Record stamps
+        creatorId       : USERS[0].id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date()
+    },
+    {
+        //Identifiers ----------------
+        id              : uuidv4(),
+        legacyId     : "000225",
+        name            : "Assured Insurance",
+        avatar          : "/static/images/UnitedEquitableAvatar.jpg",
+        irsName         : "Assured Insurance",
+        taxId           : "55-1234567",
+        status          : AGENCYSTATUSES[2],
+        //Contact Info
+        contactName     : "Sally Certain",
+        phone           : "1-773-202-9999",
+        principalEmail  : "assured@insurance.ins",
+        documentEmail   : "dox@insurance.ins",
+        website         : "https://www.assuredinsurance.ins",
+        mailingAddress : {
+            id              : uuidv4(),
+            streetAddress1  : "Granite Tower",
+            streetAddress2  : "Apt 13",
+            city            : "Milwaukee",
+            state           : USPSSTATEABBREVIATIONS[48],
+            zip             : "60999"
+        },
+        //License Info
+        licenseNumber   : "1027483",
+        licenseDate     : new Date(new Date().setFullYear(new Date().getFullYear() - 100)),
+        //set licenseExpirationDate to 5 years from now
+        licenseExpirationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+        appointmentStatus   : "Active",
+        agentGrade          : "A",
+        headquarterAgent    : "Yes",
+        locationCode    : "123456",
+        commissionType  : "C",
+        //Record stamps
+        creatorId       : USERS[0].id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date()
+    }
 ]
 
 
@@ -883,34 +963,66 @@ export interface LienholderValues {
 }
 
 export interface PolicyValues {
+    //Identifiers
     id              : string;
     policyNumber    : string;
+    status          : string;
     periodStartDate : Date;
     periodEndDate   : Date;
     endorsementDate : Date;
-    creatorId       : string;
-    creatorName     : string;
-    created         : Date;
-    lastModified    : Date;
     product         : ProductValues;
     agency          : AgencyValues;
     insured         : InsuredValues;
     operators       : OperatorValues[];
     autoUnits       : AutoValues[];
     endorsements?   : string[];
+    //Record stamps
+    creatorId       : string;
+    creatorName     : string;
+    created         : Date;
+    lastModified    : Date;
 }
 
-export interface PolicyItemValues {
+export interface PolicyItemProps {
     policy? : PolicyValues
+}
+
+export interface PolicyRowValues {
+    id              : string;
+    policyNumber    : string;
+    status          : string;
+    periodStartDate : string;
+    periodEndDate   : string;
+    insuredName     : string;
+    insuredAddress  : string;
+    insuredPhone    : string;
+    insuredEmail    : string;
+    agencyName      : string;
+    agencyAddress   : string;
+    agencyPhone     : string;
+    agencyEmail     : string;
+    insurerName     : string;
+    insurerAddress  : string;
+    insurerPhone    : string;
+    insurerEmail    : string;
+    productName     : string;
+}
+
+export interface PolicyTableProps {
+    policyRows      : Array<PolicyRowValues>
 }
 
 export const POLICIES : Array<PolicyValues> = [
     {
         id              : uuidv4(),
         policyNumber    : "PPW1303522",
-        periodStartDate : new Date("01-01-2020"),
-        periodEndDate   : new Date("12-31-2020"),
-        endorsementDate : new Date("12-21-2019"),
+        status          : "Inforce",
+        //set periodStartDate to February 2, 2023 at 12:00:00 AM
+        periodStartDate : new Date(2023, 1, 2),
+        //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
+        periodEndDate   : new Date(2023, 7, 1, 23, 59, 59),
+        //set endorsementDate to today
+        endorsementDate : new Date(),
         creatorId       : USERS[0].id,
         creatorName     : USERS[0].name,
         created         : new Date(),
@@ -1147,12 +1259,145 @@ export const POLICIES : Array<PolicyValues> = [
             }
         ],
         endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
-    }
+    },
+    //Add one more policy here
+    {
+        id              : uuidv4(),
+        policyNumber    : "PPT3001906",
+        status          : "Inforce",
+        //set periodStartDate to February 2, 2023 at 12:00:00 AM
+        periodStartDate : new Date(2023, 3, 2),
+        //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
+        periodEndDate   : new Date(2023, 10, 1, 23, 59, 59),
+        //set endorsementDate to today
+        endorsementDate : new Date(),
+        creatorId       : USERS[0].id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date(),
+        product         : PRODUCTS[1],
+        agency        : AGENCIES[1],
+        insured        : {
+            name     : "Tyrice D Wilson",
+            mailingAddress   : {
+                id              : uuidv4(),
+                streetAddress1  : "914 N Homan Ave",
+                streetAddress2  : "",
+                city            : "Chicago",
+                state           : USPSSTATEABBREVIATIONS[17],
+                zip             : "60651"
+            },
+            phone    : "1-847-123-1234",
+            email :   "tdwilson99@gmail.com"
+        },
+        operators       : [
+            {
+                name                        : "Tyrice D Wilson",
+                operatorType                : "PRIN",
+                sr22                        : "N",
+                operatorLicenseNumber       : "B1234567",
+                operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
+                operatorLicenseExpirationDate : new Date("12-31-2020"),
+                operatorCoverageStatus      : "COV",
+                dateOfBirth           : new Date("02-19-1976"),
+                operatorAccidentsViolations : "09/01/18(V) 08/01/20(V) 11/01/20(V)",
+            }
+
+        ],
+        autoUnits        : [
+            {
+                unit            : 1,
+                autoMake        : "Buick",
+                autoModel       : "Lacrosse CX",
+                autoYear        : 2006,
+                autoVIN         : "5FNRL38436B082307",
+                autoSYM         : "6",
+                autoAGE         : 15,
+                autoTERR        : "43",
+                autoCLASS       : "2K",
+                autoPTS         : 0,
+                autoSAFE        : "Y",
+                autoTRNS        : "",
+                autoREN         : "",
+                autoATF         : "1",
+                autoFLCV        : "Y",
+                autoVSRC        : "",
+                autoNOWN        : "",                       
+                autoMC          : "Y",
+                coverages       : [
+                    {
+                        coverageType    : "A. Bodily Injury",
+                        coverageLimit   : "$25,000 each person, $50,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 71.00
+                    },
+                    {
+                        coverageType    : "B. Property Damage",
+                        coverageLimit   : "$20,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 117.00
+                    },
+                    {
+                        coverageType    : "C. Automobile Medical Payments",
+                        coverageLimit   : "$- per person",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "D. Comprehensive",
+                        coverageLimit   : "Actual Cash Value less deductible",
+                        coverageDeductible : "$500",
+                        coveragePremium : 183.00
+                    },
+                    {
+                        coverageType    : "E. Collision",
+                        coverageLimit   : "Actual Cash Value less deductible",
+                        coverageDeductible : "$500",
+                        coveragePremium : 0
+                    },
+                    {
+                        coverageType    : "J. Uninsured Motorist Bodily Injury",
+                        coverageLimit   : "$25,000 each person, $50,000 each accident",
+                        coverageDeductible : " ",
+                        coveragePremium : 42.00
+                    },
+                    {
+                        coverageType    : "K. Underinsured Motorist Property Damage",
+                        coverageLimit   : " ",
+                        coverageDeductible : "$250 per accident",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "Towing",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0.00
+                    },
+                    {
+                        coverageType    : "Rental",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 20.00
+                    },
+                    {
+                        coverageType    : "Additonal Coverages",
+                        coverageLimit   : " ",
+                        coverageDeductible : " ",
+                        coveragePremium : 0
+                    }
+                ],
+                lienholders     : []
+            },
+
+        ],
+        endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+    },
 ]
 
 export const newPolicy : PolicyValues = {
         id              : uuidv4(),
         policyNumber    : "",
+        status          : "NEW",
         periodStartDate : new Date(),
         periodEndDate   : new Date(),
         endorsementDate : new Date(),
@@ -1281,5 +1526,5 @@ export const newPolicy : PolicyValues = {
                 ]
             }            
         ],
-        endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+        endorsements        : [ "IL01-001", "IL01-003" ],
     }

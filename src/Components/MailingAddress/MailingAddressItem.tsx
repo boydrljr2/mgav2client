@@ -16,8 +16,8 @@ export default function MailingAddressItem() {
 
 
     return (
-        <Paper elevation={3} sx={{p:2, m:0}}>
-            {/* <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography> */}
+        <React.Fragment>
+            <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography> 
             <Grid container spacing={2}>
                 <Grid item xs={12} >
                     <Controller 
@@ -55,7 +55,7 @@ export default function MailingAddressItem() {
                 </Grid>
             </Grid>
             <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <Controller
                         name="mailingAddress.city"
                         control={control}
@@ -71,7 +71,7 @@ export default function MailingAddressItem() {
                         )}
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={6} md={3}>
                         <Controller 
                             name="mailingAddress.state"
                             control={control}
@@ -102,7 +102,7 @@ export default function MailingAddressItem() {
                             )}
                         />
                     </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={6} md={3}>
                     <Controller 
                         name="mailingAddress.zip"
                         control={control}
@@ -118,6 +118,6 @@ export default function MailingAddressItem() {
                     />
                 </Grid>
             </Grid>
-        </Paper>
+        </React.Fragment>
     );
 }
