@@ -10,13 +10,10 @@ import InsurerItem from './InsurerItem';
 export default function InsurerEdit ()  {
 
     const insurerId = useParams().insurerId;
-
     let selectedInsurer : InsurerValues | undefined  = 
         INSURERS.find(insurer => String(insurer.id) === insurerId);
     const selectedInsurerUndefined = (selectedInsurer === undefined);
-
     selectedInsurer = !selectedInsurerUndefined ? selectedInsurer : newInsurer;
-
     const insurerItemProps : InsurerItemValues =  { insurer : selectedInsurer };
 
     const pageButtons : PageButtonValues[] = [

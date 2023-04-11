@@ -8,6 +8,16 @@ const zipRegex = /^\d{5}(?:[-\s]\d{4})?$/;
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
 
+export interface GenderValues {
+    label: string;
+    value: string;
+}
+
+export const GENDERS : Array<GenderValues> = [
+    {label:'M', value:'Male'},
+    {label:'F', value:'Female'}
+]
+
 // ---------- MAILING ADDRESS  ----------  MAILING ADDRESS  -----------
 
 export interface USPSStateAbbreviationValues {
@@ -185,6 +195,15 @@ export const USERS : Array<UserValues> = [
     }
 ]
 
+export const UserSchema = yup.object().shape({
+    name        : yup.string().required('Name Required'),
+    email       : yup.string().email('Invalid Email'),
+    password    : yup.string().required('Password Required'),
+    role        : yup.object().shape({
+        label: yup.string().required('Required'),
+        value: yup.string().required('Required')
+    }).required('Required'),
+});
 
 export const newUser : UserValues = { 
     id          : uuidv4(),
@@ -909,6 +928,35 @@ export const PRODUCTS : ProductValues[] = [
 
 //------------ POLICY --------------- POLICY ----------------------------------------//
 
+export interface PolicyStatusValues {
+    label   : string;
+    value   : string;
+}
+
+export const POLICYSTATUSES : Array<ProductStatusValues> = [
+    {label: 'Draft', value: 'Draft'},
+    {label: 'Bound', value: 'Bound'},
+    {label: 'Inforce', value: 'Inforce'},
+    {label: 'Cancelled', value: 'Cancelled'},
+]
+
+export interface PolicyAsInterestMayAppearValues {
+    label   : string;
+    value   : string;
+}
+
+export const POLICYASINTERESTMAYAPPEAR : Array<PolicyAsInterestMayAppearValues> = [
+    { label: 'A', value: "And"},
+    { label: 'H', value: "His Wife"},
+    { label: 'W', value: "And Wife"},
+    { label: 'R', value: "As Respective Interest May Appear"},
+    { label: 'M', value: "Unmarried Man"},
+    { label: 'F', value: 'Female' },
+    { label: 'J', value: 'Husband and Wife - Joint Tenants' },
+    { label: 'X', value: 'A Married Mas as His Sole and Seprate Property' },
+    { label: 'Z', value: 'a Married Woman as Her Sole and Separate Property'}
+]
+
 export interface OperatorValues extends PersonValues {
     dateOfBirth                     : Date;
     operatorType                    : "ADDL" | "PRIN" | "EXCL";
@@ -918,9 +966,43 @@ export interface OperatorValues extends PersonValues {
     operatorLicenseExpirationDate   : Date;
     operatorCoverageStatus          : string; 
     operatorAccidentsViolations     : string;
+    //Record stamps
+    creatorId       : string;
+    creatorName     : string;
+    created         : Date;
+    lastModified    : Date;
 }
 
-export interface InsuredValues extends PersonValues {}
+export interface InsuredValues {
+    id                              : string;
+    name                            : string;
+    phone?                           : string;
+    email?                          : string;
+    mailingAddress                  : MailingAddressValues;
+    dateOfBirth                     : Date;
+    effectiveDate                   : Date;
+    gender                          : "M" | "F";
+    maritalStatus                   : "M" | "S" | "D" | "W";
+    occupation                      : string;
+    spouseOccupation                : string;
+    asInterestMayAppear             : PolicyAsInterestMayAppearValues;
+    //Record stamps
+    creatorId       : string;
+    creatorName     : string;
+    created         : Date;
+    lastModified    : Date;
+}
+
+export const InsuredSchema = yup.object().shape({ 
+    id                              : yup.string().required(),
+    name                            : yup.string().required(),
+    phone                           : yup.string().matches(phoneRegex, 'Phone number is not valid'),
+    email                           : yup.string().email('Invalid email address'),
+    mailingAddress                  : MailingAddressSchema,
+    dateOfBirth                     : yup.date().required('Required'),
+    effectiveDate                   : yup.date().required('Required'),
+    gender                          : yup.string().required('Required'),
+})
 
 export interface AutoValues {
     unit            : number;
@@ -948,6 +1030,11 @@ export interface AutoValues {
     autoERS?        : string;
     coverages       : CoverageValues[];
     lienholders?    : LienholderValues[];
+    //Record stamps
+    creatorId       : string;
+    creatorName     : string;
+    created         : Date;
+    lastModified    : Date;
 }
 
 export interface CoverageValues {
@@ -964,18 +1051,41 @@ export interface LienholderValues {
 
 export interface PolicyValues {
     //Identifiers
-    id              : string;
-    policyNumber    : string;
-    status          : string;
-    periodStartDate : Date;
-    periodEndDate   : Date;
-    endorsementDate : Date;
-    product         : ProductValues;
-    agency          : AgencyValues;
-    insured         : InsuredValues;
-    operators       : OperatorValues[];
-    autoUnits       : AutoValues[];
-    endorsements?   : string[];
+    id                      : string;
+    policyNumber            : string;
+    status                  : PolicyStatusValues;
+    applicationDate         : Date;
+    periodStartDate         : Date;
+    periodEndDate           : Date;
+    policyState             : USPSStateAbbreviationValues;
+    product                 : ProductValues;
+    agency                  : AgencyValues;
+    insured                 : InsuredValues;
+    //Policy Details
+    billType                : string;
+    netGross                : string;
+    paymentOption           : string;
+    claimCount              : number;
+    binderNumber            : string;
+    binderTimestamp         : Date;
+    policyRateType          : string;
+    policyTerm              : number;
+    premiumInforce          : number;
+    premiumWritten          : number;
+    statementDate           : number;
+    territory               : string;
+    yearsRenewed            : number;
+    //Endorsement details
+    endorsementNumber       : number;
+    endorsementAmount       : number;
+    endorsementStatus       : string;
+    endorsementEffectiveDate: Date;
+    //Operator details
+    operators               : OperatorValues[];
+    //Auto details
+    autoUnits               : AutoValues[];
+    //Policy document endorsements -- awkwardly overridden term 'endorsements'
+    documentEndorsements    : string[];
     //Record stamps
     creatorId       : string;
     creatorName     : string;
@@ -1012,23 +1122,55 @@ export interface PolicyTableProps {
     policyRows      : Array<PolicyRowValues>
 }
 
+export const PolicySchema = yup.object().shape({
+    //Identifiers
+    id                          : yup.string().required(),
+    policyNumber                : yup.string().required(),
+    status                      : yup.object().shape({
+        label: yup.string().required(),
+        value: yup.string().required()
+    }).required('Required'),
+    applicationDate             : yup.date().required('Required'),
+    periodStartDate             : yup.date().required('Required'),
+    periodEndDate               : yup.date().required('Required'),
+    policyState                 : yup.object().shape({
+        label: yup.string().required('Required'),
+        value: yup.string().required('Required')
+    }).required('Required'),
+    product                     : ProductSchema,
+    agency                      : AgencySchema,
+    insured                     : PersonSchema,
+    //Contact Info
+    contactName                 : yup.string(),
+    phone                       : yup.string().matches(phoneRegex, 'Phone number is not valid'),
+    principalEmail              : yup.string().email('Email is not valid'),
+    documentEmail               : yup.string().email('Email is not valid'),
+    website                     : yup.string().url('Website is not valid'),
+    mailingAddress              : MailingAddressSchema,
+    //License Info
+    licenseNumber               : yup.string(),
+    licenseDate                 : yup.date(),
+    licenseExpirationDate       : yup.date(),
+    appointmentStatus           : yup.string(),
+    agentGrade                  : yup.string(),
+    headquarterAgent            : yup.string(),
+    locationCode                : yup.string(),
+    commissionType              : yup.string(),
+})
+
 export const POLICIES : Array<PolicyValues> = [
     {
-        id              : uuidv4(),
-        policyNumber    : "PPW1303522",
-        status          : "Inforce",
+        id                      : uuidv4(),
+        policyNumber            : "PPW1303522",
+        status                  : "Inforce",
+        applicationDate         : new Date(2023, 0, 19),
         //set periodStartDate to February 2, 2023 at 12:00:00 AM
-        periodStartDate : new Date(2023, 1, 2),
+        periodStartDate         : new Date(2023, 1, 2),
         //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
-        periodEndDate   : new Date(2023, 7, 1, 23, 59, 59),
-        //set endorsementDate to today
-        endorsementDate : new Date(),
-        creatorId       : USERS[0].id,
-        creatorName     : USERS[0].name,
-        created         : new Date(),
-        lastModified    : new Date(),
-        product         : PRODUCTS[0],
-        agency        : AGENCIES[0],
+        periodEndDate           : new Date(2023, 7, 1, 23, 59, 59),
+        policyState             : USPSSTATEABBREVIATIONS[18],
+        product                 : PRODUCTS[0],
+        agency                  : AGENCIES[0],
         insured        : {
             name     : "Esmeralda Zavala",
             mailingAddress   : {
@@ -1042,6 +1184,27 @@ export const POLICIES : Array<PolicyValues> = [
             phone    : "1-847-123-1234",
             email :   "esmazavala@gmail.com"
         },
+        //Policy Details
+        billType                : "Direct",
+        netGross                : "Gross",
+        paymentOption           : "Monthly",
+        claimCount              : 2,
+        binderNumber            : "PPW1303522",
+        binderTimestamp         : new Date(2023, 0, 19),
+        policyRateType          : "Standard",
+        policyTerm              : 6,
+        premiumInforce          : 397,
+        premiumWritten          : 2400,
+        statementDate           : 12,
+        territory               : "IL-47",
+        yearsRenewed            : 0,
+        //Endorsement details
+        endorsementNumber       : 0,
+        endorsementAmount       : 0,
+        endorsementStatus       : "N/A",
+        endorsementEffectiveDate: new Date(2023, 1, 2),
+
+        //Operator details
         operators       : [
             {
                 name                        : "Esmeralda Zavala",
@@ -1089,6 +1252,7 @@ export const POLICIES : Array<PolicyValues> = [
             }
 
         ],
+        //Auto details
         autoUnits        : [
             {
                 unit            : 1,
@@ -1258,26 +1422,28 @@ export const POLICIES : Array<PolicyValues> = [
                 ] 
             }
         ],
-        endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
-    },
-    //Add one more policy here
-    {
-        id              : uuidv4(),
-        policyNumber    : "PPT3001906",
-        status          : "Inforce",
-        //set periodStartDate to February 2, 2023 at 12:00:00 AM
-        periodStartDate : new Date(2023, 3, 2),
-        //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
-        periodEndDate   : new Date(2023, 10, 1, 23, 59, 59),
-        //set endorsementDate to today
-        endorsementDate : new Date(),
+        //Policy document endorsements
+        documentEndorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+        //Record stamps
         creatorId       : USERS[0].id,
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date(),
-        product         : PRODUCTS[1],
-        agency        : AGENCIES[1],
-        insured        : {
+    },
+    //Add one more policy here
+    {
+        id                      : uuidv4(),
+        policyNumber            : "PPT3001906",
+        status                  : "Inforce",
+        applicationDate         : new Date(2023, 2, 27),
+        //set periodStartDate to February 2, 2023 at 12:00:00 AM
+        periodStartDate         : new Date(2023, 3, 2),
+        //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
+        periodEndDate           : new Date(2023, 10, 1, 23, 59, 59),
+        policyState             : USPSSTATEABBREVIATIONS[17],
+        product                 : PRODUCTS[1],
+        agency                  : AGENCIES[1],
+        insured                 : {
             name     : "Tyrice D Wilson",
             mailingAddress   : {
                 id              : uuidv4(),
@@ -1290,6 +1456,25 @@ export const POLICIES : Array<PolicyValues> = [
             phone    : "1-847-123-1234",
             email :   "tdwilson99@gmail.com"
         },
+        //Policy Details
+        billType                : "Agent",
+        netGross                : "Net",
+        paymentOption           : "Monthly",
+        claimCount              : 0,
+        binderNumber            : "PPT3001906",
+        binderTimestamp         : new Date(2023, 2, 27),
+        policyRateType          : "IL-Auto-Standard",
+        policyTerm              : 6,
+        premiumInforce          : 500,
+        premiumWritten         : 1980,
+        statementDate           : 22,
+        territory               : "40",
+        yearsRenewed            : 0,
+        //Endorsement details
+        endorsementNumber       : 1,
+        endorsementAmount       : 0,
+        endorsementStatus       : " ",
+        endorsementEffectiveDate: new Date(2023, 3, 2),
         operators       : [
             {
                 name                        : "Tyrice D Wilson",
@@ -1390,23 +1575,25 @@ export const POLICIES : Array<PolicyValues> = [
             },
 
         ],
-        endorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+        documentEndorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+        //Record stamps
+        creatorId       : USERS[0].id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date(),
     },
 ]
 
 export const newPolicy : PolicyValues = {
-        id              : uuidv4(),
-        policyNumber    : "",
-        status          : "NEW",
-        periodStartDate : new Date(),
-        periodEndDate   : new Date(),
-        endorsementDate : new Date(),
-        creatorId       : user1Id,
-        creatorName     : USERS[0].name,
-        created         : new Date(),
-        lastModified    : new Date(),
-        product         : PRODUCTS[0],
-        agency        : AGENCIES[0],
+        id                      : uuidv4(),
+        policyNumber            : "",
+        status                  : "NEW",
+        applicationDate         : new Date(),
+        periodStartDate         : new Date(),
+        periodEndDate           : new Date(),
+        policyState             : USPSSTATEABBREVIATIONS[0],
+        product                 : PRODUCTS[0],
+        agency                  : AGENCIES[0],
         insured        : {
             name     :  "",
             mailingAddress   : {
@@ -1420,6 +1607,26 @@ export const newPolicy : PolicyValues = {
             phone    : "",
             email :   ""
         },
+        //Policy Details
+        billType                : "Agent Bill",
+        netGross                : "Net",
+        paymentOption           : "Monthly",
+        claimCount              : 0,
+        binderNumber            : "",
+        binderTimestamp         : new Date(),
+        policyRateType          : "",
+        policyTerm              : 0,
+        premiumInforce          : 0,
+        premiumWritten         : 0,
+        statementDate           : 0,
+        territory               : "",
+        yearsRenewed            : 0,
+        //Endorsement details
+        endorsementNumber       : 0,
+        endorsementAmount       : 0,
+        endorsementStatus       : " ",
+        endorsementEffectiveDate: new Date(),
+        //Operator details
         operators       : [
             {
                 name     :  "",
@@ -1434,6 +1641,7 @@ export const newPolicy : PolicyValues = {
                 operatorAccidentsViolations : "",
             }
         ],
+        //Auto details
         autoUnits        : [
             {
                 unit            : 1,
@@ -1526,5 +1734,10 @@ export const newPolicy : PolicyValues = {
                 ]
             }            
         ],
-        endorsements        : [ "IL01-001", "IL01-003" ],
+        documentEndorsements        : [ "IL01-001", "IL01-003" ],
+        //Record stamps
+        creatorId       : user1Id,
+        creatorName     : USERS[0].name,
+        created         : new Date(),
+        lastModified    : new Date(),
     }

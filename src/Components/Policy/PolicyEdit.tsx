@@ -5,7 +5,7 @@ import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 import { PolicyItemProps, POLICIES, PolicyValues } from '../Scaffold/MGAValues';
-import PolicyItemMuiOnly from './PolicyItemMuiOnly';
+import PolicyItem from './PolicyItem';
 
 export default function PolicyEdit () {
 
@@ -18,15 +18,15 @@ export default function PolicyEdit () {
     }
 
     const policyId = useParams().policyId;
-    let selectedPolicy : PolicyValues | undefined  = POLICIES.find(policy => String(policy.id) === policyId);
+    let selectedPolicy : PolicyValues | undefined  = 
+        POLICIES.find(policy => String(policy.id) === policyId);
     const selectedPolicyUndefined = (selectedPolicy === undefined);
-
     const policyItemProps : PolicyItemProps =  { policy : selectedPolicy };
 
     return (
         <React.Fragment>
             <PageBar {...pageBarProps} />
-            <PolicyItemMuiOnly {...policyItemProps} />
+            <PolicyItem {...policyItemProps} />
         </React.Fragment>
     )
 }
