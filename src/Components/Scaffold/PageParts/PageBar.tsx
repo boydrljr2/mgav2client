@@ -5,7 +5,17 @@ import MenuIcon from '@mui/icons-material/Menu'
 import SearchIcon from '@mui/icons-material/Search'
 import { styled, alpha } from '@mui/material/styles'
 import { Link } from 'react-router-dom'
-import { PageBarValues } from './PageValues'
+//import { PageBarValues } from './PageValues'
+
+interface PageButtonValues {
+    name: string;
+    link: string;
+}
+
+interface PageBarValues {
+    title: string;
+    pageButtons?: PageButtonValues[];
+}
 
 export default function PageBarNew(pageBarProps : PageBarValues | undefined ) {
 

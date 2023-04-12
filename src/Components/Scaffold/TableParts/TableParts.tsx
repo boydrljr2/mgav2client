@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { styled, alpha } from '@mui/material/styles';
-import { TableRow, TableCell, tableCellClasses} from '@mui/material';
+import { TableRow, TableCell, tableCellClasses } from '@mui/material';
 
 //Style table header cells and maybe rows as well
 //Move these styles to MGATheme or create an MGATableHeaderCell component

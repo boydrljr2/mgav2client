@@ -10,14 +10,11 @@ import { USPSSTATEABBREVIATIONS } from '../Scaffold/MGAValues';
 
 export default function MailingAddressItem() {
 
-    const { control, 
-            formState: { errors} } 
-        = useFormContext();
-
+    const { control, formState: { errors} } = useFormContext();
 
     return (
         <React.Fragment>
-            <Typography variant='h6' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography> 
+            <Typography variant='subtitle1' sx={{color: 'primary.main', p:1, m:1}} >Mailing Address</Typography> 
             <Grid container spacing={2}>
                 <Grid item xs={12} >
                     <Controller 

@@ -139,7 +139,7 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                     </Grid>
                     <ObjectFooter footerValues={objectFooterProps} />
                     <Paper elevation={2} sx={{ p: 2, m: 1, flexGrow: 1 }}>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'primary.main' }}>
+                        <Typography variant="subtitle1" component="div" sx={{ flexGrow: 1, color: 'primary.main' }}>
                             Contact Information
                         </Typography>
                         <Grid container spacing={2}>

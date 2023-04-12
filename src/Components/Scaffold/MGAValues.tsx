@@ -933,6 +933,18 @@ export const POLICYSTATUSES : Array<ProductStatusValues> = [
     {label: 'Cancelled', value: 'Cancelled'},
 ]
 
+export interface EndorsementStatusValues {
+    label   : string;
+    value   : string;
+}
+
+export const ENDORSEMENTSTATUSES : Array<ProductStatusValues> = [
+    {label: 'Draft', value: 'Draft'},
+    {label: 'Bound', value: 'Bound'},
+    {label: 'Inforce', value: 'Inforce'},
+    {label: 'Cancelled', value: 'Cancelled'},
+]
+
 export interface AsInterestMayAppearValues {
     label   : string;
     value   : string;
@@ -985,18 +997,19 @@ export const RELATIONTOINSURED : Array<RelationToInsuredValues> = [
 ]
 
 export interface OperatorValues {
+    number                          : number;
     name                            : string;
     phone?                          : string;
     email?                          : string;
     mailingAddress                  : MailingAddressValues;
     dateOfBirth                     : Date;
-    operatorType                    : OperatorTypeValues;
+    type                            : OperatorTypeValues;
     sr22                            : SR22Values;
-    operatorLicenseNumber           : string;
-    operatorLicenseState            : USPSStateAbbreviationValues;
-    operatorLicenseExpirationDate   : Date;
+    licenseNumber                   : string;
+    licenseState                    : USPSStateAbbreviationValues;
+    licenseExpirationDate           : Date;
     relationToInsured               : RelationToInsuredValues; 
-    operatorAccidentsViolations     : string;
+    accidentsViolations             : string;
     effectiveDate                   : Date;
     removedDate?                    : Date;
     //Record stamps
@@ -1006,13 +1019,18 @@ export interface OperatorValues {
     lastModified                    : Date;
 }
 
+export interface OperatorTableProps {
+    operatorRows          : Array<OperatorValues>;
+} 
+
 export const OperatorSchema = yup.object().shape({
-    name                            : yup.string().required(),
+    number                          : yup.number().required('Required'),
+    name                            : yup.string().required('Required'),
     phone                           : yup.string().matches(phoneRegex, 'Phone number is not valid'),
     email                           : yup.string().email('Invalid email address'),
     mailingAddress                  : MailingAddressSchema,
     dateOfBirth                     : yup.date().required('Required'),
-    operatorType                    : yup.object().shape({
+    type                            : yup.object().shape({
         label   : yup.string().required(),
         value   : yup.string().required()
     }).required('Required'),
@@ -1020,17 +1038,17 @@ export const OperatorSchema = yup.object().shape({
         label   : yup.string().required(),
         value   : yup.string().required()
     }).required('Required'),
-    operatorLicenseNumber           : yup.string().required(),
-    operatorLicenseState            : yup.object().shape({
-        label   : yup.string().required(),
-        value   : yup.string().required()
+    licenseNumber                   : yup.string().required('Required'),
+    licenseState                   : yup.object().shape({
+        label   : yup.string().required('Required'),
+        value   : yup.string().required('Required')
     }).required('Required'),
-    operatorLicenseExpirationDate   : yup.date().required('Required'),
+    licenseExpirationDate           : yup.date().required('Required'),
     relationToInsured               : yup.object().shape({
-        label   : yup.string().required(),
-        value   : yup.string().required()
+        label   : yup.string().required('Required'),
+        value   : yup.string().required('Required')
     }).required('Required'),
-    operatorAccidentsViolations     : yup.string().required(),
+    accidentsViolations             : yup.string().required('Required'),
     effectiveDate                   : yup.date().required('Required'),
     removedDate                     : yup.date(),
 })
@@ -1169,9 +1187,6 @@ export interface PolicyValues {
     periodStartDate         : Date;
     periodEndDate           : Date;
     policyState             : USPSStateAbbreviationValues;
-    product                 : ProductValues;
-    agency                  : AgencyValues;
-    insured                 : InsuredValues;
     //Policy Details
     billType                : string;
     netGross                : string;
@@ -1189,8 +1204,12 @@ export interface PolicyValues {
     //Endorsement details
     endorsementNumber       : number;
     endorsementAmount       : number;
-    endorsementStatus       : string;
+    endorsementStatus       : EndorsementStatusValues;
     endorsementEffectiveDate: Date;
+    //Related objects
+    insured                 : InsuredValues;
+    agency                  : AgencyValues;
+    product                 : ProductValues;
     //Operator details
     operators               : OperatorValues[];
     //Auto details
@@ -1230,7 +1249,7 @@ export const newPolicy: PolicyValues = {
     yearsRenewed          : 0,
     endorsementNumber     : 0,
     endorsementAmount     : 0,
-    endorsementStatus     : '',
+    endorsementStatus     : ENDORSEMENTSTATUSES[0],
     endorsementEffectiveDate: new Date(),
     operators             : [],
     autoUnits             : [],
@@ -1285,6 +1304,16 @@ export const PolicySchema = yup.object().shape({
         label: yup.string().required('Required'),
         value: yup.string().required('Required')
     }).required('Required'),
+    //Policy Details
+    billType                    : yup.string().required('Required'),
+    netGross                    : yup.string().required('Required'),
+    paymentOption               : yup.string().required('Required'),
+    claimCount                  : yup.number().required('Number Required'),
+    binderNumber                : yup.string().required('Required'),
+    binderTimestamp             : yup.date().required('Date Required'),  
+    policyRateType              : yup.string().required('Required'),
+    policyTerm                  : yup.number().required('Number Required'),
+    
     product                     : ProductSchema,
     agency                      : AgencySchema,
     insured                     : InsuredSchema,
@@ -1297,9 +1326,7 @@ export const POLICIES : Array<PolicyValues> = [
         policyNumber            : "PPW1303522",
         status                  : POLICYSTATUSES[1],
         applicationDate         : new Date(2023, 0, 19),
-        //set periodStartDate to February 2, 2023 at 12:00:00 AM
         periodStartDate         : new Date(2023, 1, 2),
-        //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
         periodEndDate           : new Date(2023, 7, 1, 23, 59, 59),
         policyState             : USPSSTATEABBREVIATIONS[18],
         product                 : PRODUCTS[0],
@@ -1346,12 +1373,13 @@ export const POLICIES : Array<PolicyValues> = [
         //Endorsement details
         endorsementNumber       : 0,
         endorsementAmount       : 0,
-        endorsementStatus       : "N/A",
+        endorsementStatus       : ENDORSEMENTSTATUSES[0],
         endorsementEffectiveDate: new Date(2023, 1, 2),
 
         //Operator details
         operators       : [
             {
+                number                      : 1,
                 name                        : "Esmeralda Zavala",
                 phone                       : "1-847-123-1234",
                 email                       : "",
@@ -1363,13 +1391,13 @@ export const POLICIES : Array<PolicyValues> = [
                     zip                     : "60085"
                 },
                 dateOfBirth                 : new Date(1976, 1, 19),
-                operatorType                : OPERATORTYPES[0],
+                type                        : OPERATORTYPES[0],
                 sr22                        : SR22S[1],
-                operatorLicenseNumber       : "A1234567",
-                operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date("12-31-2020"),
+                licenseNumber               : "A1234567",
+                licenseState                : USPSSTATEABBREVIATIONS[17],
+                licenseExpirationDate       : new Date("12-31-2020"),
                 relationToInsured           : RELATIONTOINSURED[0],
-                operatorAccidentsViolations : "09/01/18(V) 08/01/20(V) 11/01/20(V)",
+                accidentsViolations         : "09/01/18(V) 08/01/20(V) 11/01/20(V)",
                 effectiveDate               : new Date(2023, 1, 2),
                 creatorId                   : USERS[0].id,
                 creatorName                 : USERS[0].name,
@@ -1377,6 +1405,7 @@ export const POLICIES : Array<PolicyValues> = [
                 lastModified                : new Date()
 },
             {
+                number                  : 2,
                 name                    : "Yasmeen Lopez",
                 phone                   : "1-847-123-1234",
                 email                   : "",
@@ -1388,13 +1417,13 @@ export const POLICIES : Array<PolicyValues> = [
                     zip                 : "60085"
                 },
                 dateOfBirth             : new Date(1999, 2, 13),
-                operatorType            : OPERATORTYPES[1],
+                type                    : OPERATORTYPES[1],
                 sr22                    : SR22S[1],
-                operatorLicenseNumber   : "A1234567",
-                operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date("12-31-2025"),
+                licenseNumber           : "A1234567",
+                licenseState            : USPSSTATEABBREVIATIONS[17],
+                licenseExpirationDate   : new Date("12-31-2025"),
                 relationToInsured       : RELATIONTOINSURED[1],
-                operatorAccidentsViolations : "",
+                accidentsViolations     : "",
                 effectiveDate           : new Date(2023, 1, 2),
                 creatorId               : USERS[0].id,
                 creatorName             : USERS[0].name,
@@ -1402,6 +1431,7 @@ export const POLICIES : Array<PolicyValues> = [
                 lastModified            : new Date()
             },
             {
+                number                  : 3,
                 name                    : "Fernando Sanchez",
                 phone                   : "1-847-123-1234",
                 email                   : "",
@@ -1413,13 +1443,13 @@ export const POLICIES : Array<PolicyValues> = [
                     zip                 : "60085"
                 },
                 dateOfBirth             : new Date(1975, 5, 19),
-                operatorType            : OPERATORTYPES[3],
+                type                    : OPERATORTYPES[3],
                 sr22                    : SR22S[1],
-                operatorLicenseNumber   : "A1234567",
-                operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date(2025, 0, 25),
+                licenseNumber           : "A1234567",
+                licenseState            : USPSSTATEABBREVIATIONS[17],
+                licenseExpirationDate   : new Date(2025, 0, 25),
                 relationToInsured       : RELATIONTOINSURED[2],
-                operatorAccidentsViolations : "",
+                accidentsViolations     : "",
                 effectiveDate           : new Date(2023, 1, 2),
                 creatorId               : USERS[0].id,
                 creatorName             : USERS[0].name,
@@ -1427,6 +1457,7 @@ export const POLICIES : Array<PolicyValues> = [
                 lastModified            : new Date()
             },
             {
+                number                      : 4,
                 name                        : "Janette Lopez",
                 phone                       : "1-847-123-1234",
                 email                       : "",
@@ -1438,13 +1469,13 @@ export const POLICIES : Array<PolicyValues> = [
                     zip                     : "60085"
                 },
                 dateOfBirth                 : new Date(2004, 10, 18),
-                operatorType                : OPERATORTYPES[2],
+                type                        : OPERATORTYPES[2],
                 sr22                        : SR22S[1],
-                operatorLicenseNumber       : "A7654321",
-                operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date(2023, 11, 31),
+                licenseNumber               : "A7654321",
+                licenseState                : USPSSTATEABBREVIATIONS[17],
+                licenseExpirationDate       : new Date(2023, 11, 31),
                 relationToInsured           : RELATIONTOINSURED[3],
-                operatorAccidentsViolations : "",
+                accidentsViolations         : "",
                 effectiveDate               : new Date(2023, 1, 2),
                 creatorId                   : USERS[0].id,
                 creatorName                 : USERS[0].name,
@@ -1680,12 +1711,13 @@ export const POLICIES : Array<PolicyValues> = [
         territory               : "40",
         yearsRenewed            : 0,
         //Endorsement details
-        endorsementNumber       : 1,
+        endorsementNumber       : 0,
         endorsementAmount       : 0,
-        endorsementStatus       : " ",
+        endorsementStatus       : ENDORSEMENTSTATUSES[0],
         endorsementEffectiveDate: new Date(2023, 3, 2),
         operators       : [
             {
+                number                      : 1,
                 name                        : "Tyrice D Wilson",
                 phone                       : "1-847-123-1234",
                 email                       : "",
@@ -1697,13 +1729,13 @@ export const POLICIES : Array<PolicyValues> = [
                     zip             : "60651"
                 },
                 dateOfBirth                 : new Date(1976, 1, 19),
-                operatorType                : OPERATORTYPES[0],
+                type                        : OPERATORTYPES[0],
                 sr22                        : SR22S[1],
-                operatorLicenseNumber       : "B1234567",
-                operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date(2020, 11, 31),
+                licenseNumber               : "B1234567",
+                licenseState                : USPSSTATEABBREVIATIONS[17],
+                licenseExpirationDate       : new Date(2020, 11, 31),
                 relationToInsured           : RELATIONTOINSURED[0],
-                operatorAccidentsViolations : "09/01/18(V) 08/01/20(V) 11/01/20(V)",
+                accidentsViolations         : "09/01/18(V) 08/01/20(V) 11/01/20(V)",
                 effectiveDate               : new Date(2023, 3, 2),
                 creatorId                   : USERS[0].id,
                 creatorName                 : USERS[0].name,

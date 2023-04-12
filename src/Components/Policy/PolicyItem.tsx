@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Paper, Grid, TextField, Autocomplete, Button, Typography } from '@mui/material';
+import { Paper, Box, Grid, Tabs, Tab, TextField, Autocomplete, Button, Typography,
+         FormControl, OutlinedInput, InputLabel, InputAdornment, Divider } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -11,12 +12,15 @@ import { useForm, SubmitHandler, Controller, FormProvider} from 'react-hook-form
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { USERS, AGENCIES, INSURERS, PRODUCTS, 
-        POLICIES, PolicyValues, PolicyItemProps, PolicySchema, newPolicy, POLICYSTATUSES, USPSSTATEABBREVIATIONS} 
+import { USPSSTATEABBREVIATIONS,
+         POLICIES, PolicyValues, PolicyItemProps, PolicySchema, newPolicy, POLICYSTATUSES, 
+         ENDORSEMENTSTATUSES} 
         from '../Scaffold/MGAValues'
 
+import { TabPanel, tabAllyProps, MGATabs } from '../Scaffold/PageParts/TabParts';
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
-import MailingAddressItem from '../MailingAddress/MailingAddressItem';
+import PolicyDetails from './PolicyDetails';
+import InsuredDetails  from '../Insured/InsuredDetails';
 
 export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
@@ -42,6 +46,11 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
         created         : new Date(),
         lastModified    : new Date()
     }
+
+    const [tabValue, setTabValue] = useState(0);
+    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+        setTabValue(newValue);
+    };
 
     const { handleSubmit, control, formState: { errors } } = methods;
     const policyFormHandler : SubmitHandler<PolicyValues> = (data) => {
@@ -201,7 +210,119 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                             </LocalizationProvider>
                         </Grid>
                     </Grid>
+                    <Grid container spacing={1}>
+                        <Grid item xs={4} md={2}>
+                            <Controller
+                                name="endorsementNumber"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField {...field}
+                                        id="endorsement-number" 
+                                        label="Endorsement Number"
+                                        variant="outlined" fullWidth  sx={{ m: 1 }}
+                                        error={!!errors.endorsementNumber}
+                                        helperText={errors.endorsementNumber?.message}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={4} md={2}>
+                            <Controller 
+                                name="endorsementStatus"
+                                control={control}
+                                render={({field}) => (
+                                    <Autocomplete {...field}
+                                        id="endorsement-status" 
+                                        options={ENDORSEMENTSTATUSES}
+                                        getOptionLabel={(option) => option.label}
+                                        isOptionEqualToValue={(option, value) => option.value === value.value}
+                                        onChange={( event, newValue) => {
+                                            field.onChange(newValue);
+                                        }}
+                                        renderInput={(field) => 
+                                            <TextField 
+                                                {...field} 
+                                                label="Status"
+                                                variant="outlined" sx={{margin:1}} fullWidth
+                                                error={!!errors.endorsementStatus}
+                                                helperText={!!errors.endorsementStatus ? errors.endorsementStatus.message:''}
+                                            />}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={4} md={4}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                <Controller
+                                    name="endorsementEffectiveDate"
+                                    control={control}
+                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                                    <DatePicker 
+                                        {...field}
+                                        inputRef={ref}
+                                        label="Endorsement Date"
+                                        renderInput={(inputProps) => (
+                                            <TextField 
+                                                {...inputProps}
+                                                variant="outlined" fullWidth  sx={{ m: 1 }}
+                                                error={!!errors.endorsementEffectiveDate}
+                                                helperText={errors.endorsementEffectiveDate?.message}
+                                            />
+                                            )}
+                                        />
+                                    )}
+                                />
+                            </LocalizationProvider>
+                        </Grid>
+                        <Grid item xs={4} md={4}>
+                            <Controller 
+                                name="endorsementAmount"
+                                control={control}
+                                render={({field}) => (
+                                    <FormControl fullWidth sx={{ m: 1 }}>
+                                        <InputLabel htmlFor="outlined-adornment-amount">
+                                            Amount
+                                        </InputLabel>
+                                    <OutlinedInput
+                                        {...field}
+                                        id="endorsement-amount"
+                                        startAdornment={
+                                            <InputAdornment position="start">$</InputAdornment>
+                                    }
+                                    />
+                                </FormControl>
+                                )}
+                            />
+                        </Grid>
+                    </Grid>
                     <ObjectFooter footerValues={footerProps} />
+                    <Divider sx={{m:1, p:1}} />
+
+                    {/*  Tabs for Details - Insured - Autos & Coverages - Operators */}
+                    <Grid container sx={{ width: '100%' }}>
+                        <Grid item xs={12} sx={{borderBottom: 2, borderColor: 'divider', mb:2, p:1 }}>
+                            <MGATabs 
+                                value={tabValue} 
+                                onChange={handleTabChange} 
+                                aria-label="basic tabs example"
+                            >
+                                <Tab label="Policy Details"  {...tabAllyProps}/>
+                                <Tab label="Insured Details" {...tabAllyProps} />
+                                <Tab label="Autos, Coverages & Liens" {...tabAllyProps} />
+                                <Tab label="Operators" {...tabAllyProps} />
+                            </MGATabs> 
+                        </Grid>
+                        <TabPanel value={tabValue} index={0}> 
+                            <PolicyDetails />
+                        </TabPanel>
+                        <TabPanel value={tabValue} index={1}> 
+                            <InsuredDetails />
+                        </TabPanel>
+                        <TabPanel value={tabValue} index={2}> AUTOS & COVERAGES </TabPanel>
+                        <TabPanel value={tabValue} index={3}> OPERATORS </TabPanel>
+                    </Grid>
+
+                    {/* SAVE & CANCEL BUTTONS */}
                     <Grid container direction="row" spacing={2}
                         sx={{margin:'auto', justifyContent:"flex-end"}}
                     >
@@ -209,13 +330,15 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                             <Button
                                 variant="contained" size='medium'
                                 type="submit"
-                            >Save</Button>
+                            >Save
+                            </Button>
                         </Grid>
                         <Grid item sx={{mr:1}}>
                             <Button
                                 variant="outlined" size='medium'
                                 component={Link} to='/policies'
-                            >Cancel</Button>
+                            >Cancel
+                            </Button>
                         </Grid>
                     </Grid>
                 </form>

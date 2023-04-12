@@ -353,7 +353,7 @@ function Row(props: { row: PolicyRowValues }) {
     )
 }
 
-//--------------- Table Policy Function components ---------------------------------------------
+//---------------  Policy Table Function components ---------------------------------------------
 export default function PolicyTable( policyTableProps: PolicyTableProps ) {
 
     //Set table 'rows' to policyRows if policyRows is defined, otherwise set to empty array 

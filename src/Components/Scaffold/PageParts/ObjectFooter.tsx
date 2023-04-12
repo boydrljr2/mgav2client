@@ -37,7 +37,6 @@ export default function ObjectFooter (props: {footerValues: ObjectFooterValues})
                     Initialized Date: {created.toString()} : 
                     Last Modified Date: {lastModified.toString()}
                 </Typography>
-                <Divider sx={{m:1, p:1}} />
             </Grid>
         </Grid>
     );
