@@ -21,7 +21,7 @@ export default function PolicyPage() {
         return {
             id                      : policy.id,
             policyNumber            : policy.policyNumber,
-            status                  : policy.status,
+            status                  : policy.status.value,
             //set periodStartDate to policy.periodStartDate in MM/DD/YYYY format
             periodStartDate         : policy.periodStartDate.toLocaleString().split(',')[0],
             periodEndDate           : policy.periodEndDate.toLocaleString().split(',')[0],

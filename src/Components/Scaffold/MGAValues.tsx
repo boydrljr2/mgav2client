@@ -18,40 +18,17 @@ export const GENDERS : Array<GenderValues> = [
     {label:'F', value:'Female'}
 ]
 
-// ---------- MAILING ADDRESS  ----------  MAILING ADDRESS  -----------
-
-export interface USPSStateAbbreviationValues {
+export interface MaritalStatusValues {
     label: string;
     value: string;
 }
 
-export interface MailingAddressValues {
-    id              : string;
-    name?           : string;
-    initial?        : string;
-    streetAddress1  : string;
-    streetAddress2? : string;
-    city            : string;
-    state           : USPSStateAbbreviationValues;
-    zip             : string;
-}
-
-export interface MailingAddressItemValues {
-    mailingAddress  : MailingAddressValues;
-}
-
-export const MailingAddressSchema = yup.object().shape({
-    name : yup.string(),
-    initial : yup.string(),
-    streetAddress1: yup.string().required('Street Required'),
-    streetAddress2: yup.string(),
-    city: yup.string().required('City Required'),
-    state:  yup.object().shape({
-        label: yup.string().required('State Required'),
-        value: yup.string().required('State Required'),
-    }),
-    zip: yup.string().required('Zip Required').matches(zipRegex, 'Invalid Zip'),
-});
+export const MARITALSTATUSES : Array<MaritalStatusValues> = [
+    {label:'S', value:'Single'},
+    {label:'M', value:'Married'},
+    {label:'W', value:'Widowed'},
+    {label:'D', value:'Divorced'},
+]
 
 //array of all 50 US States ++
 export const USPSSTATEABBREVIATIONS : Array<USPSStateAbbreviationValues>  = [
@@ -122,20 +99,49 @@ export const USPSSTATEABBREVIATIONS : Array<USPSStateAbbreviationValues>  = [
     { label: '', value: ''}
 ]
 
-//--------------   PERSON CONTACT ----------------- PERSON CONTACT -----------------
-export interface PersonValues {
-    name            : string;
-    mailingAddress? : MailingAddressValues;
-    phone?          : string;
-    email?          : string;
+// ---------- MAILING ADDRESS  ----------  MAILING ADDRESS  -----------
+
+export interface USPSStateAbbreviationValues {
+    label: string;
+    value: string;
 }
 
-export const PersonSchema = yup.object().shape({
-    name: yup.string().required('Name Required'),
-    mailingAddress: MailingAddressSchema,
-    phone: yup.string().matches(phoneRegex, 'Invalid Phone'),
-    email: yup.string().email('Invalid Email'),
+export interface MailingAddressValues {
+    name?           : string;
+    initial?        : string;
+    streetAddress1  : string;
+    streetAddress2? : string;
+    city            : string;
+    state           : USPSStateAbbreviationValues;
+    zip             : string;
+}
+
+export interface MailingAddressItemValues {
+    mailingAddress  : MailingAddressValues;
+}
+
+export const MailingAddressSchema = yup.object().shape({
+    name                    : yup.string(),
+    initial                 : yup.string(),
+    streetAddress1          : yup.string().required('Street Required'),
+    streetAddress2          : yup.string(),
+    city                    : yup.string().required('City Required'),
+    state                   :  yup.object().shape({
+        label: yup.string().required('State Required'),
+        value: yup.string().required('State Required'),
+    }),
+    zip: yup.string().required('Zip Required').matches(zipRegex, 'Invalid Zip'),
 });
+
+const newMailingAddress : MailingAddressValues = {
+    name: '',
+    initial: '',
+    streetAddress1: '',
+    streetAddress2: '',
+    city: '',
+    state: USPSSTATEABBREVIATIONS[0],
+    zip: ''
+}
 
 //---------------  USERS  ----------------- USERS  -----------------
 export const user1Id = uuidv4();
@@ -326,7 +332,6 @@ export const newInsurer : InsurerValues = {
     principalEmail          : '',
     website                     : '',
     mailingAddress          : {
-        id              : uuidv4(),
         name            : '',
         streetAddress1  : '',
         streetAddress2  : '',
@@ -365,7 +370,6 @@ export const INSURERS   : InsurerValues[] = [
         principalEmail  : 'service@ueilink.com',
         website         : 'https://www.ueic.com',
         mailingAddress: {
-                id              : uuidv4(),
                 name            : "UEIC Headquarters",
                 streetAddress1  : "9040 Waukegan Road, Suite 100",
                 streetAddress2  : "",
@@ -401,7 +405,6 @@ export const INSURERS   : InsurerValues[] = [
         principalEmail  : 'service@ahiclink.com',
         website         : 'https://www.ahic.com',
         mailingAddress: {
-                id              : uuidv4(),
                 name            : "AHIC Headquarters",
                 streetAddress1  : "9040 Waukegan Road, Suite 200",
                 streetAddress2  : "",
@@ -438,7 +441,6 @@ export const INSURERS   : InsurerValues[] = [
         principalEmail  : 'service@ahiclink.com',
         website         : 'https://www.hhmi.com',
         mailingAddress: {
-                id              : uuidv4(),
                 name            : "Harley Heaven Headquarters",
                 streetAddress1  : "9040 Waukegan Road, Suite 200",
                 streetAddress2  : "",
@@ -572,7 +574,6 @@ export const newAgency : AgencyValues = {
     documentEmail       : '',
     website             : '',
     mailingAddress      : {
-        id              : uuidv4(),
         streetAddress1  : '',
         streetAddress2  : '',
         city            : '',
@@ -595,7 +596,6 @@ export const newAgency : AgencyValues = {
     lastModified        : new Date()
 }
 
-
 export const AGENCIES : AgencyValues[] = [
     {
         //Identifiers ----------------
@@ -613,7 +613,6 @@ export const AGENCIES : AgencyValues[] = [
         documentEmail   : "documents@iots.com",
         website         : "https://www.insuranceonthespot.com",
         mailingAddress  : {
-            id              : uuidv4(),
             streetAddress1  : "5485 N Elston Ave",
             streetAddress2  : "",
             city            : "Chicago",
@@ -653,7 +652,6 @@ export const AGENCIES : AgencyValues[] = [
         documentEmail   : "documents@freewayinsure.com",
         website         : "https://www.freewayinsurance.com",
         mailingAddress : {
-            id              : uuidv4(),
             streetAddress1  : "4712 W Cermak Rd",
             streetAddress2  : "",
             city            : "Cicero",
@@ -679,21 +677,20 @@ export const AGENCIES : AgencyValues[] = [
     },
     {
         //Identifiers ----------------
-        id              : uuidv4(),
-        legacyId     : "000224",
-        name            : "CRC Insurance Services",
-        avatar          : "/static/images/UnitedEquitableAvatar.jpg",
-        irsName         : "CRC Insurance Services",
-        taxId           : "33-1234567",
-        status          : AGENCYSTATUSES[2],
+        id                  : uuidv4(),
+        legacyId            : "000224",
+        name                : "CRC Insurance Services",
+        avatar              : "/static/images/UnitedEquitableAvatar.jpg",
+        irsName             : "CRC Insurance Services",
+        taxId               : "33-1234567",
+        status              : AGENCYSTATUSES[2],
         //Contact Info
-        contactName     : "Sierra Tango",
-        phone           : "770-392-2700",
-        principalEmail  : "support@crcis.com",
-        documentEmail   : "docs@crcis.com",
-        website         : "https://www.crcinsurance.com",
+        contactName         : "Sierra Tango",
+        phone               : "770-392-2700",
+        principalEmail      : "support@crcis.com",
+        documentEmail       : "docs@crcis.com",
+        website             : "https://www.crcinsurance.com",
         mailingAddress : {
-            id              : uuidv4(),
             streetAddress1  : "5485 N Elston Ave",
             streetAddress2  : "",
             city            : "Atlanta",
@@ -701,27 +698,27 @@ export const AGENCIES : AgencyValues[] = [
             zip             : "60630"
         },
         //License Info
-        licenseNumber   : "123456",
+        licenseNumber       : "123456",
         //set licenseDate to 5 years ago
-        licenseDate     : new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
+        licenseDate         : new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
         //set licenseExpirationDate to 5 years from now
         licenseExpirationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
         appointmentStatus   : "Active",
         agentGrade          : "A",
         headquarterAgent    : "Yes",
-        locationCode    : "123456",
-        commissionType  : "C",
+        locationCode        : "123456",
+        commissionType      : "C",
         //Record stamps
-        creatorId       : USERS[0].id,
-        creatorName     : USERS[0].name,
-        created         : new Date(),
-        lastModified    : new Date()
+        creatorId           : USERS[0].id,
+        creatorName         : USERS[0].name,
+        created             : new Date(),
+        lastModified        : new Date()
     },
     //add one more agency record with all the fields
     {
         //Identifiers ----------------
         id              : uuidv4(),
-        legacyId     : "000225",
+        legacyId        : "000225",
         name            : "Secret Agency Insurance",
         avatar          : "/static/images/UnitedEquitableAvatar.jpg",
         irsName         : "Secret Agency Insurance",
@@ -734,7 +731,6 @@ export const AGENCIES : AgencyValues[] = [
         documentEmail   : "dox@shush.mmm",
         website         : "https://www.secretagencyinsurance.com",
         mailingAddress : {
-            id              : uuidv4(),
             streetAddress1  : "Quiet Alley",
             streetAddress2  : "",
             city            : "Chicago",
@@ -742,26 +738,24 @@ export const AGENCIES : AgencyValues[] = [
             zip             : "60630"
         },
         //License Info
-        licenseNumber   : "123456",
-        //set licenseDate to 5 years ago
-        licenseDate     : new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
-        //set licenseExpirationDate to 5 years from now
-        licenseExpirationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-        appointmentStatus   : "Active",
-        agentGrade          : "A",
-        headquarterAgent    : "Yes",
-        locationCode    : "123456",
-        commissionType  : "C",
+        licenseNumber           : "123456",
+        licenseDate             : new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
+        licenseExpirationDate   : new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
+        appointmentStatus       : "Active",
+        agentGrade              : "A",
+        headquarterAgent            : "Yes",
+        locationCode        : "123456",
+        commissionType      : "C",
         //Record stamps
-        creatorId       : USERS[0].id,
-        creatorName     : USERS[0].name,
-        created         : new Date(),
-        lastModified    : new Date()
+        creatorId           : USERS[0].id,
+        creatorName         : USERS[0].name,
+        created             : new Date(),
+        lastModified        : new Date()
     },
     {
         //Identifiers ----------------
         id              : uuidv4(),
-        legacyId     : "000225",
+        legacyId        : "000225",
         name            : "Assured Insurance",
         avatar          : "/static/images/UnitedEquitableAvatar.jpg",
         irsName         : "Assured Insurance",
@@ -774,7 +768,6 @@ export const AGENCIES : AgencyValues[] = [
         documentEmail   : "dox@insurance.ins",
         website         : "https://www.assuredinsurance.ins",
         mailingAddress : {
-            id              : uuidv4(),
             streetAddress1  : "Granite Tower",
             streetAddress2  : "Apt 13",
             city            : "Milwaukee",
@@ -940,12 +933,12 @@ export const POLICYSTATUSES : Array<ProductStatusValues> = [
     {label: 'Cancelled', value: 'Cancelled'},
 ]
 
-export interface PolicyAsInterestMayAppearValues {
+export interface AsInterestMayAppearValues {
     label   : string;
     value   : string;
 }
 
-export const POLICYASINTERESTMAYAPPEAR : Array<PolicyAsInterestMayAppearValues> = [
+export const ASINTERESTMAYAPPEAR : Array<AsInterestMayAppearValues> = [
     { label: 'A', value: "And"},
     { label: 'H', value: "His Wife"},
     { label: 'W', value: "And Wife"},
@@ -957,40 +950,110 @@ export const POLICYASINTERESTMAYAPPEAR : Array<PolicyAsInterestMayAppearValues> 
     { label: 'Z', value: 'a Married Woman as Her Sole and Separate Property'}
 ]
 
-export interface OperatorValues extends PersonValues {
+export interface OperatorTypeValues {
+    label   : string;
+    value   : string;
+}
+
+export const OPERATORTYPES : Array<OperatorTypeValues> = [
+    { label: 'Additional Operator', value: 'ADDL'},
+    { label: 'Principal Operator', value: 'PRIN'},
+    { label: 'Excluded Operator', value: 'EXCL'},
+]
+
+export interface SR22Values {
+    label   : string;
+    value   : string;
+}
+
+export const SR22S : Array<SR22Values> = [
+    { label: 'SR22 Required', value: 'Y'},
+    { label: 'SR22 Not Required', value: 'N'},
+]
+
+export interface RelationToInsuredValues {
+    label   : string;
+    value   : string;
+}
+
+export const RELATIONTOINSURED : Array<RelationToInsuredValues> = [
+    { label: 'Self', value: 'Self'},
+    { label: 'Spouse', value: 'Spouse'},
+    { label: 'Child', value: 'Child'},
+    { label: 'Parent', value: 'Parent'},
+    { label: 'Non-relative', value: 'Non-relative'},
+]
+
+export interface OperatorValues {
+    name                            : string;
+    phone?                          : string;
+    email?                          : string;
+    mailingAddress                  : MailingAddressValues;
     dateOfBirth                     : Date;
-    operatorType                    : "ADDL" | "PRIN" | "EXCL";
-    sr22                            : "N" | "Y";
+    operatorType                    : OperatorTypeValues;
+    sr22                            : SR22Values;
     operatorLicenseNumber           : string;
     operatorLicenseState            : USPSStateAbbreviationValues;
     operatorLicenseExpirationDate   : Date;
-    operatorCoverageStatus          : string; 
+    relationToInsured               : RelationToInsuredValues; 
     operatorAccidentsViolations     : string;
+    effectiveDate                   : Date;
+    removedDate?                    : Date;
     //Record stamps
-    creatorId       : string;
-    creatorName     : string;
-    created         : Date;
-    lastModified    : Date;
+    creatorId                       : string;
+    creatorName                     : string;
+    created                         : Date;
+    lastModified                    : Date;
 }
+
+export const OperatorSchema = yup.object().shape({
+    name                            : yup.string().required(),
+    phone                           : yup.string().matches(phoneRegex, 'Phone number is not valid'),
+    email                           : yup.string().email('Invalid email address'),
+    mailingAddress                  : MailingAddressSchema,
+    dateOfBirth                     : yup.date().required('Required'),
+    operatorType                    : yup.object().shape({
+        label   : yup.string().required(),
+        value   : yup.string().required()
+    }).required('Required'),
+    sr22                            : yup.object().shape({
+        label   : yup.string().required(),
+        value   : yup.string().required()
+    }).required('Required'),
+    operatorLicenseNumber           : yup.string().required(),
+    operatorLicenseState            : yup.object().shape({
+        label   : yup.string().required(),
+        value   : yup.string().required()
+    }).required('Required'),
+    operatorLicenseExpirationDate   : yup.date().required('Required'),
+    relationToInsured               : yup.object().shape({
+        label   : yup.string().required(),
+        value   : yup.string().required()
+    }).required('Required'),
+    operatorAccidentsViolations     : yup.string().required(),
+    effectiveDate                   : yup.date().required('Required'),
+    removedDate                     : yup.date(),
+})
+
 
 export interface InsuredValues {
     id                              : string;
     name                            : string;
-    phone?                           : string;
+    phone?                          : string;
     email?                          : string;
     mailingAddress                  : MailingAddressValues;
     dateOfBirth                     : Date;
     effectiveDate                   : Date;
-    gender                          : "M" | "F";
-    maritalStatus                   : "M" | "S" | "D" | "W";
+    gender                          : GenderValues;
+    maritalStatus                   : MaritalStatusValues;
     occupation                      : string;
-    spouseOccupation                : string;
-    asInterestMayAppear             : PolicyAsInterestMayAppearValues;
+    spouseOccupation?               : string;
+    asInterestMayAppear             : AsInterestMayAppearValues;
     //Record stamps
-    creatorId       : string;
-    creatorName     : string;
-    created         : Date;
-    lastModified    : Date;
+    creatorId                       : string;
+    creatorName                     : string;
+    created                         : Date;
+    lastModified                    : Date;
 }
 
 export const InsuredSchema = yup.object().shape({ 
@@ -1001,10 +1064,55 @@ export const InsuredSchema = yup.object().shape({
     mailingAddress                  : MailingAddressSchema,
     dateOfBirth                     : yup.date().required('Required'),
     effectiveDate                   : yup.date().required('Required'),
-    gender                          : yup.string().required('Required'),
+    gender                          : yup.object().shape({
+        label   : yup.string().required('Required'),
+        value   : yup.string().required('Required')
+    }).required('Required'),
+    maritalStatus                   : yup.object().shape({
+        label   : yup.string().required('Required'),
+        value   : yup.string().required('Required')
+    }).required('Required'),
+    occupation                      : yup.string().required('Required'),
 })
 
+const newInsured : InsuredValues = {
+    id                              : '',
+    name                            : '',
+    phone                           : '',
+    email                           : '',
+    mailingAddress                  : newMailingAddress,
+    dateOfBirth                     : new Date(),
+    effectiveDate                   : new Date(),
+    gender                          : GENDERS[0],
+    maritalStatus                   : MARITALSTATUSES[0],
+    occupation                      : '',
+    spouseOccupation                : '',
+    asInterestMayAppear             : ASINTERESTMAYAPPEAR[0],
+    creatorId                       : USERS[0].id,
+    creatorName                     : USERS[0].name,
+    created                         : new Date(),
+    lastModified                    : new Date(),
+}
+
+export interface CoverageValues {
+    coverageType        : string;
+    coverageLimit       : string;
+    coverageDeductible  : string;
+    coveragePremium     : number;
+}   
+
+const CoverageSchema = yup.object().shape({
+    coverageType        : yup.string().required(),
+    coveragePremium     : yup.number().required(),
+})
+
+export interface LienholderValues {
+    name          : string;
+    mailingAddress: MailingAddressValues;
+}
+
 export interface AutoValues {
+    id              : string;
     unit            : number;
     autoMake        : string;
     autoModel       : string;
@@ -1037,17 +1145,20 @@ export interface AutoValues {
     lastModified    : Date;
 }
 
-export interface CoverageValues {
-    coverageType: string;
-    coverageLimit: string;
-    coverageDeductible: string;
-    coveragePremium: number;
-}   
-
-export interface LienholderValues {
-    lienholderName: string;
-    lienholderMailingAddress: MailingAddressValues;
-}
+const AutoSchema = yup.object().shape({
+    id              : yup.string().required(),
+    unit            : yup.number().required('Required'),
+    autoMake        : yup.string().required('Required'),
+    autoModel       : yup.string().required('Required'),
+    autoYear        : yup.number().required('Required'),
+    autoVIN         : yup.string().required('Required'),
+    autoSYM         : yup.string().required('Required'),
+    autoAGE         : yup.number().required('Required'),
+    autoTERR        : yup.string().required('Required'),
+    autoCLASS       : yup.string().required('Required'),
+    autoPTS         : yup.number().required('Required'),
+    coverages       : yup.array().of(CoverageSchema).required('Required'),
+})
 
 export interface PolicyValues {
     //Identifiers
@@ -1087,10 +1198,47 @@ export interface PolicyValues {
     //Policy document endorsements -- awkwardly overridden term 'endorsements'
     documentEndorsements    : string[];
     //Record stamps
-    creatorId       : string;
-    creatorName     : string;
-    created         : Date;
-    lastModified    : Date;
+    creatorId               : string;
+    creatorName             : string;
+    created                 : Date;
+    lastModified            : Date;
+}
+
+export const newPolicy: PolicyValues = {
+    id                    : uuidv4(),
+    policyNumber          : '',
+    status                : POLICYSTATUSES[0],
+    applicationDate       : new Date(),
+    periodStartDate       : new Date(),
+    periodEndDate         : new Date(),
+    policyState           : USPSSTATEABBREVIATIONS[0],
+    product               : PRODUCTS[0],
+    agency                : AGENCIES[0],
+    insured               : newInsured,
+    billType              : '',
+    netGross              : '',
+    paymentOption         : '',
+    claimCount            : 0,
+    binderNumber          : '',
+    binderTimestamp       : new Date(),
+    policyRateType        : '',
+    policyTerm            : 0,
+    premiumInforce        : 0,
+    premiumWritten        : 0,
+    statementDate         : 0,
+    territory             : '',
+    yearsRenewed          : 0,
+    endorsementNumber     : 0,
+    endorsementAmount     : 0,
+    endorsementStatus     : '',
+    endorsementEffectiveDate: new Date(),
+    operators             : [],
+    autoUnits             : [],
+    documentEndorsements  : [' '],
+    creatorId             : USERS[0].id,
+    creatorName           : USERS[0].name,
+    created               : new Date(),
+    lastModified          : new Date(),
 }
 
 export interface PolicyItemProps {
@@ -1139,30 +1287,15 @@ export const PolicySchema = yup.object().shape({
     }).required('Required'),
     product                     : ProductSchema,
     agency                      : AgencySchema,
-    insured                     : PersonSchema,
-    //Contact Info
-    contactName                 : yup.string(),
-    phone                       : yup.string().matches(phoneRegex, 'Phone number is not valid'),
-    principalEmail              : yup.string().email('Email is not valid'),
-    documentEmail               : yup.string().email('Email is not valid'),
-    website                     : yup.string().url('Website is not valid'),
-    mailingAddress              : MailingAddressSchema,
-    //License Info
-    licenseNumber               : yup.string(),
-    licenseDate                 : yup.date(),
-    licenseExpirationDate       : yup.date(),
-    appointmentStatus           : yup.string(),
-    agentGrade                  : yup.string(),
-    headquarterAgent            : yup.string(),
-    locationCode                : yup.string(),
-    commissionType              : yup.string(),
+    insured                     : InsuredSchema,
+    autoUnits                   : yup.array().of(AutoSchema),
 })
 
 export const POLICIES : Array<PolicyValues> = [
     {
         id                      : uuidv4(),
         policyNumber            : "PPW1303522",
-        status                  : "Inforce",
+        status                  : POLICYSTATUSES[1],
         applicationDate         : new Date(2023, 0, 19),
         //set periodStartDate to February 2, 2023 at 12:00:00 AM
         periodStartDate         : new Date(2023, 1, 2),
@@ -1171,18 +1304,30 @@ export const POLICIES : Array<PolicyValues> = [
         policyState             : USPSSTATEABBREVIATIONS[18],
         product                 : PRODUCTS[0],
         agency                  : AGENCIES[0],
-        insured        : {
-            name     : "Esmeralda Zavala",
-            mailingAddress   : {
-                id              : uuidv4(),
+        insured         : {
+            id                  : uuidv4(),
+            name                : "Esmeralda Zavala",
+            phone    : "1-847-123-1234",
+            email :   "esmazavala@gmail.com",
+            mailingAddress      : {
                 streetAddress1  : "714 Lenox Ave",
                 streetAddress2  : "",
                 city            : "Waukegan",
                 state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60085"
             },
-            phone    : "1-847-123-1234",
-            email :   "esmazavala@gmail.com"
+            dateOfBirth         : new Date(1976, 1, 19),
+            effectiveDate       : new Date(2023, 1, 2),
+            gender              : GENDERS[1],
+            maritalStatus       : MARITALSTATUSES[0],
+            occupation          : "occupied",
+            spouseOccupation    : "N/A",
+            asInterestMayAppear : ASINTERESTMAYAPPEAR[4],
+            //Record stamps
+            creatorId           : USERS[0].id,
+            creatorName         : USERS[0].name,
+            created             : new Date(),
+            lastModified        : new Date()
         },
         //Policy Details
         billType                : "Direct",
@@ -1208,53 +1353,110 @@ export const POLICIES : Array<PolicyValues> = [
         operators       : [
             {
                 name                        : "Esmeralda Zavala",
-                operatorType                : "PRIN",
-                sr22                        : "N",
+                phone                       : "1-847-123-1234",
+                email                       : "",
+                mailingAddress              : {
+                    streetAddress1          : "714 Lenox Ave",
+                    streetAddress2          : "",
+                    city                    : "Waukegan",
+                    state                   : USPSSTATEABBREVIATIONS[17],
+                    zip                     : "60085"
+                },
+                dateOfBirth                 : new Date(1976, 1, 19),
+                operatorType                : OPERATORTYPES[0],
+                sr22                        : SR22S[1],
                 operatorLicenseNumber       : "A1234567",
                 operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("12-31-2020"),
-                operatorCoverageStatus      : "COV",
-                dateOfBirth           : new Date("02-19-1976"),
+                relationToInsured           : RELATIONTOINSURED[0],
                 operatorAccidentsViolations : "09/01/18(V) 08/01/20(V) 11/01/20(V)",
-            },
+                effectiveDate               : new Date(2023, 1, 2),
+                creatorId                   : USERS[0].id,
+                creatorName                 : USERS[0].name,
+                created                     : new Date(),
+                lastModified                : new Date()
+},
             {
-                name              : "Yasmeen Lopez",
-                operatorType            : "ADDL",
-                sr22                    : "N",
+                name                    : "Yasmeen Lopez",
+                phone                   : "1-847-123-1234",
+                email                   : "",
+                mailingAddress          : {
+                    streetAddress1      : "714 Lenox Ave",
+                    streetAddress2      : "",
+                    city                : "Waukegan",
+                    state               : USPSSTATEABBREVIATIONS[17],
+                    zip                 : "60085"
+                },
+                dateOfBirth             : new Date(1999, 2, 13),
+                operatorType            : OPERATORTYPES[1],
+                sr22                    : SR22S[1],
                 operatorLicenseNumber   : "A1234567",
                 operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
                 operatorLicenseExpirationDate : new Date("12-31-2025"),
-                operatorCoverageStatus  : "COV",
-                dateOfBirth : new Date("02-19-1999"),
-                operatorAccidentsViolations : ""
+                relationToInsured       : RELATIONTOINSURED[1],
+                operatorAccidentsViolations : "",
+                effectiveDate           : new Date(2023, 1, 2),
+                creatorId               : USERS[0].id,
+                creatorName             : USERS[0].name,
+                created                 : new Date(),
+                lastModified            : new Date()
             },
             {
                 name                    : "Fernando Sanchez",
-                operatorType            : "EXCL",
-                sr22                    : "N",
+                phone                   : "1-847-123-1234",
+                email                   : "",
+                mailingAddress          : {
+                    streetAddress1      : "714 Lenox Ave",
+                    streetAddress2      : "",
+                    city                : "Waukegan",
+                    state               : USPSSTATEABBREVIATIONS[17],
+                    zip                 : "60085"
+                },
+                dateOfBirth             : new Date(1975, 5, 19),
+                operatorType            : OPERATORTYPES[3],
+                sr22                    : SR22S[1],
                 operatorLicenseNumber   : "A1234567",
                 operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date("01-31-2025"),
-                operatorCoverageStatus  : "NONE",
-                dateOfBirth : new Date("06-19-1975"),
-                operatorAccidentsViolations : ""
+                operatorLicenseExpirationDate : new Date(2025, 0, 25),
+                relationToInsured       : RELATIONTOINSURED[2],
+                operatorAccidentsViolations : "",
+                effectiveDate           : new Date(2023, 1, 2),
+                creatorId               : USERS[0].id,
+                creatorName             : USERS[0].name,
+                created                 : new Date(2023, 0, 19),
+                lastModified            : new Date()
             },
             {
-                name                    : "Janette Lopez",
-                operatorType            : "EXCL",
-                sr22                    : "N",
-                operatorLicenseNumber   : "A7654321",
-                operatorLicenseState    : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date("12-31-2023"),
-                operatorCoverageStatus  : "NONE",
-                dateOfBirth : new Date("06-19-2004"),
-                operatorAccidentsViolations : ""
+                name                        : "Janette Lopez",
+                phone                       : "1-847-123-1234",
+                email                       : "",
+                mailingAddress              : {
+                    streetAddress1          : "714 Lenox Ave",
+                    streetAddress2          : "",
+                    city                    : "Waukegan",
+                    state                   : USPSSTATEABBREVIATIONS[17],
+                    zip                     : "60085"
+                },
+                dateOfBirth                 : new Date(2004, 10, 18),
+                operatorType                : OPERATORTYPES[2],
+                sr22                        : SR22S[1],
+                operatorLicenseNumber       : "A7654321",
+                operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
+                operatorLicenseExpirationDate : new Date(2023, 11, 31),
+                relationToInsured           : RELATIONTOINSURED[3],
+                operatorAccidentsViolations : "",
+                effectiveDate               : new Date(2023, 1, 2),
+                creatorId                   : USERS[0].id,
+                creatorName                 : USERS[0].name,
+                created                     : new Date(2023, 0, 19),
+                lastModified                : new Date()
             }
 
         ],
         //Auto details
         autoUnits        : [
             {
+                id              : uuidv4(),
                 unit            : 1,
                 autoMake        : "Honda",
                 autoModel       : "Odyssey",
@@ -1330,21 +1532,13 @@ export const POLICIES : Array<PolicyValues> = [
                         coveragePremium : 0
                     }
                 ],
-                lienholders     : [
-                    {
-                        lienholderName  : "Bank of America",
-                        lienholderMailingAddress : {
-                            id              : uuidv4(),
-                            streetAddress1  : "123 Main Street",
-                            streetAddress2  : " ",
-                            city            : "Chicago",
-                            state           : USPSSTATEABBREVIATIONS[17],
-                            zip             : "60606"
-                        }
-                    }
-                ]
+                creatorId               : USERS[0].id,
+                creatorName             : USERS[0].name,
+                created                 : new Date(),
+                lastModified            : new Date()
             },
             {
+                id              : uuidv4(),
                 unit            : 2,
                 autoMake        : "BMW",
                 autoModel       : "328XI",
@@ -1419,7 +1613,11 @@ export const POLICIES : Array<PolicyValues> = [
                         coverageDeductible : " ",
                         coveragePremium : 0.00
                     }
-                ] 
+                ], 
+                creatorId              : USERS[0].id,
+                creatorName            : USERS[0].name,
+                created                : new Date(),
+                lastModified           : new Date()
             }
         ],
         //Policy document endorsements
@@ -1434,7 +1632,7 @@ export const POLICIES : Array<PolicyValues> = [
     {
         id                      : uuidv4(),
         policyNumber            : "PPT3001906",
-        status                  : "Inforce",
+        status                  : POLICYSTATUSES[2],
         applicationDate         : new Date(2023, 2, 27),
         //set periodStartDate to February 2, 2023 at 12:00:00 AM
         periodStartDate         : new Date(2023, 3, 2),
@@ -1444,17 +1642,28 @@ export const POLICIES : Array<PolicyValues> = [
         product                 : PRODUCTS[1],
         agency                  : AGENCIES[1],
         insured                 : {
-            name     : "Tyrice D Wilson",
+            id                  : uuidv4(),
+            name                : "Tyrice D Wilson",
+            phone               : "1-847-123-1234",
+            email               : "tdwilson99@gmail.com",
             mailingAddress   : {
-                id              : uuidv4(),
                 streetAddress1  : "914 N Homan Ave",
                 streetAddress2  : "",
                 city            : "Chicago",
                 state           : USPSSTATEABBREVIATIONS[17],
                 zip             : "60651"
             },
-            phone    : "1-847-123-1234",
-            email :   "tdwilson99@gmail.com"
+            dateOfBirth         : new Date(1990, 2, 23),
+            effectiveDate       : new Date(2023, 2, 27),
+            gender              : GENDERS[0],
+            maritalStatus       : MARITALSTATUSES[0],
+            occupation          : "Unoccupied",
+            spouseOccupation    : "N/A",
+            asInterestMayAppear: ASINTERESTMAYAPPEAR[5],
+            creatorId           : USERS[0].id,
+            creatorName         : USERS[0].name,
+            created             : new Date(),
+            lastModified        : new Date()
         },
         //Policy Details
         billType                : "Agent",
@@ -1478,19 +1687,33 @@ export const POLICIES : Array<PolicyValues> = [
         operators       : [
             {
                 name                        : "Tyrice D Wilson",
-                operatorType                : "PRIN",
-                sr22                        : "N",
+                phone                       : "1-847-123-1234",
+                email                       : "",
+                mailingAddress              : {
+                    streetAddress1  : "914 N Homan Ave",
+                    streetAddress2  : "",
+                    city            : "Chicago",
+                    state           : USPSSTATEABBREVIATIONS[17],
+                    zip             : "60651"
+                },
+                dateOfBirth                 : new Date(1976, 1, 19),
+                operatorType                : OPERATORTYPES[0],
+                sr22                        : SR22S[1],
                 operatorLicenseNumber       : "B1234567",
                 operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date("12-31-2020"),
-                operatorCoverageStatus      : "COV",
-                dateOfBirth           : new Date("02-19-1976"),
+                operatorLicenseExpirationDate : new Date(2020, 11, 31),
+                relationToInsured           : RELATIONTOINSURED[0],
                 operatorAccidentsViolations : "09/01/18(V) 08/01/20(V) 11/01/20(V)",
+                effectiveDate               : new Date(2023, 3, 2),
+                creatorId                   : USERS[0].id,
+                creatorName                 : USERS[0].name,
+                created                     : new Date(),
+                lastModified                : new Date()
             }
-
         ],
         autoUnits        : [
             {
+                id             : uuidv4(),
                 unit            : 1,
                 autoMake        : "Buick",
                 autoModel       : "Lacrosse CX",
@@ -1571,9 +1794,12 @@ export const POLICIES : Array<PolicyValues> = [
                         coveragePremium : 0
                     }
                 ],
-                lienholders     : []
-            },
-
+                lienholders     : [],
+                creatorId       : USERS[0].id,
+                creatorName     : USERS[0].name,
+                created         : new Date(),
+                lastModified    : new Date()
+            }
         ],
         documentEndorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
         //Record stamps
@@ -1583,161 +1809,3 @@ export const POLICIES : Array<PolicyValues> = [
         lastModified    : new Date(),
     },
 ]
-
-export const newPolicy : PolicyValues = {
-        id                      : uuidv4(),
-        policyNumber            : "",
-        status                  : "NEW",
-        applicationDate         : new Date(),
-        periodStartDate         : new Date(),
-        periodEndDate           : new Date(),
-        policyState             : USPSSTATEABBREVIATIONS[0],
-        product                 : PRODUCTS[0],
-        agency                  : AGENCIES[0],
-        insured        : {
-            name     :  "",
-            mailingAddress   : {
-                id              : uuidv4(),
-                streetAddress1  : "",
-                streetAddress2  : "",
-                city            : "",
-                state           : USPSSTATEABBREVIATIONS[0],
-                zip             : ""
-            },
-            phone    : "",
-            email :   ""
-        },
-        //Policy Details
-        billType                : "Agent Bill",
-        netGross                : "Net",
-        paymentOption           : "Monthly",
-        claimCount              : 0,
-        binderNumber            : "",
-        binderTimestamp         : new Date(),
-        policyRateType          : "",
-        policyTerm              : 0,
-        premiumInforce          : 0,
-        premiumWritten         : 0,
-        statementDate           : 0,
-        territory               : "",
-        yearsRenewed            : 0,
-        //Endorsement details
-        endorsementNumber       : 0,
-        endorsementAmount       : 0,
-        endorsementStatus       : " ",
-        endorsementEffectiveDate: new Date(),
-        //Operator details
-        operators       : [
-            {
-                name     :  "",
-                operatorType                : "PRIN",
-                sr22                        : "N",
-                operatorLicenseNumber       : "",
-                operatorLicenseState        : USPSSTATEABBREVIATIONS[17],
-                operatorLicenseExpirationDate : new Date(),
-                operatorCoverageStatus      : "COV",
-
-                dateOfBirth           : new Date(),
-                operatorAccidentsViolations : "",
-            }
-        ],
-        //Auto details
-        autoUnits        : [
-            {
-                unit            : 1,
-                autoMake        : "",
-                autoModel       : "",
-                autoYear        : 0,
-                autoVIN         : "",
-                autoSYM         : "",
-                autoAGE         : 0,
-                autoTERR        : "",
-                autoCLASS       : "",
-                autoPTS         : 0,
-                autoATF         : "",
-                autoFLCV        : "",
-                autoMC         : "",
-                coverages       : [
-                    {
-                        coverageType    : "A. Bodily Injury",
-                        coverageLimit   : "$25,000 each person, $50,000 each accident",
-                        coverageDeductible : " ",
-                        coveragePremium : 0
-                    },
-                    {
-                        coverageType    : "B. Porperty Damage",
-                        coverageLimit   : "$20,000 each accident",
-                        coverageDeductible : " ",
-                        coveragePremium : 0
-                    },
-                    {
-                        coverageType    : "C. Automobile Medical Payments",
-                        coverageLimit   : "$- per person",
-                        coverageDeductible : " ",
-                        coveragePremium : 0.00
-                    },
-                    {
-                        coverageType    : "D. Comprehensive",
-                        coverageLimit   : "Actual Cash Value less deductible",
-                        coverageDeductible : "",
-                        coveragePremium : 0
-                    },
-                    {
-                        coverageType    : "E. Collision",
-                        coverageLimit   : "Actual Cash Value less deductible",
-                        coverageDeductible : "",
-                        coveragePremium : 0
-                    },
-                    {
-                        coverageType    : "J. Uninsured Motorist Bodily Injury",
-                        coverageLimit   : "$25,000 each person, $50,000 each accident",
-                        coverageDeductible : " ",
-                        coveragePremium : 0
-                    },
-                    {
-                        coverageType    : "K. Underinsured Motorist Property Damage",
-                        coverageLimit   : " ",
-                        coverageDeductible : "",
-                        coveragePremium : 0.00
-                    },
-                    {
-                        coverageType    : "Towing",
-                        coverageLimit   : " ",
-                        coverageDeductible : " ",
-                        coveragePremium : 0.00
-                    },
-                    {
-                        coverageType    : "Rental",
-                        coverageLimit   : " ",
-                        coverageDeductible : " ",
-                        coveragePremium : 0
-                    },
-                    {
-                        coverageType    : "Additonal Coverages",
-                        coverageLimit   : " ",
-                        coverageDeductible : " ",
-                        coveragePremium : 0
-                    }
-                ],
-                lienholders     : [
-                    {
-                        lienholderName  : "",
-                        lienholderMailingAddress : {
-                            id              : uuidv4(),
-                            streetAddress1  : "",
-                            streetAddress2  : "",
-                            city            : "",
-                            state           : USPSSTATEABBREVIATIONS[17],
-                            zip             : ""
-                        }
-                    }
-                ]
-            }            
-        ],
-        documentEndorsements        : [ "IL01-001", "IL01-003" ],
-        //Record stamps
-        creatorId       : user1Id,
-        creatorName     : USERS[0].name,
-        created         : new Date(),
-        lastModified    : new Date(),
-    }

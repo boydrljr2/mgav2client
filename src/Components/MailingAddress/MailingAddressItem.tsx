@@ -3,15 +3,15 @@ import React from 'react';
 import { useFormContext,  Controller } from 'react-hook-form';
 import _ from 'lodash';
 
-import { Paper, Grid, TextField, Autocomplete, Button, Typography } from '@mui/material';
+import { Grid, TextField, Autocomplete, Typography } from '@mui/material';
 //import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
 import { USPSSTATEABBREVIATIONS } from '../Scaffold/MGAValues';
 
 export default function MailingAddressItem() {
 
-    const { control, watch, formState, 
-            formState: { errors, dirtyFields, isDirty, isValid, touchedFields} } 
+    const { control, 
+            formState: { errors} } 
         = useFormContext();
 
 

@@ -42,7 +42,7 @@ export default function MailingAddressTable() {
                             {mailingAddresses
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((mailingAddress) => (
-                                    <TableRow key={mailingAddress.id}>
+                                    <TableRow key={mailingAddress.streetAddress1}>
                                         <TableCell>{(mailingAddress.name !== undefined) 
                                             ? 
                                             mailingAddress.name 

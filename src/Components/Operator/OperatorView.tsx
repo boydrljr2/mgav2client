@@ -36,8 +36,8 @@ export default function OperatorView( props: {operators: OperatorValues[]}) {
                     <TableBody>
                         {props.operators.map((operator) => (
                                 <TableRow key={operator.name}>
-                                    <TableCell>{operator.operatorType}</TableCell>
-                                    <TableCell>{operator.sr22}</TableCell>
+                                    <TableCell>{operator.operatorType.value}</TableCell>
+                                    <TableCell>{operator.sr22.value}</TableCell>
                                     <TableCell>{operator.name}</TableCell>
                                     <TableCell>{getDoB(operator.dateOfBirth)}</TableCell>
                                     <TableCell>{operator.operatorAccidentsViolations}</TableCell>

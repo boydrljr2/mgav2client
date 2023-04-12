@@ -11,10 +11,9 @@ import { useForm, SubmitHandler, Controller, FormProvider} from 'react-hook-form
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { USERS, 
-        AGENCIES, AgencyValues, AgencyItemValues, 
-        INSURERS, PRODUCTS, 
-        POLICIES, PolicyValues, PolicyItemProps, PolicySchema, newPolicy} from '../Scaffold/MGAValues'
+import { USERS, AGENCIES, INSURERS, PRODUCTS, 
+        POLICIES, PolicyValues, PolicyItemProps, PolicySchema, newPolicy, POLICYSTATUSES, USPSSTATEABBREVIATIONS} 
+        from '../Scaffold/MGAValues'
 
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import MailingAddressItem from '../MailingAddress/MailingAddressItem';
@@ -24,10 +23,11 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
     const navigate = useNavigate();
 
     const { policy } = policyItemProps;
-    const policyUndefined = typeof policy === 'undefined';
-
-    const initialFormValues = !policyUndefined ? policy : newPolicy;
-    const [formValues, setFormValues] = useState(initialFormValues);
+    const policyUndefined = (policy === undefined);
+    const methods = useForm<PolicyValues>({
+        resolver: yupResolver(PolicySchema),
+        defaultValues: !policyUndefined ? policy : newPolicy
+    });
 
     const footerProps : ObjectFooterValues = !policyUndefined ?
     {
@@ -42,95 +42,184 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
         created         : new Date(),
         lastModified    : new Date()
     }
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormValues({...formValues, [e.target.name] : e.target.value})
-    };
+
+    const { handleSubmit, control, formState: { errors } } = methods;
+    const policyFormHandler : SubmitHandler<PolicyValues> = (data) => {
+        console.log('Policy onSubmit data: ', data);
+        methods.setValue('lastModified', new Date());
+        const policyIndex = POLICIES.findIndex(policy => policy.id === data.id);
+        if (policyIndex === -1) {
+            POLICIES.push(data);
+        } else {
+            POLICIES[policyIndex] = data;
+        }
+        navigate('/policies');
+    }
+
+    if (policyItemProps === undefined) {
+        return (
+            <Typography variant="h6" color='primary.main'>Policy not found</Typography>
+        )
+    }
 
     return (
-        <Paper variant="outlined" sx={{padding:2}}>
-            <form>
-                <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                        <Typography variant="h6" color='primary.main'>Policy Header</Typography>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <TextField
-                            id="header-policy-number" name="policyNumber" label="Policy Number"
-                            value={formValues.policyNumber}   
-                            onChange={handleChange}                        
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <TextField
-                            id="insurer-name" name="product.insurer.name" label="Insurer"
-                            value={formValues.product.insurer.name} 
-                            inputProps={{readOnly: true}}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <TextField
-                            id="product-name" name="productName" label="Product"
-                            value={formValues.product.name}
-                            inputProps={{readOnly: true}}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <TextField
-                            id="agency-name" name="agency.name" label="Agency"
-                            value={formValues.agency.name} 
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <TextField
-                            id="insured-name" name="insuredName" label="Primary Insured"
-                            value={formValues.insured.name}
-                            inputProps={{readOnly: true}}
-                        />
-                    </Grid>
-                    <Grid item xs={4} md={2}>
-                        <TextField
-                            id="period-start-date" name="periodStartDate" label="Period Start Date"
-                            value={formValues.periodStartDate.toLocaleDateString()} 
-                            inputProps={{readOnly: true}}
-                        />
-                    </Grid>
-                    <Grid item xs={4} md={2}>
-                        <TextField
-                            id="period-end-date" name="periodEndDate" label="Period End Date"
-                            value={formValues.periodEndDate.toLocaleDateString()}
-                            inputProps={{readOnly: true}}
-                        />
-                    </Grid>
-                </Grid>
-                <Paper variant="outlined" sx={{p:2}}>
+        <FormProvider {...methods}>
+            <Paper variant="outlined" sx={{p:2, m:1, flexGrow:1}}>
+                <form onSubmit={handleSubmit(policyFormHandler)} >
                     <Grid container spacing={1}>
-                        <Grid item xs={12}>
-                            <Typography variant="h6" color='primary.main'>Insurer</Typography>
+                        <Grid item xs={4} md={2}>
+                            <Controller
+                                    name="policyNumber"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField {...field}
+                                            id="policy-number" label="Policy number"
+                                            variant="outlined" fullWidth  sx={{ m: 1 }}
+                                            error={!!errors.policyNumber}
+                                            helperText={errors.policyNumber?.message}
+                                        />
+                                    )}
+                                />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={4} md={2}>
+                            <Controller 
+                                name="status"
+                                control={control}
+                                render={({field}) => (
+                                    <Autocomplete {...field}
+                                        id="status" 
+                                        options={POLICYSTATUSES}
+                                        getOptionLabel={(option) => option.label}
+                                        isOptionEqualToValue={(option, value) => option.value === value.value}
+                                        onChange={( event, newValue) => {
+                                            field.onChange(newValue);
+                                        }}
+                                        renderInput={(field) => 
+                                            <TextField 
+                                                {...field} 
+                                                label="Status"
+                                                variant="outlined" sx={{margin:1}} fullWidth
+                                                error={!!errors.status}
+                                                helperText={!!errors.status ? errors.status.message:''}
+                                            />}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={4} md={2}>
+                            <Controller 
+                                name="policyState"
+                                control={control}
+                                render={({field}) => (
+                                    <Autocomplete {...field}
+                                        id="status" 
+                                        options={USPSSTATEABBREVIATIONS}
+                                        getOptionLabel={(option) => option.label}
+                                        isOptionEqualToValue={(option, value) => option.value === value.value}
+                                        onChange={( event, newValue) => {
+                                            field.onChange(newValue);
+                                        }}
+                                        renderInput={(field) => 
+                                            <TextField 
+                                                {...field} 
+                                                label="Policy State"
+                                                variant="outlined" sx={{margin:1}} fullWidth
+                                                error={!!errors.policyState}
+                                                helperText={!!errors.policyState ? errors.policyState.message:''}
+                                            />}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={4} md={2}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                <Controller
+                                    name="applicationDate"
+                                    control={control}
+                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                                    <DatePicker 
+                                        {...field}
+                                        inputRef={ref}
+                                        label="Application Date"
+                                        renderInput={(inputProps) => (
+                                            <TextField 
+                                                {...inputProps}
+                                                variant="outlined" fullWidth  sx={{ m: 1 }}
+                                                error={!!errors.applicationDate}
+                                                helperText={errors.applicationDate?.message}
+                                            />
+                                        )}
+                                    />
+                                )}
+                                />
+                            </LocalizationProvider>
+                        </Grid>
+                        <Grid item xs={4} md={2}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                <Controller
+                                    name="periodStartDate"
+                                    control={control}
+                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                                    <DatePicker 
+                                        {...field}
+                                        inputRef={ref}
+                                        label="Period Start Date"
+                                        renderInput={(inputProps) => (
+                                            <TextField 
+                                                {...inputProps}
+                                                variant="outlined" fullWidth  sx={{ m: 1 }}
+                                                error={!!errors.periodStartDate}
+                                                helperText={errors.periodStartDate?.message}
+                                            />
+                                            )}
+                                        />
+                                    )}
+                                />
+                            </LocalizationProvider>
+                        </Grid>
+                        <Grid item xs={4} md={2}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                <Controller
+                                    name="periodEndDate"
+                                    control={control}
+                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                                    <DatePicker 
+                                        {...field}
+                                        inputRef={ref}
+                                        label="Period End Date"
+                                        renderInput={(inputProps) => (
+                                            <TextField 
+                                                {...inputProps}
+                                                variant="outlined" fullWidth  sx={{ m: 1 }}
+                                                error={!!errors.periodEndDate}
+                                                helperText={errors.periodEndDate?.message}
+                                            />
+                                            )}
+                                        />
+                                    )}
+                                />
+                            </LocalizationProvider>
                         </Grid>
                     </Grid>
-                </Paper>
-                <ObjectFooter footerValues={footerProps} />
-                <Grid container direction="row" spacing={2}
-                    sx={{margin:'auto', justifyContent:"flex-end"}}
-                >
-                    <Grid item >
-                        <Button
-                            variant="contained" size='medium'
-                            type="submit"
-                        >Save</Button>
+                    <ObjectFooter footerValues={footerProps} />
+                    <Grid container direction="row" spacing={2}
+                        sx={{margin:'auto', justifyContent:"flex-end"}}
+                    >
+                        <Grid item >
+                            <Button
+                                variant="contained" size='medium'
+                                type="submit"
+                            >Save</Button>
+                        </Grid>
+                        <Grid item sx={{mr:1}}>
+                            <Button
+                                variant="outlined" size='medium'
+                                component={Link} to='/policies'
+                            >Cancel</Button>
+                        </Grid>
                     </Grid>
-                    <Grid item sx={{mr:1}}>
-                        <Button
-                            variant="outlined" size='medium'
-                            component={Link} to='/policies'
-                        >Cancel</Button>
-                    </Grid>
-                </Grid>
-            </form>
-            <pre>formValues {JSON.stringify(formValues, null, 2)}</pre>
-        </Paper>
+                </form>
+            </Paper>
+        </FormProvider>
     )
 }

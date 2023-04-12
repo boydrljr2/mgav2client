@@ -46,7 +46,6 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
                     principalEmail  : (!insurerUndefined) ? insurer.principalEmail : '',
                     website         : (!insurerUndefined) ? insurer.website : '',
                     mailingAddress  : {
-                        id              : (!insurerUndefined) ? insurer.mailingAddress.id : uuidv4(),
                         name            : (!insurerUndefined) ? insurer.mailingAddress.name : '',
                         streetAddress1  : (!insurerUndefined) ? insurer.mailingAddress.streetAddress1 : '',
                         streetAddress2  : (!insurerUndefined) ? insurer.mailingAddress.streetAddress2 : '',

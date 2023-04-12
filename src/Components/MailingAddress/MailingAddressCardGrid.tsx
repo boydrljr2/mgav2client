@@ -5,7 +5,7 @@ export default function MailingAddressCardGrid() {
     return (
         <Grid container spacing={2}>
             {mailingAddresses.map((mailingAddress) => (
-                <Grid item key={mailingAddress.id} xs={12} sm={6} md={4}>
+                <Grid item key={mailingAddress.streetAddress1} xs={12} sm={6} md={4}>
                     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                         <CardHeader 
                             sx={{ fontSize : '1.5rem'}}

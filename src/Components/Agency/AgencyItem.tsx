@@ -12,7 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { USERS, user1Id, user2Id,
-        AGENCYSTATUSES, AgencyValues, AgencyItemValues, AgencySchema, AGENCIES } from '../Scaffold/MGAValues';
+        AGENCYSTATUSES, AgencyValues, AgencyItemValues, AgencySchema, AGENCIES, newAgency } from '../Scaffold/MGAValues';
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import MailingAddressItem from '../MailingAddress/MailingAddressItem';
 
@@ -21,49 +21,11 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
     const navigate = useNavigate();
 
     const { agency } = agencyItemProps;
-
     const agencyUndefined = (agency === undefined);
-
-    const methods =
-        useForm<AgencyValues>({
-            resolver: yupResolver(AgencySchema),
-            defaultValues: 
-                {
-                    id: (!agencyUndefined) ? agency.id : uuidv4(),
-                    legacyId : (!agencyUndefined) ? agency.legacyId : '',
-                    name: (!agencyUndefined) ? agency.name : '',
-                    irsName: !agencyUndefined ? agency.irsName : '',
-                    taxId: !agencyUndefined ? agency.taxId : '',
-                    status: !agencyUndefined ? agency.status : {value: '', label: ''},
-
-                    contactName: !agencyUndefined ? agency.contactName : '',
-                    phone: !agencyUndefined ? agency.phone : '',
-                    principalEmail: !agencyUndefined ? agency.principalEmail : '',
-                    documentEmail: !agencyUndefined ? agency.documentEmail : '',
-                    website: !agencyUndefined ? agency.website : '',
-                    mailingAddress: {
-                        id      : !agencyUndefined ? agency.mailingAddress.id : uuidv4(),
-                        name    :!agencyUndefined ? agency.mailingAddress.name : '',
-                        streetAddress1: !agencyUndefined ? agency.mailingAddress.streetAddress1 : '',
-                        streetAddress2: !agencyUndefined ? agency.mailingAddress.streetAddress2 : '',
-                        city: !agencyUndefined ? agency.mailingAddress.city : '',
-                        state: !agencyUndefined ? agency.mailingAddress.state : {value: '', label: ''},
-                        zip: !agencyUndefined ? agency.mailingAddress.zip : '',
-                    },
-                    licenseNumber: !agencyUndefined ? agency.licenseNumber : '',
-                    licenseDate: !agencyUndefined ? agency.licenseDate : new Date(),
-                    licenseExpirationDate: !agencyUndefined ? agency.licenseExpirationDate : new Date(),
-                    appointmentStatus: !agencyUndefined ? agency.appointmentStatus : '',
-                    agentGrade: !agencyUndefined ? agency.agentGrade : '',
-                    headquarterAgent: !agencyUndefined ? agency.headquarterAgent : '',
-                    locationCode: !agencyUndefined ? agency.locationCode : '',
-                    commissionType: !agencyUndefined ? agency.commissionType : '',
-                    creatorId: !agencyUndefined ? agency.creatorId : USERS[0].id,
-                    creatorName: !agencyUndefined ? agency.creatorName : USERS[0].name,
-                    created: !agencyUndefined ? agency.created : new Date(),
-                    lastModified: !agencyUndefined ? agency.lastModified : new Date(),
-                }
-        });
+    const methods = useForm<AgencyValues>({
+        resolver: yupResolver(AgencySchema),
+        defaultValues: !agencyUndefined ? agency : newAgency
+    });
 
     const objectFooterProps : ObjectFooterValues = 
         !agencyUndefined ?
@@ -408,7 +370,8 @@ export default function AgencyItem (agencyItemProps : AgencyItemValues) {
                             </Grid>
                         </Grid>
                     </Paper>
-                    <Grid container direction="row" spacing={2} sx={{margin:'auto', justifyContent:"flex-end"}}>
+                    <Grid container direction="row" spacing={2} 
+                        sx={{margin:'auto', justifyContent:"flex-end"}}>
                         <Grid item >
                             <Button
                                 variant="contained" size='medium'

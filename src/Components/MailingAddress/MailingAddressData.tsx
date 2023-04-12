@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 
 export const mailingAddresses : Array<MailingAddressValues> = [
     {
-        id              : uuidv4(),
         name            : "The White House",
         initial         : "W",
         streetAddress1   : "1600 Pennsylvania Avenue NW",
@@ -12,7 +11,6 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         zip             : "20500"
     },
     {
-        id              : uuidv4(),
         name            : "Disneyland",
         initial         : "D",
         streetAddress1   : "1313 Disneyland Drive",
@@ -21,7 +19,6 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         zip             : "92802"
     },
     {
-        id              : uuidv4(),
         name            : "The United States Capitol",
         initial         : "C",
         streetAddress1   : "U.S. Capitol",
@@ -30,7 +27,6 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         zip             : "20510"
     },
     {
-        id              : uuidv4(),
         name            : "Supreme Court of the United States",
         initial         : "S",
         streetAddress1   : "1 First Street NE",
@@ -39,7 +35,6 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         zip             : "20543"
     },
     {
-        id              : uuidv4(),
         name            : "Statue of Liberty",
         initial         : "L",
         streetAddress1   : "Liberty Island",
@@ -48,7 +43,6 @@ export const mailingAddresses : Array<MailingAddressValues> = [
         zip             : "10004"
     },
     {
-        id              : uuidv4(),
         name            : "Empire State Building",
         initial         : "E",
         streetAddress1   : "350 5th Ave",

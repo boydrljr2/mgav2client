@@ -34,13 +34,13 @@ export default function LienholderView(props : {autoUnits : AutoValues[]}) {
                         </TableHead>
                         <TableBody>
                             {auto.lienholders?.map((lienholder) => (
-                                <TableRow key={lienholder.lienholderName}>
-                                    <TableCell>{lienholder.lienholderName}</TableCell>
+                                <TableRow key={lienholder.name}>
+                                    <TableCell>{lienholder.name}</TableCell>
                                     <TableCell>
-                                        {lienholder.lienholderMailingAddress.streetAddress1 + " "
-                                        + lienholder.lienholderMailingAddress.city + ", "
-                                        + lienholder.lienholderMailingAddress.state + " "
-                                        + lienholder.lienholderMailingAddress.zip}
+                                        {lienholder.mailingAddress.streetAddress1 + " "
+                                        + lienholder.mailingAddress.city + ", "
+                                        + lienholder.mailingAddress.state + " "
+                                        + lienholder.mailingAddress.zip}
                                     </TableCell>
                                 </TableRow>
                                 ))}
