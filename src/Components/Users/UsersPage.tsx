@@ -4,10 +4,26 @@ import PageBar from '../Scaffold/PageParts/PageBar';
 import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
 
 import UsersTable from './UsersTable';
-import {USERS} from '../Scaffold/MGAValues';
+import {USERS, UserTableRowValues, UserTableProps} from '../Scaffold/MGAValues';
 
 export default function UserPage() {
 
+
+    //Select and transform rows from AGENCIES into agencyRows as rows for AgencyTable
+    const userRows : UserTableRowValues[] = 
+        USERS.map(user => {
+            return {
+                id                      : user.id,
+                name                    : user.name,
+                email                   : user.email,
+                roleValue               : user.role.value,
+                image                   : user.image
+        }
+    });
+
+    const userTableProps = {
+        userRows: userRows
+    }
     const pageButtons : PageButtonValues[] = [
         {name: 'New', link: 'users/new'}
     ];
@@ -18,8 +34,8 @@ export default function UserPage() {
 
     return (
         <>
-            <PageBar {...pageBarProps} />
-            <UsersTable users={USERS}/>
+            <PageBar {...pageBarProps} />            
+            <UsersTable {...userTableProps} />
         </>
     )
 }

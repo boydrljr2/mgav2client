@@ -166,6 +166,7 @@ interface EnhancedTableToolbarProps {
   numSelected: number;
 }
 
+//----------   TABLE TOOLBAR  ----------------
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   const { numSelected } = props;
 

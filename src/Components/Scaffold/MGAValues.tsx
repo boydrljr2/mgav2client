@@ -174,6 +174,19 @@ export interface UserItemValues {
     user? : UserValues;
 }
 
+export interface UserTableRowValues {
+    id          : string;
+    name        : string;
+    email       : string;
+    image       : string;
+    roleValue   : string;
+}
+
+export interface UserTableProps {
+    userRows: Array<UserTableRowValues>; 
+}
+
+
 export const USERS : Array<UserValues> = [
     {
         id          : user1Id,
@@ -1313,7 +1326,6 @@ export const PolicySchema = yup.object().shape({
     binderTimestamp             : yup.date().required('Date Required'),  
     policyRateType              : yup.string().required('Required'),
     policyTerm                  : yup.number().required('Number Required'),
-    
     product                     : ProductSchema,
     agency                      : AgencySchema,
     insured                     : InsuredSchema,

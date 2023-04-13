@@ -300,7 +300,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
                     {/*  Tabs for Details - Insured - Autos & Coverages - Operators */}
                     <Grid container sx={{ width: '100%' }}>
-                        <Grid item xs={12} sx={{borderBottom: 2, borderColor: 'divider', mb:2, p:1 }}>
+                        <Grid item xs={12} sx={{ borderColor: 'divider', mb:2, p:1 }}>
                             <MGATabs 
                                 value={tabValue} 
                                 onChange={handleTabChange} 
