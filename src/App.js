@@ -5,7 +5,6 @@ import { MGATheme } from "./Theme/MGATheme";
 import { AuthenticationContext } from "./Components/Scaffold/context/AuthenticationContext";
 import { USERS }  from "./Components/Scaffold/MGAValues";
 import AppHeader from "./Components/Scaffold/NavParts/AppHeader";
-import { scaffoldStyles } from "./Components/Scaffold/ScaffoldStyles";
 
 import HomePage from "./Components/Scaffold/HomePage.tsx";
 
@@ -44,7 +43,7 @@ function App() {
               userToken : null
             }}
           >
-            <main style={scaffoldStyles.content}>
+            <main >
               
               <AppHeader />
               

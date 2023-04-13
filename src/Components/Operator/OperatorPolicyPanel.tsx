@@ -1,10 +1,7 @@
-import React, { useContext} from 'react';
-
-import { useFormContext  } from 'react-hook-form';
-import _  from 'lodash';
+import React from 'react';
 
 import { Toolbar, Box, Button, Typography } from '@mui/material';
-import OperatorTable from './OperatorTable';
+import OperatorPolicyList from './OperatorPolicyList';
 
 
 // ------ Operator Panel Function component ------
@@ -23,7 +20,7 @@ export default function OperatorPolicyPanel () {
                 </Box>
             </Toolbar>
         
-            <OperatorTable />
+            <OperatorPolicyList />
 
         </React.Fragment>
     )
