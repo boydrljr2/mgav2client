@@ -7,12 +7,12 @@ import { styled, alpha } from '@mui/material/styles'
 import { Link } from 'react-router-dom'
 //import { PageBarValues } from './PageValues'
 
-interface PageButtonValues {
+export interface PageButtonValues {
     name: string;
     link: string;
 }
 
-interface PageBarValues {
+export interface PageBarValues {
     title: string;
     pageButtons?: PageButtonValues[];
 }

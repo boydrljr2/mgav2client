@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import { Paper, FormGroup, TextField, Button, FormControl, Dialog, Alert, AlertTitle } from '@mui/material';
 
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
-import PageBar from '../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
-
+import PageBar, { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageBar';
 
 //write a function that returns an input form with PageTitle and Paper components and a POST method.  
 //The PageTitle component should have a title of "Register User" and button array should have name 'Cancel' and link '/users'.

@@ -14,7 +14,7 @@ import { visuallyHidden } from '@mui/utils';
 import { UserValues, UserTableRowValues, UserTableProps } 
         from '../Scaffold/MGAValues';
 import { AvatarSXBuilder }  from '../Scaffold/FieldParts/AvatarSXBuilder';
-import { MGATableHeaderCell } from '../Scaffold/TableParts/TableParts';
+import { MGATableHeaderCell, MGATableRowAlternating } from '../Scaffold/TableParts/TableParts';
 
 //set interface Data to UserTableRowValues
 type Data = UserTableRowValues;
@@ -345,7 +345,7 @@ export default function UsersTable(userTableProps : UserTableProps) {
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
-                      <TableRow
+                      <MGATableRowAlternating
                         hover
                         onClick={(event) => handleClick(event, row.name)}
                         role="checkbox"
@@ -375,7 +375,7 @@ export default function UsersTable(userTableProps : UserTableProps) {
                         <TableCell>{row.email}</TableCell>
                         <TableCell>{row.roleValue}</TableCell>
                         <TableCell>{row.image}</TableCell>
-                      </TableRow>
+                      </MGATableRowAlternating>
                     );
                   })
                 : null}

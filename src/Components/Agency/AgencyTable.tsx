@@ -15,7 +15,7 @@ import {USERS, USPSSTATEABBREVIATIONS, MailingAddressValues,
         AgencyStatusValues, AGENCYSTATUSES, AgencyValues, AgencyTableProps, AgencyRowValues } 
         from '../Scaffold/MGAValues';
 import { AvatarSXBuilder }  from '../Scaffold/FieldParts/AvatarSXBuilder';
-import { MGATableHeaderCell } from '../Scaffold/TableParts/TableParts';
+import { MGATableHeaderCell, MGATableRowAlternating } from '../Scaffold/TableParts/TableParts';
 
 //set interface Data to AgencyRowValues
 type Data = AgencyRowValues;
@@ -364,7 +364,7 @@ export default function AgencyTableEnhanced(agencyTableProps : AgencyTableProps)
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
-                      <TableRow
+                      <MGATableRowAlternating
                         hover
                         onClick={(event) => handleClick(event, row.name)}
                         role="checkbox"
@@ -398,7 +398,7 @@ export default function AgencyTableEnhanced(agencyTableProps : AgencyTableProps)
                         <TableCell>{row.principalEmail}</TableCell>
                         <TableCell>{row.mailingAddress}</TableCell>
 
-                      </TableRow>
+                      </MGATableRowAlternating>
                     );
                   })
                 : null}

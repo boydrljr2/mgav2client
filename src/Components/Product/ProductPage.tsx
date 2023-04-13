@@ -1,7 +1,6 @@
 import React from 'react';
 
-import PageBar from '../Scaffold/PageParts/PageBar';
-import { PageButtonValues, PageBarValues } from '../Scaffold/PageParts/PageValues';
+import PageBar, { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageBar';
 
 import ProductTable from './ProductTable';
 

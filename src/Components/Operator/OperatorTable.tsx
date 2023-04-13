@@ -1,13 +1,12 @@
 import React, { useContext} from 'react';
 
-import { useFormContext, Controller,  } from 'react-hook-form';
+import { useFormContext  } from 'react-hook-form';
 import _  from 'lodash';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
     } from '@mui/material';
 
-import { OperatorValues, OperatorSchema, OperatorTableProps,
-        } from '../Scaffold/MGAValues';
+import { OperatorValues } from '../Scaffold/MGAValues';
 import { MGATableRowAlternating } from '../Scaffold/TableParts/TableParts';
 
 // ------ Operator Table Function component ------

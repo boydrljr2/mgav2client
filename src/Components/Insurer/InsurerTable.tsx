@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-import { Avatar, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from '@mui/material';
+import { Avatar, Paper, 
+    Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } 
+    from '@mui/material';
 
 import { InsurerValues, MailingAddressValues } from '../Scaffold/MGAValues';
+import { MGATableRowAlternating } from '../Scaffold/TableParts/TableParts';
 import { AvatarSXBuilder } from '../Scaffold/FieldParts/AvatarSXBuilder';
 
 export default function InsurersTable(props: {insurers: InsurerValues[]}) {
@@ -50,7 +53,7 @@ export default function InsurersTable(props: {insurers: InsurerValues[]}) {
                     </TableHead>
                     <TableBody>
                         {insurers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((insurer : InsurerValues) => (
-                            <TableRow key={insurer.id}>
+                            <MGATableRowAlternating key={insurer.id}>
                                 <TableCell>
                                     <Avatar 
                                         {...AvatarSXBuilder(insurer.name)}
@@ -69,7 +72,7 @@ export default function InsurersTable(props: {insurers: InsurerValues[]}) {
                                 <TableCell>
                                     {getMailingAddress(insurer.mailingAddress)}
                                 </TableCell>
-                            </TableRow>
+                            </MGATableRowAlternating>
                         ))}
                     </TableBody>
                 </Table>

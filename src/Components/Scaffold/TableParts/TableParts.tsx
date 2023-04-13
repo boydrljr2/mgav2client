@@ -11,7 +11,7 @@ export const MGATableHeaderCell = styled(TableCell)(({ theme }) => ({
           //set font to bold
             fontWeight: 'bold',
             verticalAlign: 'bottom',
-            backgroundColor: alpha(theme.palette.primary.main, 0.15),
+            backgroundColor: alpha(theme.palette.primary.main, 0.25),
             border: `1px solid ${alpha(theme.palette.primary.dark, 0.5)}`,
         },
         [`&.${tableCellClasses.body}`]: {
@@ -31,8 +31,8 @@ export const MGATableRowCellCollapsible = styled(TableRow)(({ theme }) => ({
 
 //  ----  Style the Operators Table to have alternating row colors  ----
 export const MGATableRowAlternating = styled(TableRow)(({theme}) => ({
-        [`&:nth-of-type(odd)`]: {
-            backgroundColor: alpha(theme.palette.primary.main, 0.1)
+        [`&:nth-of-type(even)`]: {
+            backgroundColor: alpha(theme.palette.primary.main, 0.05)
         }
     })
 ); 

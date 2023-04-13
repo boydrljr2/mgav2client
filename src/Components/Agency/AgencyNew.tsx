@@ -1,7 +1,6 @@
 import React from 'react';
 
-import PageBar from '../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
+import PageBar, { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageBar';
 
 import { AgencyItemValues, newAgency } from '../Scaffold/MGAValues';
 import AgencyItem from './AgencyItem';

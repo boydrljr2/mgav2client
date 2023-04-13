@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Paper, Typography } from '@mui/material';
-import PageBar from './PageParts/PageBar'
-import { PageBarValues, PageButtonValues } from './PageParts/PageValues'
+import PageBar, { PageBarValues, PageButtonValues } from './PageParts/PageBar'
 
 export default function HomePage() {
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import PageBar from '../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
+import PageBar, { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageBar';
 
 import { USERS, UserValues, newUser, UserItemValues } from '../Scaffold/MGAValues';
 import UserItem from './UserItem';

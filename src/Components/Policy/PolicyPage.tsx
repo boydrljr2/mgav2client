@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { POLICIES, PolicyRowValues } from '../Scaffold/MGAValues';
-import PageBar from '../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
+import PageBar, { PageButtonValues, PageBarValues } from '../Scaffold/PageParts/PageBar';
 import PolicyTable from "./PolicyTable";
 
 export default function PolicyPage() {

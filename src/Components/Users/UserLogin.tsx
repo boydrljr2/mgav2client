@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { Paper, Card, Stack, Button } from '@mui/material';
 import MGATextField from '../Scaffold/FieldParts/MGATextField';
 
-import PageBar from '../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
+import PageBar, { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageBar';
 
 export default function UserLogin() {
 

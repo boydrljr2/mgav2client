@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Paper, FormGroup, TextField } from '@mui/material';
 
-import PageBar from '../Scaffold/PageParts/PageBar';
-import { PageBarValues, PageButtonValues } from '../Scaffold/PageParts/PageValues';
+import PageBar, { PageBarValues, PageButtonValues }from '../Scaffold/PageParts/PageBar';
 
 export default function PolicyNew() {
 
