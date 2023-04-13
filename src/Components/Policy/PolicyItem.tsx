@@ -21,6 +21,7 @@ import { TabPanel, tabAllyProps, MGATabs } from '../Scaffold/PageParts/TabParts'
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import PolicyDetails from './PolicyDetails';
 import InsuredDetails  from '../Insured/InsuredDetails';
+import OperatorTable from '../Operator/OperatorTable';
 
 export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
@@ -319,7 +320,9 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                             <InsuredDetails />
                         </TabPanel>
                         <TabPanel value={tabValue} index={2}> AUTOS & COVERAGES </TabPanel>
-                        <TabPanel value={tabValue} index={3}> OPERATORS </TabPanel>
+                        <TabPanel value={tabValue} index={3}> 
+                            <OperatorTable />
+                        </TabPanel>
                     </Grid>
 
                     {/* SAVE & CANCEL BUTTONS */}
