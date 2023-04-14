@@ -11,7 +11,7 @@ import MailingAddressItem from '../MailingAddress/MailingAddressItem';
 export default function InsurerDetails () {
 
     const { control, watch, formState, 
-            formState: { errors, dirtyFields, isDirty, isValid, touchedFields} }
+            formState: { errors } }
         = useFormContext();
 
     return (

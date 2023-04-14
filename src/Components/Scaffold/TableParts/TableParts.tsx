@@ -31,9 +31,20 @@ export const MGATableRowCellCollapsible = styled(TableRow)(({ theme }) => ({
 
 //  ----  Style the Operators Table to have alternating row colors  ----
 export const MGATableRowAlternating = styled(TableRow)(({theme}) => ({
-        [`&:nth-of-type(even)`]: {
-            backgroundColor: alpha(theme.palette.primary.main, 0.05)
-        }
-    })
+    [`&:nth-of-type(even)`]: {
+      backgroundColor: alpha(theme.palette.primary.main, 0.05)
+    }
+  })
+); 
+
+//  ----  Style TableRows where visible rows and collapsible rows match alternating color  ----
+export const MGATableRowAlternating4nPlus34 = styled(TableRow)(({theme}) => ({
+    [`&:nth-of-type(4n+3)`]: {
+      backgroundColor: alpha(theme.palette.primary.main, 0.05)
+    },
+    [`&:nth-of-type(4n+4)`]: {
+      backgroundColor: alpha(theme.palette.primary.main, 0.05)
+    }
+  })
 ); 
 

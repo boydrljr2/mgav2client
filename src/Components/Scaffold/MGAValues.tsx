@@ -256,7 +256,6 @@ export interface InsurerValues {
     //Identifiers
     id                      : string;
     name                    : string;
-    avatar?                 : string;
     FEIN                    : string;
     legacyId?               : string;
     status                  : InsurerStatusValues;
@@ -294,6 +293,38 @@ export interface InsurerProductTableValues {
     insurerId   : string | undefined;
 }
 
+export interface InsurerRowValues {
+    //Identifiers
+    id                      : string;
+    name                    : string;
+    FEIN                    : string;
+    legacyId                : string;
+    status                  : string;
+    domicileState           : string;
+    //Policy Terms
+    maxPolicyTerm           : number;
+    minPolicyTerm           : number;
+    renewalDaysAgent        : number;
+    renewalDaysDirectBill   : number;    
+    statementType           : string;
+    //Contact Info
+    contactName             : string;
+    phone                   : string;
+    principalEmail          : string;
+    website                 : string;
+    mailingAddress          : string;
+    //Rating Info
+    NAICGroup               : string;
+    NAICCode                : string;
+    NAICGroupName           : string;
+    AMBestID                : string;
+    AMBestRating            : string;
+}
+
+export interface InsurerTableProps {
+    insurerRows: Array<InsurerRowValues>;
+}
+
 export const InsurerSchema = yup.object().shape({
     name: yup.string().required('Name Required'),
     FEIN: yup.string().required('FEIN Required'),
@@ -328,7 +359,6 @@ export const newInsurer : InsurerValues = {
     //Identifiers
     id                      : uuidv4(),
     name                    : '',
-    avatar                  : '',
     FEIN                    : '',
     legacyId                : '',
     status                  : INSURERSTATUSES[0],
@@ -367,7 +397,6 @@ export const INSURERS   : InsurerValues[] = [
     {   
         id              : uuidv4(),
         name            : 'United Equitable Insurance Company',
-        avatar          : '/static/images/UnitedEquitableAvatar.jpg',
         FEIN            : '36-2222222',
         legacyId        : '00225',
         status          : INSURERSTATUSES[1],
@@ -403,7 +432,6 @@ export const INSURERS   : InsurerValues[] = [
     {   
         id              : uuidv4(),
         name            : 'American Heartland Insurance Company',
-        avatar          : '/static/images/AmericanHeartlandAvatar.jpg',
         FEIN            : '36-11111111',
         legacyId        : '20228',
         status          : INSURERSTATUSES[2],
@@ -439,7 +467,6 @@ export const INSURERS   : InsurerValues[] = [
     {   
         id              : uuidv4(),
         name            : 'Harley Heaven Motorcycle Insurance Co.',
-        avatar          : '/static/images/AmericanHeartlandAvatar.jpg',
         FEIN            : '13-13131313',
         legacyId        : '666',
         status          : INSURERSTATUSES[2],
@@ -555,16 +582,29 @@ export const AgencySchema = yup.object().shape({
 })
 
 export interface AgencyRowValues {
+    //Identifiers
     id                  : string;
     legacyId            : string;
     name                : string;
+    irsName             : string;
     taxId               : string;
     status              : string;
+    //Contact Info
     contactName         : string;
     phone               : string;
     principalEmail      : string;
+    documentEmail       : string;
     website             : string;
-    mailingAddress      : string;
+    mailingAddress      : string
+    //License Info
+    licenseNumber       : string;
+    licenseDate         : string;
+    licenseExpirationDate   : string;
+    appointmentStatus   : string;
+    agentGrade          : string;
+    headquarterAgent    : string;
+    locationCode        : string;
+    commissionType      : string;  
 }
 
 export interface AgencyTableProps {

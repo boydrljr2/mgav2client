@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { styled } from '@mui/material/styles';
 import { Paper, Box, Typography, Card, Button, Collapse, IconButton, Toolbar, Tooltip,
         Table, TableBody, TableCell, tableCellClasses, TableContainer, 
         TableHead, TableRow, TablePagination, TableSortLabel, FormControlLabel, Switch,
     } from '@mui/material';
+
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { visuallyHidden } from '@mui/utils';
 import { alpha } from '@mui/material/styles';
@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { PolicyRowValues, PolicyTableProps } from '../Scaffold/MGAValues';
-import { MGATableHeaderCell, MGATableRowCellCollapsible  } from '../Scaffold/TableParts/TableParts';
+import { MGATableHeaderCell, MGATableRowAlternating4nPlus34 } from '../Scaffold/TableParts/TableParts';
 
 // ------------------ Table Toolbar --------------------------------
 interface TableToolbarProps {
@@ -226,9 +226,12 @@ function Row(props: { row: PolicyRowValues }) {
 
     return (
         <React.Fragment>
-            <TableRow 
+            <MGATableRowAlternating4nPlus34 
                 hover
-                sx={{ '& > *': { borderBottom: 'unset' }, cursor : 'pointer' }}
+                role='checkbox'
+                tabIndex={-1}
+                key={row.id}
+                sx={{ cursor : 'pointer' }}
             >
                 <TableCell>
                     <IconButton
@@ -251,8 +254,8 @@ function Row(props: { row: PolicyRowValues }) {
                 <TableCell>{row.agencyName}</TableCell>
                 <TableCell>{row.insurerName}</TableCell>
                 <TableCell>{row.productName}</TableCell>
-            </TableRow>
-            <TableRow>
+            </MGATableRowAlternating4nPlus34>
+            <MGATableRowAlternating4nPlus34>
                 <TableCell 
                     sx={{ paddingBottom: 0, paddingTop: 0, verticalAlign: 'top' }} 
                     colSpan={1}
@@ -348,7 +351,7 @@ function Row(props: { row: PolicyRowValues }) {
                         </Card>
                     </Collapse>
                 </TableCell>
-            </TableRow>
+            </MGATableRowAlternating4nPlus34>
         </React.Fragment>
     )
 }

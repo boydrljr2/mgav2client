@@ -8,8 +8,7 @@ import * as yup from 'yup';
 
 import { Paper, Grid, TextField, Autocomplete, Button, Typography } from '@mui/material';
 
-import { USPSSTATEABBREVIATIONS,
-    USERS,
+import { USPSSTATEABBREVIATIONS, USERS,
     InsurerItemValues, InsurerSchema, INSURERS, INSURERSTATUSES, InsurerValues, InsurerProductTableValues,  
     } from '../Scaffold/MGAValues';
 
@@ -84,8 +83,8 @@ export default function InsurerItem (insurerItemProps : InsurerItemValues) {
         insurerId : (!insurerUndefined) ? insurer.id : newInsurerId
     };
 
-    const { control,handleSubmit, watch, formState, 
-        formState: { errors, dirtyFields, isDirty, isValid, touchedFields} } 
+    const { control,handleSubmit, 
+        formState: { errors } } 
         = methods;
 
 
