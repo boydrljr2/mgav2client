@@ -892,6 +892,27 @@ export interface ProductItemValues {
     product?         : ProductValues;
 }
 
+export interface ProductRowValues {
+    //Identifiers
+    id                      : string;
+    name                    : string;
+    status                  : string;
+    assetType               : string;
+    state                   : string;
+    defaultRatingTerritory  : string;
+    effectiveDate           : string;
+    sr22                    : string;
+    insurerName             : string;
+    insurerContactName      : string;
+    insurerPhone            : string;
+    insurerEmail            : string;
+    insurerAddress          : string;
+}
+
+export interface ProductTableProps {
+    productRows          : Array<ProductRowValues>;
+}
+
 export const ProductSchema = yup.object().shape({
     id              : yup.string().required(),
     name            : yup.string().required('Required'),

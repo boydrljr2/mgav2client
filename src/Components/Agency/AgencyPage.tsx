@@ -38,9 +38,9 @@ export default function AgencyPage() {
                                             agency.mailingAddress.zip,
                 //License Info                
                 licenseNumber           : agency.licenseNumber,
-                licenseDate             : !!agency.licenseDate ? agency.licenseDate.toLocaleString() : '',
+                licenseDate             : !!agency.licenseDate ? agency.licenseDate.toLocaleString().split(',')[0] : '',
                 licenseExpirationDate   : !!agency.licenseExpirationDate ? 
-                                            agency.licenseExpirationDate.toLocaleString() : '',
+                                            agency.licenseExpirationDate.toLocaleString().split(',')[0] : '',
                 appointmentStatus       : !!agency.appointmentStatus ? agency.appointmentStatus : '',
                 agentGrade              : !!agency.agentGrade ? agency.agentGrade : '',
                 headquarterAgent        : !!agency.headquarterAgent ? agency.headquarterAgent : '',
