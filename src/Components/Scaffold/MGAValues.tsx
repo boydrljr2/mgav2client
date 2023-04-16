@@ -1042,9 +1042,9 @@ export interface OperatorTypeValues {
 }
 
 export const OPERATORTYPES : Array<OperatorTypeValues> = [
-    { label: 'Additional Operator', value: 'ADDL'},
-    { label: 'Principal Operator', value: 'PRIN'},
-    { label: 'Excluded Operator', value: 'EXCL'},
+    { label: 'Principal', value: 'PRIN'},
+    { label: 'Additional', value: 'ADDL'},
+    { label: 'Excluded', value: 'EXCL'},
 ]
 
 export interface SR22Values {
@@ -1053,8 +1053,8 @@ export interface SR22Values {
 }
 
 export const SR22S : Array<SR22Values> = [
-    { label: 'SR22 Required', value: 'Y'},
-    { label: 'SR22 Not Required', value: 'N'},
+    { label: 'Required', value: 'Y'},
+    { label: 'Not Required', value: 'N'},
 ]
 
 export interface RelationToInsuredValues {

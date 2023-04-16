@@ -1,26 +1,24 @@
 import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import _ from 'lodash';
 
-import { Paper, Box, Grid, Tabs, Tab, TextField, Autocomplete, Button, Typography,
-         FormControl, OutlinedInput, InputLabel, InputAdornment, Divider } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Paper, Grid, Tab, Button, Typography, Divider } from '@mui/material';
 
 import { useForm, useFieldArray, SubmitHandler, Controller, FormProvider} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { USPSSTATEABBREVIATIONS,
-         POLICIES, PolicyValues, PolicyItemProps, PolicySchema, newPolicy, POLICYSTATUSES, 
-         OperatorValues, OPERATORTYPES, SR22S, ENDORSEMENTSTATUSES} 
+import { POLICIES, PolicyValues, PolicyItemProps, PolicySchema, newPolicy,} 
         from '../Scaffold/MGAValues'
 
 import { TabPanel, tabAllyProps, MGATabs } from '../Scaffold/PageParts/TabParts';
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
+
+import PolicyHeader from './PolicyHeader';
 import PolicyDetails from './PolicyDetails';
 import InsuredDetails  from '../Insured/InsuredDetails';
+import OperatorPolicyPanel from '../Operator/OperatorPolicyPanel';
 
 export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
@@ -81,226 +79,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
         <FormProvider {...methods}>
             <Paper variant="outlined" sx={{p:2, m:1, flexGrow:1}}>
                 <form onSubmit={handleSubmit(policyFormHandler)} >
-                    <Grid container spacing={1}>
-                        <Grid item xs={4} md={2}>
-                            <Controller
-                                    name="policyNumber"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <TextField {...field}
-                                            id="policy-number" label="Policy number"
-                                            variant="outlined" fullWidth  sx={{ m: 1 }}
-                                            error={!!errors.policyNumber}
-                                            helperText={errors.policyNumber?.message}
-                                        />
-                                    )}
-                                />
-                        </Grid>
-                        <Grid item xs={4} md={2}>
-                            <Controller 
-                                name="status"
-                                control={control}
-                                render={({field}) => (
-                                    <Autocomplete {...field}
-                                        id="status" 
-                                        options={POLICYSTATUSES}
-                                        getOptionLabel={(option) => option.label}
-                                        isOptionEqualToValue={(option, value) => option.value === value.value}
-                                        onChange={( event, newValue) => {
-                                            field.onChange(newValue);
-                                        }}
-                                        renderInput={(field) => 
-                                            <TextField 
-                                                {...field} 
-                                                label="Status"
-                                                variant="outlined" sx={{margin:1}} fullWidth
-                                                error={!!errors.status}
-                                                helperText={!!errors.status ? errors.status.message:''}
-                                            />}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={4} md={2}>
-                            <Controller 
-                                name="policyState"
-                                control={control}
-                                render={({field}) => (
-                                    <Autocomplete {...field}
-                                        id="status" 
-                                        options={USPSSTATEABBREVIATIONS}
-                                        getOptionLabel={(option) => option.label}
-                                        isOptionEqualToValue={(option, value) => option.value === value.value}
-                                        onChange={( event, newValue) => {
-                                            field.onChange(newValue);
-                                        }}
-                                        renderInput={(field) => 
-                                            <TextField 
-                                                {...field} 
-                                                label="Policy State"
-                                                variant="outlined" sx={{margin:1}} fullWidth
-                                                error={!!errors.policyState}
-                                                helperText={!!errors.policyState ? errors.policyState.message:''}
-                                            />}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={4} md={2}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <Controller
-                                    name="applicationDate"
-                                    control={control}
-                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                                    <DatePicker 
-                                        {...field}
-                                        inputRef={ref}
-                                        label="Application Date"
-                                        renderInput={(inputProps) => (
-                                            <TextField 
-                                                {...inputProps}
-                                                variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                error={!!errors.applicationDate}
-                                                helperText={errors.applicationDate?.message}
-                                            />
-                                        )}
-                                    />
-                                )}
-                                />
-                            </LocalizationProvider>
-                        </Grid>
-                        <Grid item xs={4} md={2}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <Controller
-                                    name="periodStartDate"
-                                    control={control}
-                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                                    <DatePicker 
-                                        {...field}
-                                        inputRef={ref}
-                                        label="Period Start Date"
-                                        renderInput={(inputProps) => (
-                                            <TextField 
-                                                {...inputProps}
-                                                variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                error={!!errors.periodStartDate}
-                                                helperText={errors.periodStartDate?.message}
-                                            />
-                                            )}
-                                        />
-                                    )}
-                                />
-                            </LocalizationProvider>
-                        </Grid>
-                        <Grid item xs={4} md={2}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <Controller
-                                    name="periodEndDate"
-                                    control={control}
-                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                                    <DatePicker 
-                                        {...field}
-                                        inputRef={ref}
-                                        label="Period End Date"
-                                        renderInput={(inputProps) => (
-                                            <TextField 
-                                                {...inputProps}
-                                                variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                error={!!errors.periodEndDate}
-                                                helperText={errors.periodEndDate?.message}
-                                            />
-                                            )}
-                                        />
-                                    )}
-                                />
-                            </LocalizationProvider>
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={1}>
-                        <Grid item xs={4} md={2}>
-                            <Controller
-                                name="endorsementNumber"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField {...field}
-                                        id="endorsement-number" 
-                                        label="Endorsement Number"
-                                        variant="outlined" fullWidth  sx={{ m: 1 }}
-                                        error={!!errors.endorsementNumber}
-                                        helperText={errors.endorsementNumber?.message}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={4} md={2}>
-                            <Controller 
-                                name="endorsementStatus"
-                                control={control}
-                                render={({field}) => (
-                                    <Autocomplete {...field}
-                                        id="endorsement-status" 
-                                        options={ENDORSEMENTSTATUSES}
-                                        getOptionLabel={(option) => option.label}
-                                        isOptionEqualToValue={(option, value) => option.value === value.value}
-                                        onChange={( event, newValue) => {
-                                            field.onChange(newValue);
-                                        }}
-                                        renderInput={(field) => 
-                                            <TextField 
-                                                {...field} 
-                                                label="Status"
-                                                variant="outlined" sx={{margin:1}} fullWidth
-                                                error={!!errors.endorsementStatus}
-                                                helperText={!!errors.endorsementStatus ? errors.endorsementStatus.message:''}
-                                            />}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={4} md={4}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <Controller
-                                    name="endorsementEffectiveDate"
-                                    control={control}
-                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                                    <DatePicker 
-                                        {...field}
-                                        inputRef={ref}
-                                        label="Endorsement Date"
-                                        renderInput={(inputProps) => (
-                                            <TextField 
-                                                {...inputProps}
-                                                variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                error={!!errors.endorsementEffectiveDate}
-                                                helperText={errors.endorsementEffectiveDate?.message}
-                                            />
-                                            )}
-                                        />
-                                    )}
-                                />
-                            </LocalizationProvider>
-                        </Grid>
-                        <Grid item xs={4} md={4}>
-                            <Controller 
-                                name="endorsementAmount"
-                                control={control}
-                                render={({field}) => (
-                                    <FormControl fullWidth sx={{ m: 1 }}>
-                                        <InputLabel htmlFor="outlined-adornment-amount">
-                                            Amount
-                                        </InputLabel>
-                                    <OutlinedInput
-                                        {...field}
-                                        id="endorsement-amount"
-                                        startAdornment={
-                                            <InputAdornment position="start">$</InputAdornment>
-                                    }
-                                    />
-                                </FormControl>
-                                )}
-                            />
-                        </Grid>
-                    </Grid>
+                    <PolicyHeader />
                     <ObjectFooter footerValues={footerProps} />
                     <Divider sx={{m:1, p:1}} />
 
@@ -324,123 +103,11 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                         <TabPanel value={tabValue} index={1}> 
                             <InsuredDetails />
                         </TabPanel>
-                        <TabPanel value={tabValue} index={2}> AUTOS & COVERAGES </TabPanel>
+                        <TabPanel value={tabValue} index={2}> 
+                            AUTOS & COVERAGES 
+                        </TabPanel>
                         <TabPanel value={tabValue} index={3}> 
-
-                            {fields.map((item, index) => (
-                                <Paper variant="outlined" sx={{p:2, m:1, flexGrow:1}} key={item.number}>
-                                    <Grid container direction="row" spacing={2} key={item.number}>
-                                        <Grid item xs={2}>
-                                            <Controller
-                                                name={`operators.${index}.number`}
-                                                control={control}
-                                                render={({field}) => (
-                                                    <TextField
-                                                        {...field}
-                                                        id="operator-number" label="Number"
-                                                        variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                    />
-                                                )}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Controller 
-                                                name={`operators.${index}.name`}
-                                                control={control}
-                                                render={({field}) => (
-                                                    <TextField 
-                                                        {...field} 
-                                                        id="operator-name" label="Name"
-                                                        variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                    />
-                                                )}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6} md={4}>
-                                            <Controller 
-                                                name={`operators.${index}.type`}
-                                                control={control}
-                                                render={({field}) => (
-                                                    <Autocomplete 
-                                                        {...field}
-                                                        id="operator-type-value" 
-                                                        options={OPERATORTYPES}
-                                                        getOptionLabel={(option) => option.label}
-                                                        isOptionEqualToValue={(option, value) => option.value === value.value}
-                                                        onChange={( event, newValue) => {
-                                                            field.onChange(newValue);
-                                                        }}
-                                                        renderInput={(field) => 
-                                                            <TextField 
-                                                                {...field} 
-                                                                label="Type"
-                                                                variant="outlined" sx={{margin:1}} fullWidth
-                                                            />}
-                                                    />
-                                                )}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6} md={4}>
-                                            <Controller 
-                                                name={`operators.${index}.sr22`}
-                                                control={control}
-                                                render={({field}) => (
-                                                    <Autocomplete 
-                                                        {...field}
-                                                        id="operator-type-value" 
-                                                        options={SR22S}
-                                                        getOptionLabel={(option) => option.label}
-                                                        isOptionEqualToValue={(option, value) => option.value === value.value}
-                                                        onChange={( event, newValue) => {
-                                                            field.onChange(newValue);
-                                                        }}
-                                                        renderInput={(field) => 
-                                                            <TextField 
-                                                                {...field} 
-                                                                label="SR22"
-                                                                variant="outlined" sx={{margin:1}} fullWidth
-                                                            />}
-                                                    />
-                                                )}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={4} md={4}>
-                                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                                <Controller
-                                                    name={`operators.${index}.dateOfBirth`}
-                                                    control={control}
-                                                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                                                    <DatePicker 
-                                                        {...field}
-                                                        inputRef={ref}
-                                                        label="Date of Birth"
-                                                        renderInput={(inputProps) => (
-                                                            <TextField 
-                                                                {...inputProps}
-                                                                variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                            />
-                                                            )}
-                                                        />
-                                                    )}
-                                                />
-                                            </LocalizationProvider>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Controller 
-                                                name={`operators.${index}.accidentsViolations`}
-                                                control={control}
-                                                render={({field}) => (
-                                                    <TextField 
-                                                        {...field} 
-                                                        id="accidents" label="Accidents & Violations"
-                                                        variant="outlined" fullWidth  sx={{ m: 1 }}
-                                                    />
-                                                )}
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                </Paper>
-                            ))}
+                            <OperatorPolicyPanel />
                         </TabPanel>
                     </Grid>
 
@@ -448,11 +115,18 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                     <Grid container direction="row" spacing={2}
                         sx={{margin:'auto', justifyContent:"flex-end"}}
                     >
-                        <Grid item >
+                        <Grid item sx={{mr:1}}>
                             <Button
                                 variant="contained" size='medium'
                                 type="submit"
-                            >Save
+                            >Save All
+                            </Button>
+                        </Grid>
+                        <Grid item sx={{mr:1}}>
+                            <Button
+                                variant="outlined" size='medium'
+                                type="reset" onClick={() => reset()}
+                            >Reset
                             </Button>
                         </Grid>
                         <Grid item sx={{mr:1}}>
