@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { styled, alpha } from '@mui/material/styles';
-import { Tabs, tabClasses } from '@mui/material';
+import { Box, Tabs, tabClasses } from '@mui/material';
 
 
 export const MGATabs = styled(Tabs)(({theme}) => ({
@@ -36,12 +36,14 @@ export function TabPanel(props: TabPanelProps) {
         <div
             role="tabpanel"
             hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
+            id={`full-width-tabpanel-${index}`}
+            aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
             {value === index && (
-                <div>{children}</div>
+                <Box sx={{ p: 3 }}>
+                    <div>{children}</div>
+                </Box>
             )}
         </div>
     );
@@ -49,7 +51,7 @@ export function TabPanel(props: TabPanelProps) {
 
 export function tabAllyProps(index: number) {
     return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
+        id: `full-width-tab-${index}`,
+        'aria-controls': `full-width-tabpanel-${index}`,
     };
 }

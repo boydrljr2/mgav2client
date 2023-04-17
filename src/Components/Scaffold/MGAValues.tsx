@@ -1206,28 +1206,30 @@ export interface LienholderValues {
 export interface AutoValues {
     id              : string;
     unit            : number;
-    autoMake        : string;
-    autoModel       : string;
-    autoYear        : number;
-    autoVIN         : string;
-    autoSYM         : string;
-    autoAGE         : number;
-    autoTERR        : string;
-    autoCLASS       : string;
-    autoPTS         : number;
-    autoSAFE?       : string;
-    autoTRNS?       : string;
-    autoREN?        : string;
-    autoATF?        : string;
-    autoFLCV?       : string;
-    autoVSRC?       : string;
-    autoNOWN?       : string;
-    autoDEFD?       : string;
-    autoMC?         : string;
-    autoAV?         : string;
-    autoSM?         : string;
-    autoLGL?        : string;
-    autoERS?        : string;
+    make            : string;
+    model           : string;
+    year            : number;
+    vin             : string;
+    sym             : string;
+    age             : number;
+    terr            : string;
+    class           : string;
+    pts             : number;
+    safe?           : string;
+    trns?           : string;
+    ren?            : string;
+    atf?            : string;
+    flcv?           : string;
+    vsrc?           : string;
+    nown?           : string;
+    defd?           : string;
+    mc?             : string;
+    av?             : string;
+    sm?             : string;
+    lgl?            : string;
+    ers?            : string;
+    effectiveDate   : Date;
+    removedDate?    : Date;
     coverages       : CoverageValues[];
     lienholders?    : LienholderValues[];
     //Record stamps
@@ -1249,8 +1251,40 @@ const AutoSchema = yup.object().shape({
     autoTERR        : yup.string().required('Required'),
     autoCLASS       : yup.string().required('Required'),
     autoPTS         : yup.number().required('Required'),
+    effectiveDate   : yup.date().required('Required'),
     coverages       : yup.array().of(CoverageSchema).required('Required'),
 })
+
+export interface AutoRowValues {
+    id              : string;
+    unit            : number;
+    make            : string;
+    model           : string;
+    year            : number;
+    vin             : string;
+    sym             : string;
+    age             : number;
+    terr            : string;
+    class           : string;
+    pts             : number;
+    safe           : string;
+    trns           : string;
+    ren            : string;
+    atf            : string;
+    flcv           : string;
+    vsrc           : string;
+    nown           : string;
+    defd           : string;
+    mc             : string;
+    av             : string;
+    sm             : string;
+    lgl            : string;
+    ers            : string;
+}
+
+export interface AutoTableProps {
+    autoRows          : Array<AutoRowValues>;
+}
 
 export interface PolicyValues {
     //Identifiers
@@ -1562,18 +1596,19 @@ export const POLICIES : Array<PolicyValues> = [
             {
                 id              : uuidv4(),
                 unit            : 1,
-                autoMake        : "Honda",
-                autoModel       : "Odyssey",
-                autoYear        : 2006,
-                autoVIN         : "5FNRL38436B082307",
-                autoSYM         : "10",
-                autoAGE         : 16,
-                autoTERR        : "40",
-                autoCLASS       : "4T",
-                autoPTS         : 0,
-                autoATF         : "1",
-                autoFLCV        : "Y",
-                autoMC         : "Y",
+                make            : "Honda",
+                model           : "Odyssey",
+                year            : 2006,
+                vin             : "5FNRL38436B082307",
+                sym             : "10",
+                age             : 16,
+                terr            : "40",
+                class           : "4T",
+                pts             : 0,
+                atf             : "1",
+                flcv            : "Y",
+                mc              : "Y",
+                effectiveDate   : new Date(2023, 1, 2),
                 coverages       : [
                     {
                         coverageType    : "A. Bodily Injury",
@@ -1644,18 +1679,19 @@ export const POLICIES : Array<PolicyValues> = [
             {
                 id              : uuidv4(),
                 unit            : 2,
-                autoMake        : "BMW",
-                autoModel       : "328XI",
-                autoYear        : 2007,
-                autoVIN         : "WBAVB735X7PZ12345",
-                autoSYM         : "10",
-                autoAGE         : 15,
-                autoTERR        : "40",
-                autoCLASS       : "4T",
-                autoPTS         : 7,
-                autoATF         : "1",
-                autoFLCV        : "Y",
-                autoMC         : "Y",
+                make            : "BMW",
+                model           : "328XI",
+                year            : 2007,
+                vin             : "WBAVB735X7PZ12345",
+                sym             : "10",
+                age             : 15,
+                terr            : "40",
+                class           : "4T",
+                pts             : 7,
+                atf             : "1",
+                flcv            : "Y",
+                mc              : "Y",
+                effectiveDate   : new Date(2023, 1, 2),
                 coverages       : [
                     {
                         coverageType    : "A. Bodily Injury",
@@ -1820,23 +1856,24 @@ export const POLICIES : Array<PolicyValues> = [
             {
                 id             : uuidv4(),
                 unit            : 1,
-                autoMake        : "Buick",
-                autoModel       : "Lacrosse CX",
-                autoYear        : 2006,
-                autoVIN         : "5FNRL38436B082307",
-                autoSYM         : "6",
-                autoAGE         : 15,
-                autoTERR        : "43",
-                autoCLASS       : "2K",
-                autoPTS         : 0,
-                autoSAFE        : "Y",
-                autoTRNS        : "",
-                autoREN         : "",
-                autoATF         : "1",
-                autoFLCV        : "Y",
-                autoVSRC        : "",
-                autoNOWN        : "",                       
-                autoMC          : "Y",
+                make            : "Buick",
+                model           : "Lacrosse CX",
+                year            : 2006,
+                vin             : "5FNRL38436B082307",
+                sym             : "6",
+                age             : 15,
+                terr            : "43",
+                class           : "2K",
+                pts             : 0,
+                safe            : "Y",
+                trns            : "",
+                ren             : "",
+                atf             : "1",
+                flcv            : "Y",
+                vsrc            : "",
+                nown            : "",                       
+                mc              : "Y",
+                effectiveDate   : new Date(2023, 3, 2),
                 coverages       : [
                     {
                         coverageType    : "A. Bodily Injury",

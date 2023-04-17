@@ -233,7 +233,7 @@ export default function PolicyHeader() {
                             <FormControl 
                                 variant="outlined" fullWidth sx={{ m: 1 }}>
                                 <InputLabel htmlFor="outlined-adornment-amount">
-                                    Amount
+                                    Endorsement Amount
                                 </InputLabel>
                                 <OutlinedInput
                                     {...field}
@@ -243,7 +243,6 @@ export default function PolicyHeader() {
                                     }
                                     error={!!_.get(errors, 'endorsementAmount', null)}
                                     //@ts-ignore
-                                    helperText={_.get(errors, 'endorsementAmount?.message', '')}
                                 />
                             </FormControl>
                         )}

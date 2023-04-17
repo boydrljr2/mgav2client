@@ -10,17 +10,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { USPSSTATEABBREVIATIONS, OPERATORTYPES, SR22S, RELATIONTOINSURED } from '../Scaffold/MGAValues';
 
 export default function OperatorItem (props: any) {
+
     const item = props.item;
     const index = props.index;
-    const control = props.control;
-    const errors = props.errors;
+    const { control, formState: { errors} } = useFormContext();
 
     return (
-        <Paper 
-            variant="outlined" 
-            sx={{p:2, m:1, flexGrow:1, borderColor:'primary.dark' }}  
-            key={item.number}
-        >
+        <Paper  variant="outlined"   sx={{p:2, m:1, flexGrow:1, borderColor:'primary.dark' }}   key={item.id} >
             <Grid container direction="row" spacing={2} >
                 <Grid item xs={4} md={2}>
                     <Controller
@@ -29,7 +25,7 @@ export default function OperatorItem (props: any) {
                         render={({field}) => (
                             <TextField
                                 {...field}
-                                id="operator-number" label="Number"
+                                id="operator-number" label="Number" 
                                 variant="outlined" fullWidth  sx={{ m: 1 }}
                             />
                         )}

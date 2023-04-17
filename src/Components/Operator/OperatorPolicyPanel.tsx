@@ -10,7 +10,7 @@ import OperatorItem from './OperatorItem';
 // ------ Operator Panel Function component ------
 export default function OperatorPolicyPanel () {
 
-    const { control, formState: { errors} } = useFormContext();
+    const { control, formState: { errors, dirtyFields } } = useFormContext();
     const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
         control,
         name: "operators"
@@ -22,9 +22,6 @@ export default function OperatorPolicyPanel () {
                 variant='regular'
                 sx={{flexGrow: 1,}}
             >
-                <Typography variant="subtitle1" component="div" sx={{ flexGrow: 1, color:'primary.main' }}> 
-                    Operators
-                </Typography>
                 <Grid container direction="row" spacing={2}
                     sx={{margin:'auto', justifyContent:"flex-end"}}
                 >
@@ -38,8 +35,8 @@ export default function OperatorPolicyPanel () {
                 </Grid>
             </Toolbar>
 
-            {fields.map((item, index) => (
-                <OperatorItem  item={item}  index={index}  control={control} />
+            {fields.map((item, index ) => (
+                <OperatorItem  item={item}  index={index} control={control} />
             ))}
         
 

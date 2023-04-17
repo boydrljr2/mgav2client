@@ -69,7 +69,7 @@ export default function CoveragesView(props : {autos : AutoValues[]}) {
                                 <TableCell 
                                     //colSpan={1}
                                     sx={{fontWeight: "bold", fontSize:"1.2rem"}}                                             
-                                >{auto.autoYear} {auto.autoMake} {auto.autoModel}
+                                >{auto.year} {auto.make} {auto.model}
                                 </TableCell>
                             </TableRow>
                             <TableRow>

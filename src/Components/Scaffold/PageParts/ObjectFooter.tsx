@@ -30,12 +30,9 @@ export default function ObjectFooter (props: {footerValues: ObjectFooterValues})
                 <Typography
                     sx={{margin: 1, fontSize: '.75rem'}}
                 >
-                    Created By: 
-                        <Link to={`/users/${footerValues.creatorId}`}>
-                            {footerValues.creatorName} :
-                        </Link>
-                    Initialized Date: {created.toString()} : 
-                    Last Modified Date: {lastModified.toString()}
+                    Created By: {footerValues.creatorName}  :
+                    Initialized Date: {created.toLocaleString().split(',')[0]} : 
+                    Last Modified Date: {lastModified.toLocaleString().split(',')[0]}
                 </Typography>
             </Grid>
         </Grid>

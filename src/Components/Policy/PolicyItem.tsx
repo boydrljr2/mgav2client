@@ -19,6 +19,7 @@ import PolicyHeader from './PolicyHeader';
 import PolicyDetails from './PolicyDetails';
 import InsuredDetails  from '../Insured/InsuredDetails';
 import OperatorPolicyPanel from '../Operator/OperatorPolicyPanel';
+import AutoPolicyPanel from '../Auto/AutoPolicyPanel';
 
 export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
@@ -90,11 +91,13 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                                 value={tabValue} 
                                 onChange={handleTabChange} 
                                 aria-label="basic tabs example"
+                                variant="fullWidth"
                             >
                                 <Tab label="Policy Details"  {...tabAllyProps}/>
                                 <Tab label="Insured Details" {...tabAllyProps} />
-                                <Tab label="Autos, Coverages & Liens" {...tabAllyProps} />
                                 <Tab label="Operators" {...tabAllyProps} />
+                                <Tab label="Auto Details" {...tabAllyProps} />
+                                <Tab label="Coverages" {...tabAllyProps} />
                             </MGATabs> 
                         </Grid>
                         <TabPanel value={tabValue} index={0}> 
@@ -104,14 +107,18 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                             <InsuredDetails />
                         </TabPanel>
                         <TabPanel value={tabValue} index={2}> 
-                            AUTOS & COVERAGES 
+                            <OperatorPolicyPanel />
                         </TabPanel>
                         <TabPanel value={tabValue} index={3}> 
-                            <OperatorPolicyPanel />
+                            <AutoPolicyPanel /> 
+                        </TabPanel>
+                        <TabPanel value={tabValue} index={4}>
+                            Coverages
                         </TabPanel>
                     </Grid>
 
                     {/* SAVE & CANCEL BUTTONS */}
+                    <Divider sx={{m:1, p:1}} />
                     <Grid container direction="row" spacing={2}
                         sx={{margin:'auto', justifyContent:"flex-end"}}
                     >
@@ -129,7 +136,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                             >Reset
                             </Button>
                         </Grid>
-                        <Grid item sx={{mr:1}}>
+                        <Grid item sx={{mr:5}}>
                             <Button
                                 variant="outlined" size='medium'
                                 component={Link} to='/policies'

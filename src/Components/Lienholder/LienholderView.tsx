@@ -24,7 +24,7 @@ export default function LienholderView(props : {autoUnits : AutoValues[]}) {
                                 </TableCell>
                                 <TableCell 
                                     sx={{fontWeight: "bold", fontSize:"1.2rem"}}                                             
-                                >{auto.autoYear} {auto.autoMake} {auto.autoModel}
+                                >{auto.year} {auto.make} {auto.model}
                                 </TableCell>
                             </TableRow>
                             <TableRow>

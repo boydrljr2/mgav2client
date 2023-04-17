@@ -3,7 +3,6 @@ import { Avatar, Box, Card, CardContent, CardHeader, Grid, Typography, Stack, Di
 
 import { AutoValues } from '../Scaffold/MGAValues';
 
-
 export default function PolicyCardGrid( props: {autos: AutoValues[]}) {
     return (
         <React.Fragment>
@@ -20,9 +19,9 @@ export default function PolicyCardGrid( props: {autos: AutoValues[]}) {
                     >
                         <CardHeader 
                             sx={{ fontSize : '2.0 rem'}}
-                            title={auto.autoMake + ' ' + auto.autoModel + ' ' + auto.autoYear}
+                            title={auto.make + ' ' + auto.model + ' ' + auto.year}
                             // add a subheader with "VIN: " and the auto.autoVIN value
-                            subheader={'VIN: ' + auto.autoVIN}
+                            subheader={'VIN: ' + auto.vin}
 
                             avatar={
                                <Avatar
@@ -40,28 +39,28 @@ export default function PolicyCardGrid( props: {autos: AutoValues[]}) {
                                 <Box 
                                     sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1}}
                                 >
-                                    <Typography color='text.secondary' ><b>SYM  : </b>  {auto.autoSYM} </Typography>
-                                    <Typography color='text.secondary' ><b>AGE  : </b>  {auto.autoAGE} </Typography>
-                                    <Typography color='text.secondary' ><b>TERR : </b>  {auto.autoTERR} </Typography>
-                                    <Typography color='text.secondary' ><b>CLASS: </b>  {auto.autoCLASS} </Typography>
-                                    <Typography color='text.secondary' ><b>PTS  : </b>  {auto.autoPTS} </Typography> 
-                                    <Typography color='text.secondary' ><b>SAFE : </b>  {auto.autoSAFE} </Typography> 
-                                    <Typography color='text.secondary' ><b>TRNS : </b>  {auto.autoTRNS} </Typography> 
-                                    <Typography color='text.secondary' ><b>REN  : </b>  {auto.autoREN} </Typography> 
-                                    <Typography color='text.secondary' ><b>ATF  : </b>  {auto.autoATF} </Typography>
+                                    <Typography color='text.secondary' ><b>SYM  : </b>  {auto.sym} </Typography>
+                                    <Typography color='text.secondary' ><b>AGE  : </b>  {auto.age} </Typography>
+                                    <Typography color='text.secondary' ><b>TERR : </b>  {auto.terr} </Typography>
+                                    <Typography color='text.secondary' ><b>CLASS: </b>  {auto.class} </Typography>
+                                    <Typography color='text.secondary' ><b>PTS  : </b>  {auto.pts} </Typography> 
+                                    <Typography color='text.secondary' ><b>SAFE : </b>  {auto.safe} </Typography> 
+                                    <Typography color='text.secondary' ><b>TRNS : </b>  {auto.trns} </Typography> 
+                                    <Typography color='text.secondary' ><b>REN  : </b>  {auto.ren} </Typography> 
+                                    <Typography color='text.secondary' ><b>ATF  : </b>  {auto.atf} </Typography>
                                 </Box>
                                 <Box
                                     sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1}}
                                 >
-                                    <Typography color='text.secondary' ><b>FLCV : </b>  {auto.autoFLCV} </Typography>
-                                    <Typography color='text.secondary' ><b>VSRC : </b>  {auto.autoVSRC} </Typography>
-                                    <Typography color='text.secondary' ><b>NOWN : </b>  {auto.autoNOWN} </Typography>
-                                    <Typography color='text.secondary' ><b>DEFD : </b>  {auto.autoDEFD} </Typography>
-                                    <Typography color='text.secondary' ><b>MC   : </b>  {auto.autoMC} </Typography> 
-                                    <Typography color='text.secondary' ><b>AV   : </b>  {auto.autoAV} </Typography> 
-                                    <Typography color='text.secondary' ><b>SM   : </b>  {auto.autoSM} </Typography> 
-                                    <Typography color='text.secondary' ><b>LGL  : </b>  {auto.autoLGL} </Typography> 
-                                    <Typography color='text.secondary' ><b>ERS  : </b>  {auto.autoERS} </Typography>
+                                    <Typography color='text.secondary' ><b>FLCV : </b>  {auto.flcv} </Typography>
+                                    <Typography color='text.secondary' ><b>VSRC : </b>  {auto.vsrc} </Typography>
+                                    <Typography color='text.secondary' ><b>NOWN : </b>  {auto.nown} </Typography>
+                                    <Typography color='text.secondary' ><b>DEFD : </b>  {auto.defd} </Typography>
+                                    <Typography color='text.secondary' ><b>MC   : </b>  {auto.mc} </Typography> 
+                                    <Typography color='text.secondary' ><b>AV   : </b>  {auto.av} </Typography> 
+                                    <Typography color='text.secondary' ><b>SM   : </b>  {auto.sm} </Typography> 
+                                    <Typography color='text.secondary' ><b>LGL  : </b>  {auto.lgl} </Typography> 
+                                    <Typography color='text.secondary' ><b>ERS  : </b>  {auto.ers} </Typography>
                                 </Box>
                             </Stack>                    
                         </CardContent>
