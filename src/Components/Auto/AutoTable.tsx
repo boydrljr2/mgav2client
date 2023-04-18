@@ -148,7 +148,7 @@ export default function AutoTable () {
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                                            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                                                 <Collapse in={open} timeout="auto" unmountOnExit>
                                                     <TableCell colSpan={1}></TableCell>
                                                     <TableCell  >
@@ -267,7 +267,7 @@ export default function AutoTable () {
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                                            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                                                 <Collapse in={open} timeout="auto" unmountOnExit>
                                                     <TableCell colSpan={1}></TableCell>
                                                     <TableCell  >

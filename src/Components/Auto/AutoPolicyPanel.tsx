@@ -18,15 +18,15 @@ export default function AutoPolicyPanel () {
     
     return (
         <React.Fragment>
-
-            {/* Create a fullWidth Toolbar */}
-            <Toolbar
-                variant='regular'
-                sx={{flexGrow: 1,}}
-            >
+            <Toolbar  variant='regular' sx={{flexGrow: 1}} >
                 <Grid container direction="row" spacing={2}
                     sx={{margin:'auto', justifyContent:"flex-end"}}
                 >
+                    <Grid item sx={{mr:1}}>
+                        <Typography variant='subtitle1'  sx={{color: 'primary.main'}}>
+                            Auto Panel Toolbar: Panel buttons, User messages, nav breadcrumbs, etc.
+                        </Typography>
+                    </Grid>
                     <Grid item sx={{mr:1}}>
                         <Button
                             variant="outlined" size='medium' color='primary'
