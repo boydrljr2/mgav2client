@@ -30,7 +30,6 @@ import PolicyDetails from './PolicyDetails';
 import InsuredDetails  from '../Insured/InsuredDetails';
 import OperatorPolicyPanel from '../Operator/OperatorPolicyPanel';
 import AutoPolicyPanel from '../Auto/AutoPolicyPanel';
-import CoveragePolicyPanel from '../Coverages/CoveragePolicyPanel';
 
 export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
@@ -105,6 +104,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
         return (
             <React.Fragment>
+            <Paper variant="outlined" sx={{p:1, m:1, flexGrow:1, borderColor:'primary.dark'}}>
                 <TableRow key={row.id} sx={{ '& > *':{borderBottom: 'unset'} }}>
                     <TableCell>
                         <IconButton 
@@ -218,7 +218,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.coverages.map((coverage, index) => (
+                                    {row.coverages.map((coverage, cindex) => (
                                         <TableRow key={coverage.coverageType}>
                                             <TableCell component="th" scope="row">
                                                 {coverage.coverageType}
@@ -244,6 +244,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                         </Collapse>
                     </TableCell>
                 </TableRow>
+            </Paper>
             </React.Fragment>
         )
     }
