@@ -23,7 +23,6 @@ import InsurerNew from "./Components/Insurer/InsurerNew.tsx";
 
 import ProductPage from "./Components/Product/ProductPage.tsx";
 import ProductEdit from "./Components/Product/ProductEdit.tsx";
-import ProductNew from "./Components/Product/ProductNew.tsx";
 
 import PolicyPage from "./Components/Policy/PolicyPage.tsx";
 import PolicyNew from "./Components/Policy/PolicyNew.tsx";
