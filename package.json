@@ -1,7 +1,7 @@
 {
   "name": "mgav2client",
   "version": "0.1.0",
-  "homepage": "https://boydrljr2.github.io/",
+  "homepage": "https://boydrljr2.github.io/boydrljr2.github.io/",
   "private": true,
   "dependencies": {
     "@date-io/dayjs": "^2.16.0",
