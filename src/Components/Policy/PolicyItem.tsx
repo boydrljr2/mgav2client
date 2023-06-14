@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 import { useForm, useFieldArray, SubmitHandler, Controller, FormProvider} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+// import * as yup from 'yup';
 
 import { Paper, Toolbar, Grid, Tab, Button, TextField, Typography, Divider, IconButton, Collapse, Box, Switch, FormControlLabel,
          TableContainer, Table, TableHead, TableBody, TableRow, TableCell  } from '@mui/material';
@@ -18,7 +18,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { POLICIES, PolicyValues, PolicyItemProps, PolicySchema, newPolicy, 
-        AutoValues, CoverageValues} 
+        AutoValues} 
         from '../Scaffold/MGAValues'
 
 import { MGATableHeaderCell } from '../Scaffold/TableParts/TableParts';
@@ -30,7 +30,6 @@ import PolicyDetails from './PolicyDetails';
 import InsuredDetails  from '../Insured/InsuredDetails';
 import OperatorPolicyPanel from '../Operator/OperatorPolicyPanel';
 import AutoPolicyPanel from '../Auto/AutoPolicyPanel';
-import CoveragePolicyPanel from '../Coverages/CoveragePolicyPanel';
 
 export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
@@ -105,6 +104,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
 
         return (
             <React.Fragment>
+            <Paper variant="outlined" sx={{p:1, m:1, flexGrow:1, borderColor:'primary.dark'}}>
                 <TableRow key={row.id} sx={{ '& > *':{borderBottom: 'unset'} }}>
                     <TableCell>
                         <IconButton 
@@ -218,7 +218,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.coverages.map((coverage, index) => (
+                                    {row.coverages.map((coverage, cindex) => (
                                         <TableRow key={coverage.coverageType}>
                                             <TableCell component="th" scope="row">
                                                 {coverage.coverageType}
@@ -244,6 +244,7 @@ export default function PolicyItem (policyItemProps : PolicyItemProps) {
                         </Collapse>
                     </TableCell>
                 </TableRow>
+            </Paper>
             </React.Fragment>
         )
     }

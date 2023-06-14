@@ -1,6 +1,7 @@
 {
   "name": "mgav2client",
   "version": "0.1.0",
+  "homepage": "https://boydrljr2.github.io/",
   "private": true,
   "dependencies": {
     "@date-io/dayjs": "^2.16.0",
@@ -22,6 +23,7 @@
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.2",
     "formik-mui": "^5.0.0-alpha.0",
+    "gh-pages": "^5.0.0",
     "lodash": "^4.17.21",
     "npm": "^9.6.4",
     "react": "^18.2.0",
@@ -38,6 +40,8 @@
     "yup": "^1.0.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

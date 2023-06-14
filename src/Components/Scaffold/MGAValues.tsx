@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
-import { yupResolver }  from '@hookform/resolvers/yup';
+// import { yupResolver }  from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 // ------  Some Regex Validations -------
 const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 const zipRegex = /^\d{5}(?:[-\s]\d{4})?$/;
-const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+// const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+// const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
 
 export interface GenderValues {
     label: string;
