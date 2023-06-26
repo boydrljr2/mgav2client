@@ -19,7 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 import logo from './K1logo192.png';
 
 
-const allPages = ['Agencies', 'Insurers', 'Products', 'Policies', 'LogIn', 'SignUp'];
+const allPages = ['Agencies', 'Insurers', 'Products', 'Policies', 'LogIn', 'SignUp', 'Users'];
 const mainPages = ['Agencies', 'Insurers', 'Products', 'Policies'];
 const minorPages = ['LogIn', 'SignUp', 'Users'];
 
@@ -62,7 +62,7 @@ function ResponsiveAppBar() {
                 <Button 
                     color="inherit"
                     component={Link}
-                    to="/" 
+                    to="/home" 
                 >
                     <img src={logo} style={{height:'4em'}} alt="MGA Logo" /> 
                 </Button>
@@ -71,7 +71,7 @@ function ResponsiveAppBar() {
                     variant="h6"
                     noWrap
                     component="a"
-                    href="/"
+                    href="/home"
                     sx={{
                         mr: 2,
                         fontSize:'1.5rem',

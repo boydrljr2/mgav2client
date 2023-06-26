@@ -51,6 +51,7 @@ function App() {
               
               <Routes>
                 <Route path={"/"} element={<HomePage />} />
+                <Route path={"/home"} element={<HomePage />} />
                 <Route path={"/users"} element={<UsersPage />} />
                 <Route path={"/users/signup"} element={<UserNew />} />
                 <Route path={"/users/new"} element={<UserNew />} />
