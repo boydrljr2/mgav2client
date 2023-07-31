@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-// import { yupResolver }  from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 // ------  Some Regex Validations -------
@@ -7,6 +6,15 @@ const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 const zipRegex = /^\d{5}(?:[-\s]\d{4})?$/;
 // const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 // const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+
+// --------------------- Some Values for the MGA Form --
+
+const TODAY = new Date();
+const TOMORROW = new Date(TODAY);
+TOMORROW.setDate(TOMORROW.getDate() + 1);
+const SIXMONTHS = new Date(TOMORROW);
+SIXMONTHS.setMonth(SIXMONTHS.getMonth() + 6);
+
 
 export interface GenderValues {
     label: string;
@@ -144,8 +152,6 @@ const newMailingAddress : MailingAddressValues = {
 }
 
 //---------------  USERS  ----------------- USERS  -----------------
-export const user1Id = uuidv4();
-export const user2Id = uuidv4();
 
 export interface RoleValues {
     label: string;
@@ -186,32 +192,70 @@ export interface UserTableProps {
     userRows: Array<UserTableRowValues>; 
 }
 
-
+// IMPROVEMENT: Remove creatorName from these records.  Instead, use a join to get the creatorName from the users table.
+const userId0 = uuidv4();
 export const USERS : Array<UserValues> = [
     {
-        id          : user1Id,
+        id          : userId0,
         name        : "Able Baker",
         email       : "able@baker.com",
         password    : "passwordAB",
-        image       : "https://this-person-does-not-exist.com/de",
+        image       : "https://this-person-does-not-exist.com",
         role        : {label: "Administrator", value: "Administrator"},
-        creatorId   : user1Id,
+        creatorId   : userId0,
         creatorName : "Able Baker",
         created     : new Date(),
         lastModified: new Date()
     },
     {
-        id          : user2Id,
+        id          : uuidv4(),
         name        : "Charlie Dog",
         email       :   "charlie@dog.com",
         password    : "passwordCD",
         image       : "https://this-person-does-not-exist.com/de",
         role        : {label : "User", value: "User"},
-        creatorId   : user1Id,
+        creatorId   : userId0,
+        creatorName : "Able Baker",
+        created     : new Date(),
+        lastModified: new Date()
+    },
+    {
+        id          : uuidv4(),
+        name        : "Easy Fox",
+        email       : "easy@fox.com",
+        password    : "passwordEF",
+        image       : "https://this-person-does-not-exist.com/cn",
+        role        : {label : "User", value: "User"},
+        creatorId   : userId0,
+        creatorName : "Able Baker",
+        created     : new Date(),
+        lastModified: new Date()
+    },
+    {
+        id          : uuidv4(),
+        name        : "Golf Hotel",
+        email       : "golf@hotel.com",
+        password    : "passwordGH",
+        image       : "https://this-person-does-not-exist.com/de",
+        role        : {label : "User", value: "User"},
+        creatorId   : userId0,
+        creatorName : "Able Baker",
+        created     : new Date(),
+        lastModified: new Date()
+    },
+    {
+        id          : uuidv4(),
+        name        : "India Juliet",
+        email       : "india@juliet.com",
+        password    : "passwordIJ",
+        image       : "https://this-person-does-not-exist.com/de",
+        role        : {label : "User", value: "User"},
+        creatorId   : userId0,
         creatorName : "Able Baker",
         created     : new Date(),
         lastModified: new Date()
     }
+
 ]
 
 export const UserSchema = yup.object().shape({
@@ -387,7 +431,7 @@ export const newInsurer : InsurerValues = {
     NAICGroupName           : '',
     AMBestID                : '',
     AMBestRating            : '',
-    creatorId               : user1Id,
+    creatorId               : userId0,
     creatorName             : USERS[0].name,
     created                 : new Date(),
     lastModified            : new Date()
@@ -424,7 +468,7 @@ export const INSURERS   : InsurerValues[] = [
         NAICGroupName   : 'United Equitable Group',
         AMBestID        : '12345',
         AMBestRating    : 'A+',
-        creatorId       : user1Id,
+        creatorId       : userId0,
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date()
@@ -459,7 +503,7 @@ export const INSURERS   : InsurerValues[] = [
         NAICGroupName   : 'United Equitable Group',
         AMBestID        : 'A+',
         AMBestRating    : 'A+',
-        creatorId       : user1Id,
+        creatorId       : userId0,
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date()
@@ -494,7 +538,7 @@ export const INSURERS   : InsurerValues[] = [
         NAICGroupName   : 'United Equitable Group',
         AMBestID        : 'A+',
         AMBestRating    : 'A+',
-        creatorId       : user1Id,
+        creatorId       : userId0,
         creatorName     : USERS[0].name,
         created         : new Date(),
         lastModified    : new Date()
@@ -854,6 +898,7 @@ export interface ProductAssetTypeValues {
 
 export const PRODUCTASSETTYPES : Array<ProductAssetTypeValues> = [
     {label: 'Automobile', value: 'Automobile'},
+    {label: 'Motorcycle', value: 'Motorcycle'},
     {label: 'Homeowners', value: 'Homeowners'},
     {label: 'Commercial', value: 'Commercial'},
 ]
@@ -881,7 +926,7 @@ export interface ProductValues {
     effectiveDate           : Date;
     sr22                    : boolean;
     insurer                 : InsurerValues
-    //Record stamps
+    //Record timestamps
     creatorId           : string;
     creatorName         : string;
     created             : Date;
@@ -958,13 +1003,13 @@ export const newProduct : ProductValues = {
 export const PRODUCTS : ProductValues[] = [
     {
         id              : uuidv4(),
-        name            : "Illinois Auto Insurance 2020",
+        name            : "Illinois Auto Insurance 2023",
         status          : PRODUCTSTATUSES[2],
         assetType       : PRODUCTASSETTYPES[0],
         state           : USPSSTATEABBREVIATIONS[17],
         defaultRatingTerritory : USPSSTATEABBREVIATIONS[17],
-        //set effectiveDate to January 1, 2020 at 12:00:00 AM
-        effectiveDate   : new Date(2020, 0, 1),
+        //set effectiveDate to January 1, 2023 at 12:00:00 AM
+        effectiveDate   : new Date(2023, 0, 1),
         sr22            : true,
         insurer         : INSURERS[0],
         //Record stamps
@@ -975,21 +1020,55 @@ export const PRODUCTS : ProductValues[] = [
     },
     {
         id              : uuidv4(),
-        name            : "Indiana Auto Insurance 2020",
-        status          : PRODUCTSTATUSES[1],
+        name            : "Indiana Auto Insurance 2023",
+        status          : PRODUCTSTATUSES[0],
         assetType       : PRODUCTASSETTYPES[0],
         state           : USPSSTATEABBREVIATIONS[18],
         defaultRatingTerritory : USPSSTATEABBREVIATIONS[18],
-        //set effectiveDate to January 1, 2010 at 12:00:00 AM
-        effectiveDate   : new Date(2010, 0, 1),
+        //set effectiveDate to January 1, 2023 at 12:00:00 AM
+        effectiveDate   : new Date(2023, 0, 1),
         sr22            : false,
         insurer         : INSURERS[1],
         //Record stamps
-        creatorId       : USERS[0].id,
-        creatorName     : USERS[0].name,
+        creatorId       : USERS[1].id,
+        creatorName     : USERS[1].name,
         created         : new Date(),
         lastModified    : new Date()
     },
+    {
+        id              : uuidv4(),
+        name            : "Illinois Motorcycle Insurance 2023",
+        status          : PRODUCTSTATUSES[2],
+        assetType       : PRODUCTASSETTYPES[1],
+        state           : USPSSTATEABBREVIATIONS[17],
+        defaultRatingTerritory : USPSSTATEABBREVIATIONS[17],
+        //set effectiveDate to January 1, 2023 at 12:00:00 AM
+        effectiveDate   : new Date(2023, 0, 1),
+        sr22            : false,
+        insurer         : INSURERS[2],
+        //Record stamps
+        creatorId       : USERS[1].id,
+        creatorName     : USERS[1].name,
+        created         : new Date(),
+        lastModified    : new Date()
+    },
+    {
+        id              : uuidv4(),
+        name            : "Indiana Motorcycle Insurance 2023",
+        status          : PRODUCTSTATUSES[2],
+        assetType       : PRODUCTASSETTYPES[1],
+        state           : USPSSTATEABBREVIATIONS[18],
+        defaultRatingTerritory : USPSSTATEABBREVIATIONS[17],
+        //set effectiveDate to January 1, 2023 at 12:00:00 AM
+        effectiveDate   : new Date(2023, 0, 1),
+        sr22            : false,
+        insurer         : INSURERS[2],
+        //Record stamps
+        creatorId       : USERS[2].id,
+        creatorName     : USERS[2].name,
+        created         : new Date(),
+        lastModified    : new Date()
+    }
 ]
 
 
@@ -1005,6 +1084,10 @@ export const POLICYSTATUSES : Array<ProductStatusValues> = [
     {label: 'Bound', value: 'Bound'},
     {label: 'Inforce', value: 'Inforce'},
     {label: 'Cancelled', value: 'Cancelled'},
+    {label: 'Expired', value: 'Expired'},
+    {label: 'Non-Renewed', value: 'Non-Renewed'},
+    {label: 'Reinstated', value: 'Reinstated'},
+    {label: 'Terminated', value: 'Terminated'},
 ]
 
 export interface EndorsementStatusValues {
@@ -1017,6 +1100,10 @@ export const ENDORSEMENTSTATUSES : Array<ProductStatusValues> = [
     {label: 'Bound', value: 'Bound'},
     {label: 'Inforce', value: 'Inforce'},
     {label: 'Cancelled', value: 'Cancelled'},
+    {label: 'Expired', value: 'Expired'},
+    {label: 'Non-Renewed', value: 'Non-Renewed'},
+    {label: 'Reinstated', value: 'Reinstated'},
+    {label: 'Terminated', value: 'Terminated'},
 ]
 
 export interface AsInterestMayAppearValues {
@@ -1202,6 +1289,7 @@ export interface LienholderValues {
     name          : string;
     mailingAddress: MailingAddressValues;
 }
+
 
 export interface AutoValues {
     id              : string;
@@ -1428,6 +1516,7 @@ export const PolicySchema = yup.object().shape({
 })
 
 export const POLICIES : Array<PolicyValues> = [
+    // POLICY 0 --------------------------------------------
     {
         id                      : uuidv4(),
         policyNumber            : "PPW1303522",
@@ -1440,9 +1529,9 @@ export const POLICIES : Array<PolicyValues> = [
         agency                  : AGENCIES[0],
         insured         : {
             id                  : uuidv4(),
-            name                : "Esmeralda Zavala",
+            name                : "K Grosses Esmeralda",
             phone    : "1-847-123-1234",
-            email :   "esmazavala@gmail.com",
+            email :   "kggreen@gmail.com",
             mailingAddress      : {
                 streetAddress1  : "714 Lenox Ave",
                 streetAddress2  : "",
@@ -1487,7 +1576,7 @@ export const POLICIES : Array<PolicyValues> = [
         operators       : [
             {
                 number                      : 1,
-                name                        : "Esmeralda Zavala",
+                name                        : "K. Grossen Esmeralda",
                 phone                       : "1-847-123-1234",
                 email                       : "",
                 mailingAddress              : {
@@ -1513,7 +1602,7 @@ export const POLICIES : Array<PolicyValues> = [
 },
             {
                 number                  : 2,
-                name                    : "Yasmeen Lopez",
+                name                    : "Mysmeen Yoursmeen",
                 phone                   : "1-847-123-1234",
                 email                   : "",
                 mailingAddress          : {
@@ -1539,7 +1628,7 @@ export const POLICIES : Array<PolicyValues> = [
             },
             {
                 number                  : 3,
-                name                    : "Fernando Sanchez",
+                name                    : "Fernando Rey",
                 phone                   : "1-847-123-1234",
                 email                   : "",
                 mailingAddress          : {
@@ -1565,7 +1654,7 @@ export const POLICIES : Array<PolicyValues> = [
             },
             {
                 number                      : 4,
-                name                        : "Janette Lopez",
+                name                        : "Carmen Mendez",
                 phone                       : "1-847-123-1234",
                 email                       : "",
                 mailingAddress              : {
@@ -1768,7 +1857,7 @@ export const POLICIES : Array<PolicyValues> = [
         created         : new Date(),
         lastModified    : new Date(),
     },
-    //Add one more policy here
+//POLICY 1 --------------------------------------------------
     {
         id                      : uuidv4(),
         policyNumber            : "PPT3001906",
@@ -1783,7 +1872,7 @@ export const POLICIES : Array<PolicyValues> = [
         agency                  : AGENCIES[1],
         insured                 : {
             id                  : uuidv4(),
-            name                : "Tyrice D Wilson",
+            name                : "James D Wilson",
             phone               : "1-847-123-1234",
             email               : "tdwilson99@gmail.com",
             mailingAddress   : {
@@ -1827,7 +1916,7 @@ export const POLICIES : Array<PolicyValues> = [
         operators       : [
             {
                 number                      : 1,
-                name                        : "Tyrice D Wilson",
+                name                        : "James D Wilson",
                 phone                       : "1-847-123-1234",
                 email                       : "",
                 mailingAddress              : {
@@ -1950,4 +2039,187 @@ export const POLICIES : Array<PolicyValues> = [
         created         : new Date(),
         lastModified    : new Date(),
     },
+//----------- Policy 2  ------------------------------------------
+        {
+            id                      : uuidv4(),
+            policyNumber            : "PPT0331906",
+            status                  : POLICYSTATUSES[0],
+            applicationDate         : TODAY,
+            //set periodStartDate tomorrow
+            periodStartDate         : TOMORROW,
+            //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
+            periodEndDate           : SIXMONTHS,
+            policyState             : USPSSTATEABBREVIATIONS[17],
+            product                 : PRODUCTS[3],
+            agency                  : AGENCIES[2],
+            insured                 : {
+                id                  : uuidv4(),
+                name                : "Gregory House",
+                phone               : "1-847-123-1234",
+                email               : "differentialdx@gmail.com",
+                mailingAddress   : {
+                    streetAddress1  : "1 MyHouse Lane",
+                    streetAddress2  : "",
+                    city            : "Plainseboro",
+                    state           : USPSSTATEABBREVIATIONS[17],
+                    zip             : "60651"
+                },
+                dateOfBirth         : new Date(1970, 2, 23),
+                effectiveDate       : TOMORROW,
+                gender              : GENDERS[0],
+                maritalStatus       : MARITALSTATUSES[0],
+                occupation          : "Doctor",
+                spouseOccupation    : "N/A",
+                asInterestMayAppear : ASINTERESTMAYAPPEAR[4],
+                creatorId           : USERS[1].id,
+                creatorName         : USERS[1].name,
+                created             : new Date(),
+                lastModified        : new Date()
+            },
+            //Policy Details
+            billType                : "Agent",
+            netGross                : "Net",
+            paymentOption           : "Monthly",
+            claimCount              : 0,
+            binderNumber            : "PPT0331906",
+            binderTimestamp         : new Date(),
+            policyRateType          : "IL-Motorcycle-Standard",
+            policyTerm              : 6,
+            premiumInforce          : 500,
+            premiumWritten          : 1980,
+            statementDate           : TOMORROW.getDay(),
+            territory               : "40",
+            yearsRenewed            : 0,
+            //Endorsement details
+            endorsementNumber       : 0,
+            endorsementAmount       : 0,
+            endorsementStatus       : ENDORSEMENTSTATUSES[0],
+            endorsementEffectiveDate: new Date(),
+            operators       : [
+                {
+                    number                      : 1,
+                    name                        : "Greg House",
+                    phone                       : "1-847-123-1234",
+                    email                       : "",
+                    mailingAddress   : {
+                        streetAddress1  : "1 MyHouse Lane",
+                        streetAddress2  : "",
+                        city            : "Plainseboro",
+                        state           : USPSSTATEABBREVIATIONS[17],
+                        zip             : "60651"
+                    },
+                    dateOfBirth         : new Date(1970, 2, 23),
+                    type                : OPERATORTYPES[0],
+                    sr22                        : SR22S[1],
+                    licenseNumber               : "IL0295720",
+                    licenseState                : USPSSTATEABBREVIATIONS[17],
+                    licenseExpirationDate       : new Date(2020, 11, 31),
+                    relationToInsured           : RELATIONTOINSURED[0],
+                    accidentsViolations         : "09/01/18(V) 08/01/20(V) 11/01/22(V)",
+                    effectiveDate               : TOMORROW,
+                    creatorId                   : USERS[2].id,
+                    creatorName                 : USERS[2].name,
+                    created                     : new Date(),
+                    lastModified                : new Date()
+                }
+            ],
+            autoUnits        : [
+                {
+                    id             : uuidv4(),
+                    unit            : 1,
+                    make            : "Honda",
+                    model           : "CRX",
+                    year            : 2022,
+                    vin             : "5JKL38436B082307",
+                    sym             : "6",
+                    age             : 15,
+                    terr            : "43",
+                    class           : "2K",
+                    pts             : 0,
+                    safe            : "Y",
+                    trns            : "",
+                    ren             : "",
+                    atf             : "1",
+                    flcv            : "Y",
+                    vsrc            : "",
+                    nown            : "",                       
+                    mc              : "Y",
+                    effectiveDate   : TOMORROW,
+                    coverages       : [
+                        {
+                            coverageType    : "A. Bodily Injury",
+                            coverageLimit   : "$25,000 each person, $50,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 71.00
+                        },
+                        {
+                            coverageType    : "B. Property Damage",
+                            coverageLimit   : "$20,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 117.00
+                        },
+                        {
+                            coverageType    : "C. Medical Payments",
+                            coverageLimit   : "$- per person",
+                            coverageDeductible : " ",
+                            coveragePremium : 0.00
+                        },
+                        {
+                            coverageType    : "D. Comprehensive",
+                            coverageLimit   : "Actual Cash Value less deductible",
+                            coverageDeductible : "$500",
+                            coveragePremium : 183.00
+                        },
+                        {
+                            coverageType    : "E. Collision",
+                            coverageLimit   : "Actual Cash Value less deductible",
+                            coverageDeductible : "$500",
+                            coveragePremium : 0
+                        },
+                        {
+                            coverageType    : "J. Uninsured Motorist Bodily Injury",
+                            coverageLimit   : "$25,000 each person, $50,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 42.00
+                        },
+                        {
+                            coverageType    : "K. Underinsured Motorist Property Damage",
+                            coverageLimit   : " ",
+                            coverageDeductible : "$250 per accident",
+                            coveragePremium : 0.00
+                        },
+                        {
+                            coverageType    : "Towing",
+                            coverageLimit   : " ",
+                            coverageDeductible : " ",
+                            coveragePremium : 0.00
+                        }
+                    ],
+                    lienholders     : [
+                        {
+                            name            : "Bobs Bail Bonds and Motorcylce Loans",
+                            mailingAddress   : {
+                                streetAddress1  : "13 Dank Alley",
+                                streetAddress2  : "",
+                                city            : "Plainsboro",
+                                state           : USPSSTATEABBREVIATIONS[17],
+                                zip             : "60651"
+                            },
+                        }    
+                    ],
+                    creatorId       : USERS[0].id,
+                    creatorName     : USERS[0].name,
+                    created         : new Date(),
+                    lastModified    : new Date()
+                }
+            ],
+            documentEndorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+            //Record stamps
+            creatorId       : USERS[2].id,
+            creatorName     : USERS[2].name,
+            created         : new Date(),
+            lastModified    : new Date(),
+        },
+
+
 ]

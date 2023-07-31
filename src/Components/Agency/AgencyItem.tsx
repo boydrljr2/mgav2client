@@ -11,8 +11,7 @@ import { useForm, SubmitHandler, Controller, FormProvider} from 'react-hook-form
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { USERS, user1Id, user2Id,
-        AGENCYSTATUSES, AgencyValues, AgencyItemValues, AgencySchema, AGENCIES, newAgency } from '../Scaffold/MGAValues';
+import { AGENCYSTATUSES, AgencyValues, AgencyItemValues, AgencySchema, AGENCIES, newAgency } from '../Scaffold/MGAValues';
 import ObjectFooter, { ObjectFooterValues } from '../Scaffold/PageParts/ObjectFooter';
 import MailingAddressItem from '../MailingAddress/MailingAddressItem';
 
