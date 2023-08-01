@@ -2046,9 +2046,9 @@ export const POLICIES : Array<PolicyValues> = [
             status                  : POLICYSTATUSES[0],
             applicationDate         : TODAY,
             //set periodStartDate tomorrow
-            periodStartDate         : TOMORROW,
+            periodStartDate         : new Date(TODAY.getDate() + 1),
             //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
-            periodEndDate           : SIXMONTHS,
+            periodEndDate           : new Date(TODAY.getDate() + 180),
             policyState             : USPSSTATEABBREVIATIONS[17],
             product                 : PRODUCTS[3],
             agency                  : AGENCIES[2],
@@ -2114,6 +2114,188 @@ export const POLICIES : Array<PolicyValues> = [
                     licenseNumber               : "IL0295720",
                     licenseState                : USPSSTATEABBREVIATIONS[17],
                     licenseExpirationDate       : new Date(2020, 11, 31),
+                    relationToInsured           : RELATIONTOINSURED[0],
+                    accidentsViolations         : "09/01/18(V) 08/01/20(V) 11/01/22(V)",
+                    effectiveDate               : new Date(TODAY.getDate() + 1),
+                    creatorId                   : USERS[2].id,
+                    creatorName                 : USERS[2].name,
+                    created                     : new Date(),
+                    lastModified                : new Date()
+                }
+            ],
+            autoUnits        : [
+                {
+                    id             : uuidv4(),
+                    unit            : 1,
+                    make            : "Honda",
+                    model           : "CRX",
+                    year            : 2022,
+                    vin             : "5JKL38436B082307",
+                    sym             : "6",
+                    age             : 15,
+                    terr            : "43",
+                    class           : "2K",
+                    pts             : 0,
+                    safe            : "Y",
+                    trns            : "",
+                    ren             : "",
+                    atf             : "1",
+                    flcv            : "Y",
+                    vsrc            : "",
+                    nown            : "",                       
+                    mc              : "Y",
+                    effectiveDate   : new Date(TODAY.getDate() + 1),
+                    coverages       : [
+                        {
+                            coverageType    : "A. Bodily Injury",
+                            coverageLimit   : "$25,000 each person, $50,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 71.00
+                        },
+                        {
+                            coverageType    : "B. Property Damage",
+                            coverageLimit   : "$20,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 117.00
+                        },
+                        {
+                            coverageType    : "C. Medical Payments",
+                            coverageLimit   : "$- per person",
+                            coverageDeductible : " ",
+                            coveragePremium : 0.00
+                        },
+                        {
+                            coverageType    : "D. Comprehensive",
+                            coverageLimit   : "Actual Cash Value less deductible",
+                            coverageDeductible : "$500",
+                            coveragePremium : 183.00
+                        },
+                        {
+                            coverageType    : "E. Collision",
+                            coverageLimit   : "Actual Cash Value less deductible",
+                            coverageDeductible : "$500",
+                            coveragePremium : 0
+                        },
+                        {
+                            coverageType    : "J. Uninsured Motorist Bodily Injury",
+                            coverageLimit   : "$25,000 each person, $50,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 42.00
+                        },
+                        {
+                            coverageType    : "K. Underinsured Motorist Property Damage",
+                            coverageLimit   : " ",
+                            coverageDeductible : "$250 per accident",
+                            coveragePremium : 0.00
+                        },
+                        {
+                            coverageType    : "Towing",
+                            coverageLimit   : " ",
+                            coverageDeductible : " ",
+                            coveragePremium : 0.00
+                        }
+                    ],
+                    lienholders     : [
+                        {
+                            name            : "Bobs Bail Bonds and Motorcylce Loans",
+                            mailingAddress   : {
+                                streetAddress1  : "13 Dank Alley",
+                                streetAddress2  : "",
+                                city            : "Plainsboro",
+                                state           : USPSSTATEABBREVIATIONS[17],
+                                zip             : "60651"
+                            },
+                        }    
+                    ],
+                    creatorId       : USERS[0].id,
+                    creatorName     : USERS[0].name,
+                    created         : new Date(),
+                    lastModified    : new Date()
+                }
+            ],
+            documentEndorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+            //Record stamps
+            creatorId       : USERS[2].id,
+            creatorName     : USERS[2].name,
+            created         : new Date(),
+            lastModified    : new Date(),
+        },
+        //----------- Policy 3  ------------------------------------------
+        {
+            id                      : uuidv4(),
+            policyNumber            : "PPW0981976",
+            status                  : POLICYSTATUSES[0],
+// set applicationDate to 1 month before TODAY
+            applicationDate         : new Date(TODAY.getDate() - 30),
+            //set periodStartDate tomorrow
+            periodStartDate         : new Date(TODAY.getDate() + 1),
+            //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
+            periodEndDate           : new Date(TODAY.getDate() + 183),
+            policyState             : USPSSTATEABBREVIATIONS[17],
+            product                 : PRODUCTS[3],
+            agency                  : AGENCIES[2],
+            insured                 : {
+                id                  : uuidv4(),
+                name                : "Lisa Cuddy",
+                phone               : "1-415-321-1234",
+                email               : "madgams@gmail.com",
+                mailingAddress   : {
+                    streetAddress1  : "92 Bush Lane",
+                    streetAddress2  : "",
+                    city            : "Plainsboro",
+                    state           : USPSSTATEABBREVIATIONS[17],
+                    zip             : "60651"
+                },
+                dateOfBirth         : new Date(1982, 2, 23),
+                effectiveDate       : TOMORROW,
+                gender              : GENDERS[1],
+                maritalStatus       : MARITALSTATUSES[3],
+                occupation          : "Hospital Dean",
+                spouseOccupation    : "N/A",
+                asInterestMayAppear : ASINTERESTMAYAPPEAR[5],
+                creatorId           : USERS[1].id,
+                creatorName         : USERS[1].name,
+                created             : new Date(),
+                lastModified        : new Date()
+            },
+            //Policy Details
+            billType                : "Agent",
+            netGross                : "Net",
+            paymentOption           : "Monthly",
+            claimCount              : 0,
+            binderNumber            : "PPT0331906",
+            binderTimestamp         : new Date(),
+            policyRateType          : "IL-Auto-Standard",
+            policyTerm              : 6,
+            premiumInforce          : 500,
+            premiumWritten          : 1980,
+            statementDate           : TOMORROW.getDay(),
+            territory               : "42",
+            yearsRenewed            : 0,
+            //Endorsement details
+            endorsementNumber       : 0,
+            endorsementAmount       : 0,
+            endorsementStatus       : ENDORSEMENTSTATUSES[0],
+            endorsementEffectiveDate: new Date(),
+            operators       : [
+                {
+                    number                      : 1,
+                    name                        : "Greg House",
+                    phone                       : "1-847-123-1234",
+                    email                       : "",
+                    mailingAddress   : {
+                        streetAddress1  : "1 MyHouse Lane",
+                        streetAddress2  : "",
+                        city            : "Plainseboro",
+                        state           : USPSSTATEABBREVIATIONS[17],
+                        zip             : "60651"
+                    },
+                    dateOfBirth         : new Date(1970, 2, 23),
+                    type                : OPERATORTYPES[0],
+                    sr22                        : SR22S[1],
+                    licenseNumber               : "IL0295720",
+                    licenseState                : USPSSTATEABBREVIATIONS[17],
+                    licenseExpirationDate       : new Date(2023, 11, 31),
                     relationToInsured           : RELATIONTOINSURED[0],
                     accidentsViolations         : "09/01/18(V) 08/01/20(V) 11/01/22(V)",
                     effectiveDate               : TOMORROW,
