@@ -2402,6 +2402,186 @@ export const POLICIES : Array<PolicyValues> = [
             created         : new Date(),
             lastModified    : new Date(),
         },
-
+//----------- Policy 4  ------------------------------------------
+        {
+            id                      : uuidv4(),
+            policyNumber            : "PPX0981976",
+            status                  : POLICYSTATUSES[0],
+            applicationDate         : new Date(TODAY.getDate() - 30),
+            //set periodStartDate tomorrow
+            periodStartDate         : new Date(TODAY.getDate() + 1),
+            //set periodEndDate to 6 months after periodStartDate at 11:59:59 PM
+            periodEndDate           : new Date(TODAY.getDate() + 183),
+            policyState             : USPSSTATEABBREVIATIONS[17],
+            product                 : PRODUCTS[3],
+            agency                  : AGENCIES[2],
+            insured                 : {
+                id                  : uuidv4(),
+                name                : "Eric Foreman",
+                phone               : "1-415-321-1234",
+                email               : "drforeman@gmail.com",
+                mailingAddress   : {
+                    streetAddress1  : "1313 Mockingbird Lane",
+                    streetAddress2  : "",
+                    city            : "Plainsboro",
+                    state           : USPSSTATEABBREVIATIONS[17],
+                    zip             : "60651"
+                },
+                dateOfBirth         : new Date(1982, 2, 23),
+                effectiveDate       : TOMORROW,
+                gender              : GENDERS[0],
+                maritalStatus       : MARITALSTATUSES[3],
+                occupation          : "Neurologist",
+                spouseOccupation    : "N/A",
+                asInterestMayAppear : ASINTERESTMAYAPPEAR[5],
+                creatorId           : USERS[0].id,
+                creatorName         : USERS[0].name,
+                created             : new Date(),
+                lastModified        : new Date()
+            },
+            //Policy Details
+            billType                : "Direct",
+            netGross                : "Net",
+            paymentOption           : "Monthly",
+            claimCount              : 0,
+            binderNumber            : "PPX0981976",
+            binderTimestamp         : new Date(),
+            policyRateType          : "IL-Auto-Standard",
+            policyTerm              : 6,
+            premiumInforce          : 500,
+            premiumWritten          : 1980,
+            statementDate           : TOMORROW.getDay(),
+            territory               : "42",
+            yearsRenewed            : 0,
+            //Endorsement details
+            endorsementNumber       : 0,
+            endorsementAmount       : 0,
+            endorsementStatus       : ENDORSEMENTSTATUSES[0],
+            endorsementEffectiveDate: new Date(),
+            operators       : [
+                {
+                    number                      : 1,
+                    name                        : "Eric Foreman",
+                    phone                       : "1-847-123-1234",
+                    email                       : "",
+                    mailingAddress   : {
+                        streetAddress1  : "1313 Mockingbird Lane",
+                        streetAddress2  : "",
+                        city            : "Plainsboro",
+                        state           : USPSSTATEABBREVIATIONS[17],
+                        zip             : "60651"
+                    },
+                    dateOfBirth         : new Date(1970, 2, 23),
+                    type                : OPERATORTYPES[0],
+                    sr22                        : SR22S[1],
+                    licenseNumber               : "IL0295720",
+                    licenseState                : USPSSTATEABBREVIATIONS[17],
+                    licenseExpirationDate       : new Date(2023, 11, 31),
+                    relationToInsured           : RELATIONTOINSURED[0],
+                    accidentsViolations         : "09/01/18(V) 08/01/20(V) 11/01/22(V)",
+                    effectiveDate               : TOMORROW,
+                    creatorId                   : USERS[2].id,
+                    creatorName                 : USERS[2].name,
+                    created                     : new Date(),
+                    lastModified                : new Date()
+                }
+            ],
+            autoUnits        : [
+                {
+                    id             : uuidv4(),
+                    unit            : 1,
+                    make            : "Buick",
+                    model           : "Regal",
+                    year            : 2005,
+                    vin             : "6LKJUG436B082307",
+                    sym             : "6",
+                    age             : 15,
+                    terr            : "43",
+                    class           : "2K",
+                    pts             : 0,
+                    safe            : "Y",
+                    trns            : "",
+                    ren             : "",
+                    atf             : "1",
+                    flcv            : "Y",
+                    vsrc            : "",
+                    nown            : "",                       
+                    mc              : "N",
+                    effectiveDate   : TOMORROW,
+                    coverages       : [
+                        {
+                            coverageType    : "A. Bodily Injury",
+                            coverageLimit   : "$25,000 each person, $50,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 71.00
+                        },
+                        {
+                            coverageType    : "B. Property Damage",
+                            coverageLimit   : "$20,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 117.00
+                        },
+                        {
+                            coverageType    : "C. Medical Payments",
+                            coverageLimit   : "$- per person",
+                            coverageDeductible : " ",
+                            coveragePremium : 0.00
+                        },
+                        {
+                            coverageType    : "D. Comprehensive",
+                            coverageLimit   : "Actual Cash Value less deductible",
+                            coverageDeductible : "$500",
+                            coveragePremium : 183.00
+                        },
+                        {
+                            coverageType    : "E. Collision",
+                            coverageLimit   : "Actual Cash Value less deductible",
+                            coverageDeductible : "$500",
+                            coveragePremium : 0
+                        },
+                        {
+                            coverageType    : "J. Uninsured Motorist Bodily Injury",
+                            coverageLimit   : "$25,000 each person, $50,000 each accident",
+                            coverageDeductible : " ",
+                            coveragePremium : 42.00
+                        },
+                        {
+                            coverageType    : "K. Underinsured Motorist Property Damage",
+                            coverageLimit   : " ",
+                            coverageDeductible : "$250 per accident",
+                            coveragePremium : 0.00
+                        },
+                        {
+                            coverageType    : "Towing",
+                            coverageLimit   : " ",
+                            coverageDeductible : " ",
+                            coveragePremium : 0.00
+                        }
+                    ],
+                    lienholders     : [
+                        {
+                            name: "",
+                            mailingAddress   : {
+                                streetAddress1  : "",
+                                streetAddress2  : "",
+                                city            : "",
+                                state           : USPSSTATEABBREVIATIONS[17],
+                                zip             : ""
+                            },
+                        }    
+                    ],
+                    creatorId       : USERS[0].id,
+                    creatorName     : USERS[0].name,
+                    created         : new Date(),
+                    lastModified    : new Date()
+                }
+            ],
+            documentEndorsements        : [ "IL01264A", "IL01-001", "IL01-003" ],
+            //Record stamps
+            creatorId       : USERS[2].id,
+            creatorName     : USERS[2].name,
+            created         : new Date(),
+            lastModified    : new Date(),
+        },
 
 ]
