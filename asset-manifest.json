@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/mgav2client/static/js/main.211d58e4.js",
+    "static/media/K1logo192.png": "/mgav2client/static/media/K1logo192.cac5567797153a62087d.png",
+    "index.html": "/mgav2client/index.html",
+    "main.211d58e4.js.map": "/mgav2client/static/js/main.211d58e4.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.211d58e4.js"
+  ]
+}
