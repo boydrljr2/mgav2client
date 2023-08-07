@@ -33,7 +33,7 @@ import MailingAddressItem from "./Components/MailingAddress/MailingAddressItem";
 
 function App() {
   return (
-      <BrowserRouter>
+      <BrowserRouter basename="/mgav2client"> 
         <ThemeProvider theme={MGATheme}>
           <AuthenticationContext.Provider
             value = {{
@@ -51,6 +51,7 @@ function App() {
               
               <Routes>
                 <Route path={"/"} element={<HomePage />} />
+                <Route path={"/mgav2client"} element = {<HomePage />} />
                 <Route path={"/home"} element={<HomePage />} />
                 <Route path={"/users"} element={<UsersPage />} />
                 <Route path={"/users/signup"} element={<UserNew />} />
